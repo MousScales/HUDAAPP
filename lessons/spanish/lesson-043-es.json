@@ -1,0 +1,26 @@
+{
+  "id": 43,
+  "title": "Reglas de Tajweed",
+  "introduction": "Tajweed es la ciencia y arte de recitar el Corán correctamente, bellamente y exactamente como el Profeta ﷺ lo recitó. La palabra *tajweed* viene de la raíz árabe que significa 'hacer mejor o mejorar.' Aprender y aplicar tajweed preserva la pronunciación del Corán y honra las palabras de Allah.",
+  "sections": [
+    {
+      "heading": "Propósito del Tajweed",
+      "content": "El Corán fue revelado en árabe claro y preciso. Tajweed asegura que cada letra sea pronunciada desde su lugar correcto en la boca y garganta (*makhraj*) y con sus cualidades apropiadas (*sifaat*). Esto protege el Corán de cambios en el significado que pueden suceder si las letras o palabras son mal pronunciadas. Allah dice: 'Y recita el Corán con recitación medida.' (Corán 73:4). Recitar con tajweed también trae calma y belleza a nuestra recitación, haciéndola más agradable de escuchar y más gratificante para el recitador."
+    },
+    {
+      "heading": "Reglas Básicas",
+      "content": "Algunas reglas básicas de tajweed incluyen:\n- **Makharij al-Huruf (Puntos de articulación):** Saber de dónde viene cada letra en la boca o garganta.\n- **Madd (Elongación):** Alargar ciertas vocales por la cantidad correcta de tiempos (ej., 2, 4 o 6 conteos).\n- **Ghunnah (Sonido nasal):** Un sonido zumbante usado con letras como noon (ن) y meem (م).\n- **Waqf (Reglas de parada):** Saber cuándo y cómo pausar apropiadamente para mantener el significado claro.\n- **Idgham, Ikhfa, Iqlab, Izhar:** Reglas para pronunciar noon saakin y tanween cuando vienen antes de ciertas letras.\nEstas reglas ayudan a hacer nuestra recitación clara y en línea con cómo el Profeta ﷺ enseñó a sus compañeros."
+    },
+    {
+      "heading": "Cómo Aprender Tajweed",
+      "content": "Tajweed se aprende mejor directamente de un maestro calificado (*shaykh* o *ustadh*) que puede corregir tus errores. Escucha a recitadores hábiles, como aquellos que recitan en el Haram, y repite después de ellos. Practica lenta y cuidadosamente — la consistencia es clave. Comienza con surahs cortas y gradualmente construye. Mucha gente encuentra útil unirse a un círculo de tajweed o clase de Corán para práctica regular y aliento. El Profeta ﷺ dijo: 'Los mejores de ustedes son aquellos que aprenden el Corán y lo enseñan.' (Sahih Bukhari 4937)."
+    }
+  ],
+  "conclusion": "Aplicar tajweed protege la belleza y significado del Corán y trae recompensa de Allah. Al recitar cuidadosa y correctamente, honramos las palabras de Allah y conectamos nuestros corazones a Su Libro de la mejor manera.",
+  "references": [
+    "Corán 73:4",
+    "Corán 2:121",
+    "Sahih Bukhari 4937",
+    "Sahih Muslim 798"
+  ]
+} 

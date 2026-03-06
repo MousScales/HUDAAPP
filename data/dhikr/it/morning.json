@@ -1,0 +1,62 @@
+{
+  "category": "morning",
+  "name": "Dhikr del Mattino",
+  "description": "Dhikr da recitare al mattino",
+  "dhikr": [
+    {
+      "id": 201,
+      "title": "Subhanallah",
+      "arabic": "سُبْحَانَ اللَّهِ",
+      "transliteration": "Subhanallah",
+      "english": "Gloria ad Allah",
+      "count": 33,
+      "benefits": "Purifica il cuore ed elimina i peccati minori",
+      "source": "Bukhari, Muslim",
+      "color": "#F59E0B"
+    },
+    {
+      "id": 202,
+      "title": "Alhamdulillah",
+      "arabic": "الْحَمْدُ لِلَّهِ",
+      "transliteration": "Alhamdulillah",
+      "english": "Tutte le lodi sono per Allah",
+      "count": 33,
+      "benefits": "Esprime gratitudine e aumenta le benedizioni",
+      "source": "Bukhari, Muslim",
+      "color": "#F59E0B"
+    },
+    {
+      "id": 203,
+      "title": "Allahu Akbar",
+      "arabic": "اللَّهُ أَكْبَرُ",
+      "transliteration": "Allahu Akbar",
+      "english": "Allah è il Più Grande",
+      "count": 33,
+      "benefits": "Rafforza la fede e umilia l'ego",
+      "source": "Bukhari, Muslim",
+      "color": "#F59E0B"
+    },
+    {
+      "id": 204,
+      "title": "La Ilaha Illallah",
+      "arabic": "لَا إِلَهَ إِلَّا اللَّهُ",
+      "transliteration": "La ilaha illallah",
+      "english": "Non c'è dio se non Allah",
+      "count": 100,
+      "benefits": "Rinnova la fede e purifica il cuore",
+      "source": "Bukhari, Muslim",
+      "color": "#F59E0B"
+    },
+    {
+      "id": 205,
+      "title": "Dichiarazione di Fede del Mattino",
+      "arabic": "أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ وَالْحَمْدُ لِلَّهِ لاَ إِلَهَ إِلاَّ اللَّهُ وَحْدَهُ لاَ شَرِيكَ لَهُ لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ",
+      "transliteration": "Asbahna wa asbahal-mulku lillah walhamdu lillah la ilaha illa Allah wahdahu la shareeka lah, lahul-mulku wa lahul-hamdu wa huwa 'ala kulli shay'in qadeer",
+      "english": "Abbiamo raggiunto il mattino e in questo momento stesso, tutta la sovranità appartiene ad Allah. Tutta lode è per Allah. Non c'è nessuno con diritto di essere adorato eccetto Allah, solo, senza associato, a Lui appartiene tutta la sovranità e la lode ed Egli è onnipotente su ogni cosa.",
+      "count": 1,
+      "benefits": "Protezione e benedizioni per il giorno",
+      "source": "Abu Dawud",
+      "color": "#F59E0B"
+    }
+  ]
+} 

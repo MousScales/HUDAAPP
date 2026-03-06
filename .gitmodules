@@ -1,0 +1,6 @@
+[submodule "ios/whisper"]
+	path = ios/whisper
+	url = https://github.com/ggerganov/whisper.cpp.git
+[submodule "whisper.cpp"]
+	path = whisper.cpp
+	url = https://github.com/ggerganov/whisper.cpp.git

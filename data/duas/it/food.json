@@ -1,0 +1,139 @@
+{
+  "category": "food",
+  "name": "Duas per Cibo e Bevande",
+  "description": "Duas per pasti, bevande e tutte le situazioni legate al cibo",
+  "duas": [
+    {
+      "id": 1,
+      "title": "Prima di Mangiare o Bere",
+      "arabic": "بِسْمِ اللَّهِ",
+      "transliteration": "Bismillah",
+      "english": "Nel nome di Allah.",
+      "benefits": "Cercare la benedizione di Allah sul cibo e protezione dal male",
+      "source": "Abu Dawud, At-Tirmidhi",
+      "occasion": "Prima di mangiare o bere qualsiasi cosa",
+      "color": "#10B981"
+    },
+    {
+      "id": 2,
+      "title": "Se Dimentichi di Dire Bismillah",
+      "arabic": "بِسْمِ اللَّهِ أَوَّلَهُ وَآخِرَهُ",
+      "transliteration": "Bismillahi awwalahu wa akhirah",
+      "english": "Nel nome di Allah all'inizio e alla fine.",
+      "benefits": "Compensare dimenticare di dire Bismillah all'inizio",
+      "source": "Abu Dawud, At-Tirmidhi",
+      "occasion": "Quando ricordi di dire Bismillah durante il pasto",
+      "color": "#10B981"
+    },
+    {
+      "id": 3,
+      "title": "Dopo Aver Finito di Mangiare o Bere",
+      "arabic": "الْحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنِي هَذَا وَرَزَقَنِيهِ مِنْ غَيْرِ حَوْلٍ مِنِّي وَلاَ قُوَّةٍ",
+      "transliteration": "Alhamdu lillahi alladhi at'amani hadha wa razaqaneehi min ghayri hawlin minni wa la quwwah",
+      "english": "Tutte le lodi sono per Allah, Che mi ha nutrito con questo e me l'ha fornito senza alcuna forza né potere da parte mia.",
+      "benefits": "I peccati sono perdonati",
+      "source": "Abu Dawud, At-Tirmidhi",
+      "occasion": "Dopo aver finito qualsiasi pasto o bevanda",
+      "color": "#10B981"
+    },
+    {
+      "id": 4,
+      "title": "Dua Semplice Dopo il Pasto",
+      "arabic": "الْحَمْدُ لِلَّهِ",
+      "transliteration": "Alhamdulillah",
+      "english": "Tutte le lodi sono per Allah.",
+      "benefits": "Esprimere gratitudine ad Allah per la Sua provvidenza",
+      "source": "Bukhari, Muslim",
+      "occasion": "Dopo aver mangiato o bevuto",
+      "color": "#10B981"
+    },
+    {
+      "id": 5,
+      "title": "Quando Sei Invitato a Mangiare",
+      "arabic": "اللَّهُمَّ بَارِكْ لَهُمْ فِيمَا رَزَقْتَهُمْ وَاغْفِرْ لَهُمْ وَارْحَمْهُمْ",
+      "transliteration": "Allahumma barik lahum feema razaqtahum waghfir lahum warhamhum",
+      "english": "O Allah, benedici per loro quello che hai loro fornito, perdonali e abbi misericordia di loro.",
+      "benefits": "Benedizione per l'ospite e la sua famiglia",
+      "source": "Muslim",
+      "occasion": "Quando mangi a casa di qualcun altro",
+      "color": "#10B981"
+    },
+    {
+      "id": 6,
+      "title": "Quando Si Rompe il Digiuno",
+      "arabic": "اللَّهُمَّ لَكَ صُمْتُ وَعَلَى رِزْقِكَ أَفْطَرْتُ",
+      "transliteration": "Allahumma laka sumtu wa 'ala rizqika aftart",
+      "english": "O Allah, per Te ho digiunato e con la Tua provvidenza rompo il mio digiuno.",
+      "benefits": "Riconoscere la grazia di Allah nel digiuno e nella provvidenza",
+      "source": "Abu Dawud",
+      "occasion": "Quando si rompe il digiuno (iftar)",
+      "color": "#10B981"
+    },
+    {
+      "id": 7,
+      "title": "Quando Si Beve Latte",
+      "arabic": "اللَّهُمَّ بَارِكْ لَنَا فِيهِ وَزِدْنَا مِنْهُ",
+      "transliteration": "Allahumma barik lana feehi wa zidna minh",
+      "english": "O Allah, benedicilo per noi e dacci di più.",
+      "benefits": "Cercare benedizione e aumento nella provvidenza benefica",
+      "source": "Abu Dawud, At-Tirmidhi",
+      "occasion": "Quando si beve latte",
+      "color": "#10B981"
+    },
+    {
+      "id": 8,
+      "title": "Quando Si Beve Acqua",
+      "arabic": "الْحَمْدُ لِلَّهِ الَّذِي سَقَانَا عَذْباً فُرَاتاً بِرَحْمَتِهِ وَلَمْ يَجْعَلْهُ مِلْحاً أُجَاجاً بِذُنُوبِنَا",
+      "transliteration": "Alhamdu lillahi alladhi saqana 'adhban furatan birahmatih wa lam yaj'alhu milhan ujajan bidhunubina",
+      "english": "Tutte le lodi sono per Allah, Che ci ha dato acqua dolce e piacevole da bere per la Sua misericordia e non l'ha resa amara e salata a causa dei nostri peccati.",
+      "benefits": "Gratitudine per la misericordia di Allah nel fornire acqua pulita",
+      "source": "Varie fonti",
+      "occasion": "Quando si beve acqua",
+      "color": "#10B981"
+    },
+    {
+      "id": 9,
+      "title": "Quando Si Mangiano Datteri",
+      "arabic": "اللَّهُمَّ بَارِكْ لَنَا فِيمَا رَزَقْتَنَا وَقِنَا عَذَابَ النَّارِ",
+      "transliteration": "Allahumma barik lana feema razaqtana wa qina 'adhab an-nar",
+      "english": "O Allah, benedici per noi quello che ci hai fornito e salvaci dal castigo del Fuoco.",
+      "benefits": "Cercare benedizione e protezione dall'Inferno",
+      "source": "Bukhari, Muslim",
+      "occasion": "Quando si mangiano datteri",
+      "color": "#10B981"
+    },
+    {
+      "id": 10,
+      "title": "Quando Si Mangia Miele",
+      "arabic": "اللَّهُمَّ بَارِكْ لَنَا فِيهِ",
+      "transliteration": "Allahumma barik lana feehi",
+      "english": "O Allah, benedicilo per noi.",
+      "benefits": "Cercare benedizione in questo alimento curativo menzionato nel Corano",
+      "source": "Tradizione islamica",
+      "occasion": "Quando si mangia miele",
+      "color": "#10B981"
+    },
+    {
+      "id": 11,
+      "title": "Quando Si Condivide il Cibo",
+      "arabic": "كُلُوا بِسْمِ اللَّهِ وَبَارَكَ اللَّهُ لَكُمْ",
+      "transliteration": "Kulu bismillahi wa baraka Allahu lakum",
+      "english": "Mangiate nel nome di Allah, e che Allah lo benedica per voi.",
+      "benefits": "Benedizione per tutti coloro che condividono il pasto",
+      "source": "Galateo islamico",
+      "occasion": "Quando si invita altri a mangiare",
+      "color": "#10B981"
+    },
+    {
+      "id": 12,
+      "title": "Quando il Cibo è Insufficiente",
+      "arabic": "اللَّهُمَّ بَارِكْ لَنَا فِيمَا رَزَقْتَنَا",
+      "transliteration": "Allahumma barik lana feema razaqtana",
+      "english": "O Allah, benedici per noi quello che ci hai fornito.",
+      "benefits": "Cercare benedizione per rendere poco cibo sufficiente",
+      "source": "Varie fonti autentiche",
+      "occasion": "Quando il cibo sembra insufficiente per tutti",
+      "color": "#10B981"
+    }
+  ]
+} 

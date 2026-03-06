@@ -1,0 +1,31 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Temporary rules for lesson migration - CHANGE AFTER UPLOAD
+    match /lessons/{lessonId} {
+      allow read, write: if true; // Temporarily allow all writes for upload
+    }
+    
+    // AFTER LESSON UPLOAD, replace above with these secure rules:
+    // match /lessons/{lessonId} {
+    //   allow read: if true; // Anyone can read lessons
+    //   allow write: if false; // Only admins should write lessons
+    // }
+    
+    // Allow connectivity tests (needed for network diagnostics)
+    match /connectivity-test/{document} {
+      allow read: if true; // Allow unauthenticated connectivity tests
+    }
+    
+    // User data - only authenticated users can access their own data
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Other collections (keep existing rules)
+    match /{document=**} {
+      allow read, write: if request.auth != null;
+    }
+  }
+} 

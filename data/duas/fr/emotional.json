@@ -1,0 +1,139 @@
+{
+  "category": "emotional",
+  "name": "Duas Émotionnels",
+  "description": "Duas pour le bien-être émotionnel et la paix intérieure",
+  "duas": [
+    {
+      "id": 1,
+      "title": "Pour la Paix Intérieure",
+      "arabic": "اللَّهُمَّ إِنِّي أَسْأَلُكَ نَفْسًا بِكَ مُطْمَئِنَّةً تُؤْمِنُ بِلِقَائِكَ وَتَرْضَى بِقَضَائِكَ",
+      "transliteration": "Allahumma inni as'aluka nafsan bika mutma'innatan tu'minu biliqa'ika wa tardha bi qada'ik",
+      "english": "O Allah, je Te demande une âme qui trouve la tranquillité en Toi, qui croit en Ta rencontre et qui se satisfait de Ton décret",
+      "benefits": "Pour la tranquillité de l'âme et la satisfaction avec le décret d'Allah",
+      "source": "Tirmidhi",
+      "occasion": "Paix intérieure",
+      "color": "#E91E63"
+    },
+    {
+      "id": 2,
+      "title": "Contre l'Anxiété",
+      "arabic": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ وَالْعَجْزِ وَالْكَسَلِ وَالْبُخْلِ وَالْجُبْنِ وَضَلَعِ الدَّيْنِ وَغَلَبَةِ الرِّجَالِ",
+      "transliteration": "Allahumma inni a'udhu bika minal-hammi wal-hazani wal-'ajzi wal-kasali wal-bukhli wal-jubni wa dal'id-dayni wa ghalabatir-rijal",
+      "english": "O Allah, je me réfugie en Toi contre l'angoisse, la tristesse, l'impuissance, la paresse, l'avarice, la lâcheté, le fardeau de la dette et la domination des hommes",
+      "benefits": "Pour se protéger contre l'anxiété et les difficultés émotionnelles",
+      "source": "Bukhari",
+      "occasion": "Contre l'anxiété",
+      "color": "#E91E63"
+    },
+    {
+      "id": 3,
+      "title": "Pour la Patience",
+      "arabic": "اللَّهُمَّ إِنِّي أَسْأَلُكَ الصَّبْرَ عَلَى قَضَائِكَ وَالرِّضَا بِقَدَرِكَ",
+      "transliteration": "Allahumma inni as'alukas-sabra 'ala qada'ik war-rida bi qadarik",
+      "english": "O Allah, je Te demande la patience face à Ton décret et la satisfaction avec Ta destinée",
+      "benefits": "Pour développer la patience et l'acceptation",
+      "source": "Tirmidhi",
+      "occasion": "Patience",
+      "color": "#E91E63"
+    },
+    {
+      "id": 4,
+      "title": "Pour la Gratitude",
+      "arabic": "اللَّهُمَّ لَكَ الْحَمْدُ حَتَّى تَرْضَى وَلَكَ الْحَمْدُ إِذَا رَضِيتَ وَلَكَ الْحَمْدُ بَعْدَ الرِّضَا",
+      "transliteration": "Allahumma lakal-hamdu hatta tardha wa lakal-hamdu idha radita wa lakal-hamdu ba'dar-rida",
+      "english": "O Allah, à Toi les louanges jusqu'à ce que Tu sois satisfait, à Toi les louanges quand Tu es satisfait, à Toi les louanges après la satisfaction",
+      "benefits": "Pour exprimer la gratitude en toutes circonstances",
+      "source": "Ibn Majah",
+      "occasion": "Gratitude",
+      "color": "#E91E63"
+    },
+    {
+      "id": 5,
+      "title": "Pour la Force",
+      "arabic": "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعِزَّةَ لِلْمُؤْمِنِينَ وَالْعَافِيَةَ فِي الدُّنْيَا وَالْآخِرَةِ",
+      "transliteration": "Allahumma inni as'alukal-'izzata lil-mu'minina wal-'afiyata fid-dunya wal-akhirah",
+      "english": "O Allah, je Te demande la gloire pour les croyants et la bonne santé dans ce monde et dans l'au-delà",
+      "benefits": "Pour la force spirituelle et le bien-être",
+      "source": "Abu Dawud",
+      "occasion": "Force",
+      "color": "#E91E63"
+    },
+    {
+      "id": 6,
+      "title": "Quand on Est En Colère",
+      "arabic": "أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ",
+      "transliteration": "A'udhu billahi minash-shaytanir-rajeem",
+      "english": "Je me réfugie en Allah contre Satan, le maudit.",
+      "benefits": "Calmer la colère et chercher protection contre l'influence de Satan",
+      "source": "Boukhari, Muslim",
+      "occasion": "Quand on se sent en colère",
+      "color": "#8B5CF6"
+    },
+    {
+      "id": 7,
+      "title": "Quand on Se Sent Seul",
+      "arabic": "اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنْ خَيْرِ مَا سَأَلَكَ مِنْهُ عَبْدُكَ وَنَبِيُّكَ وَأَعُوذُ بِكَ مِنْ شَرِّ مَا عَاذَ بِكَ مِنْهُ عَبْدُكَ وَنَبِيُّكَ",
+      "transliteration": "Allahumma inni as'aluka min khayri ma sa'alaka minhu 'abduka wa nabiyyuka wa a'udhu bika min sharri ma 'adha bika minhu 'abduka wa nabiyyuk",
+      "english": "Ô Allah, je Te demande le bien que Ton serviteur et Prophète T'a demandé, et je me réfugie en Toi contre le mal que Ton serviteur et Prophète s'est réfugié en Toi.",
+      "benefits": "Suivre l'exemple du Prophète Muhammad (ﷺ) dans la supplication",
+      "source": "Ibn Majah",
+      "occasion": "Quand on se sent seul ou déconnecté",
+      "color": "#8B5CF6"
+    },
+    {
+      "id": 8,
+      "title": "Pour la Patience dans l'Adversité",
+      "arabic": "اللَّهُمَّ لاَ سَهْلَ إِلاَّ مَا جَعَلْتَهُ سَهْلاً وَأَنْتَ تَجْعَلُ الْحَزْنَ إِذَا شِئْتَ سَهْلاً",
+      "transliteration": "Allahumma la sahla illa ma ja'altahu sahlan wa anta taj'alul-hazna idha shi'ta sahla",
+      "english": "Ô Allah, rien n'est facile sauf ce que Tu as rendu facile. Si Tu veux, Tu peux rendre facile le difficile.",
+      "benefits": "Trouver la facilité dans la difficulté grâce à l'aide d'Allah",
+      "source": "Ibn Hibban",
+      "occasion": "Quand on fait face à des difficultés ou des épreuves",
+      "color": "#8B5CF6"
+    },
+    {
+      "id": 9,
+      "title": "Quand on Se Sent Stressé",
+      "arabic": "اللَّهُمَّ رَحْمَتَكَ أَرْجُو فَلاَ تَكِلْنِي إِلَى نَفْسِي طَرْفَةَ عَيْنٍ وَأَصْلِحْ لِي شَأْنِي كُلَّهُ لاَ إِلَهَ إِلاَّ أَنْتَ",
+      "transliteration": "Allahumma rahmataka arju fala takilni ila nafsi tarfata 'aynin wa aslih li sha'ni kullahu la ilaha illa ant",
+      "english": "Ô Allah, c'est Ta miséricorde que j'espère, alors ne me laisse pas en charge de mes affaires même pour un clin d'œil et rectifie pour moi toutes mes affaires. Nul n'a le droit d'être adoré sauf Toi.",
+      "benefits": "Chercher la miséricorde et l'aide d'Allah dans la gestion des affaires de la vie",
+      "source": "Abu Dawud",
+      "occasion": "Quand on se sent stressé ou incapable de faire face",
+      "color": "#8B5CF6"
+    },
+    {
+      "id": 10,
+      "title": "Pour la Paix Intérieure",
+      "arabic": "رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ",
+      "transliteration": "Rabbana atina fi'd-dunya hasanatan wa fi'l-akhirati hasanatan wa qina 'adhab an-nar",
+      "english": "Notre Seigneur, donne-nous en ce monde ce qui est bon et dans l'autre monde ce qui est bon, et sauve-nous du châtiment du Feu.",
+      "benefits": "Supplication complète pour la bonté dans cette vie et la suivante",
+      "source": "Coran 2:201",
+      "occasion": "Quand on cherche la paix et la bonté dans tous les aspects de la vie",
+      "color": "#8B5CF6"
+    },
+    {
+      "id": 11,
+      "title": "Quand on Ressent la Peur",
+      "arabic": "اللَّهُ اللَّهُ رَبِّي لاَ أُشْرِكُ بِهِ شَيْئاً",
+      "transliteration": "Allahu Allahu rabbi la ushriku bihi shay'a",
+      "english": "Allah, Allah est mon Seigneur, je n'associe rien avec Lui.",
+      "benefits": "Trouver la sécurité et la protection en affirmant la seigneurie d'Allah",
+      "source": "Abu Dawud",
+      "occasion": "Quand on ressent la peur ou la menace",
+      "color": "#8B5CF6"
+    },
+    {
+      "id": 12,
+      "title": "Pour la Satisfaction",
+      "arabic": "اللَّهُمَّ اكْفِنِي بِحَلاَلِكَ عَنْ حَرَامِكَ وَأَغْنِنِي بِفَضْلِكَ عَمَّنْ سِوَاكَ",
+      "transliteration": "Allahummakfini bihalalika 'an haramika wa aghnini bifadlika 'amman siwak",
+      "english": "Ô Allah, rends ce qui est licite suffisant pour moi, par opposition à ce qui est illicite, et rends-moi indépendant de tous les autres en dehors de Toi.",
+      "benefits": "Satisfaction avec la provision halal et indépendance grâce à Allah",
+      "source": "At-Tirmidhi",
+      "occasion": "Quand on cherche la satisfaction et la liberté des désirs illicites",
+      "color": "#8B5CF6"
+    }
+  ]
+} 

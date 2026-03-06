@@ -1,0 +1,27 @@
+{
+  "id": 28,
+  "title": "Introducción a las Ciencias del Hadiz",
+  "introduction": "Las ciencias del hadiz (Uloom al-Hadith) son la rama del conocimiento islámico que estudia los dichos, acciones y aprobaciones del Profeta Muhammad ﷺ. Dado que el Corán nos ordena seguir al Profeta ﷺ, entender hadices auténticos es esencial para practicar el Islam correctamente. La ciencia del hadiz nos conecta con la Sunnah, explicando cómo vivir el Corán en la vida diaria.",
+  "sections": [
+    {
+      "heading": "¿Qué es Hadiz?",
+      "content": "Un hadiz es un reporte que describe lo que el Profeta ﷺ dijo, hizo, aprobó o a veces permitió silenciosamente. Los hadices sirven como una explicación práctica del Corán — aclaran comandos, proporcionan detalles sobre la adoración y guían a los musulmanes en modales, ética y trato con otros. Por ejemplo, mientras el Corán ordena la oración, el hadiz nos muestra la forma exacta en que el Profeta ﷺ rezaba. Allah dice: 'Ni habla por [su propio] deseo. No es sino una revelación revelada.' (Corán 53:3-4)."
+    },
+    {
+      "heading": "Preservación del Hadiz",
+      "content": "Después de que el Profeta ﷺ falleció, sus compañeros preservaron cuidadosamente sus palabras y acciones. Los musulmanes tempranos memorizaron, escribieron y enseñaron hadices con extremo cuidado. A medida que el Islam se expandió, los eruditos desarrollaron ciencias rigurosas para verificar cada reporte. Examinaron el isnad (cadena de narradores) y el matn (texto) para asegurar precisión y confiabilidad. Grandes eruditos como Imam Bukhari e Imam Muslim pasaron años viajando y verificando la honestidad y memoria de los narradores. Esta preservación cuidadosa protege la Sunnah de narraciones falsas o débiles."
+    },
+    {
+      "heading": "Tipos de Hadiz",
+      "content": "Los eruditos clasifican los hadices en diferentes categorías basándose en su autenticidad y confiabilidad:\n- **Sahih (Auténtico):** La cadena es ininterrumpida, los narradores son confiables, y el texto no contradice evidencia más fuerte.\n- **Hasan (Bueno):** Ligeramente menos fuerte que sahih pero aún confiable para la práctica.\n- **Daif (Débil):** Tiene una ruptura en la cadena o narradores con memoria débil — no se usa para creencias fundamentales o dictámenes.\nTambién hay hadices fabricados (mawdu'), que los eruditos rechazan completamente. Al estudiar estas clasificaciones, los musulmanes pueden distinguir entre guía fuerte y reportes no confiables."
+    }
+  ],
+  "conclusion": "Estudiar las ciencias del hadiz nos ayuda a seguir el ejemplo del Profeta ﷺ con precisión y confianza. Fortalece nuestro amor por la Sunnah y nos conecta con las generaciones que dedicaron sus vidas a preservarla. A través de este conocimiento, entendemos mejor cómo vivir nuestra fe día a día.",
+  "references": [
+    "Corán 53:3-4",
+    "Sahih Bukhari Introducción",
+    "Sahih Muslim Introducción",
+    "Tirmidhi Introducción",
+    "Cuarenta Hadices de Nawawi Introducción"
+  ]
+} 

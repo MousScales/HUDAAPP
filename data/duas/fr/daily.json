@@ -1,0 +1,139 @@
+{
+  "category": "daily",
+  "name": "Duas Quotidiens",
+  "description": "Duas essentiels pour les situations quotidiennes et la routine journalière",
+  "duas": [
+    {
+      "id": 1,
+      "title": "Au Réveil",
+      "arabic": "الْحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا وَإِلَيْهِ النُّشُورُ",
+      "transliteration": "Alhamdu lillahi alladhi ahyana ba'da ma amatana wa ilayhin-nushur",
+      "english": "Toutes les louanges sont pour Allah qui nous a donné la vie après nous l'avoir reprise et vers Lui est la résurrection.",
+      "benefits": "Remercier Allah pour avoir restauré la vie après le sommeil",
+      "source": "Boukhari",
+      "occasion": "Au réveil",
+      "color": "#F59E0B"
+    },
+    {
+      "id": 2,
+      "title": "En Se Regardant dans le Miroir",
+      "arabic": "اللَّهُمَّ أَنْتَ حَسَّنْتَ خَلْقِي فَحَسِّنْ خُلُقِي",
+      "transliteration": "Allahumma anta hassanta khalqi fa hassin khuluqi",
+      "english": "Ô Allah, de même que Tu as rendu belles mes caractéristiques externes, rends aussi beau mon caractère.",
+      "benefits": "Chercher un beau caractère et une beauté intérieure",
+      "source": "Ahmad",
+      "occasion": "En se regardant dans le miroir",
+      "color": "#F59E0B"
+    },
+    {
+      "id": 3,
+      "title": "En Sortant de la Maison",
+      "arabic": "بِسْمِ اللَّهِ تَوَكَّلْتُ عَلَى اللَّهِ وَلاَ حَوْلَ وَلاَ قُوَّةَ إِلاَّ بِاللَّهِ",
+      "transliteration": "Bismillahi tawakkaltu 'alallahi wa la hawla wa la quwwata illa billah",
+      "english": "Au nom d'Allah, je place ma confiance en Allah, et il n'y a de pouvoir ni de force qu'avec Allah.",
+      "benefits": "Protection, guidance et être préservé de s'égarer",
+      "source": "Abu Dawud, At-Tirmidhi",
+      "occasion": "En sortant de la maison",
+      "color": "#F59E0B"
+    },
+    {
+      "id": 4,
+      "title": "En Entrant dans la Maison",
+      "arabic": "اللَّهُمَّ إِنِّي أَسْأَلُكَ خَيْرَ الْمَوْلِجِ وَخَيْرَ الْمَخْرَجِ بِسْمِ اللَّهِ وَلَجْنَا وَبِسْمِ اللَّهِ خَرَجْنَا وَعَلَى اللَّهِ رَبِّنَا تَوَكَّلْنَا",
+      "transliteration": "Allahumma inni as'aluka khayral-mawliji wa khayral-makhraji bismillahi walajna wa bismillahi kharajna wa 'alallahi rabbina tawakkalna",
+      "english": "Ô Allah, je Te demande la meilleure entrée et la meilleure sortie. Au nom d'Allah nous entrons, au nom d'Allah nous sortons, et en notre Seigneur nous dépendons.",
+      "benefits": "Bénédiction et protection pour la maison et la famille",
+      "source": "Abu Dawud",
+      "occasion": "En entrant dans la maison",
+      "color": "#F59E0B"
+    },
+    {
+      "id": 5,
+      "title": "Avant d'Utiliser les Toilettes",
+      "arabic": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْخُبُثِ وَالْخَبَائِثِ",
+      "transliteration": "Allahumma inni a'udhu bika minal-khubuthi wal-khaba'ith",
+      "english": "Ô Allah, je cherche refuge auprès de Toi contre tout mal et malfaiteurs.",
+      "benefits": "Protection des jinn et esprits maléfiques",
+      "source": "Boukhari, Muslim",
+      "occasion": "Avant d'entrer aux toilettes",
+      "color": "#F59E0B"
+    },
+    {
+      "id": 6,
+      "title": "Après Avoir Utilisé les Toilettes",
+      "arabic": "غُفْرَانَكَ",
+      "transliteration": "Ghufranaka",
+      "english": "Je Te demande (à Allah) pardon.",
+      "benefits": "Chercher le pardon d'Allah et exprimer la gratitude",
+      "source": "Abu Dawud, At-Tirmidhi",
+      "occasion": "Après être sorti des toilettes",
+      "color": "#F59E0B"
+    },
+    {
+      "id": 7,
+      "title": "En Mettant des Vêtements Neufs",
+      "arabic": "اللَّهُمَّ لَكَ الْحَمْدُ أَنْتَ كَسَوْتَنِيهِ أَسْأَلُكَ خَيْرَهُ وَخَيْرَ مَا صُنِعَ لَهُ وَأَعُوذُ بِكَ مِنْ شَرِّهِ وَشَرِّ مَا صُنِعَ لَهُ",
+      "transliteration": "Allahumma lakal-hamdu anta kasawtanihi as'aluka khayrah wa khayra ma suni'a lah wa a'udhu bika min sharrih wa sharri ma suni'a lah",
+      "english": "Ô Allah, pour Toi est toute louange, Tu m'as vêtu de cela. Je Te demande le meilleur de cela et le meilleur pour quoi cela a été fait, et je cherche refuge auprès de Toi contre le mal de cela et le mal pour quoi cela a été fait.",
+      "benefits": "Bénédiction et protection en portant des vêtements neufs",
+      "source": "Abu Dawud, At-Tirmidhi",
+      "occasion": "En mettant des vêtements neufs",
+      "color": "#F59E0B"
+    },
+    {
+      "id": 8,
+      "title": "En Entendant le Tonnerre",
+      "arabic": "سُبْحَانَ الَّذِي يُسَبِّحُ الرَّعْدُ بِحَمْدِهِ وَالْمَلاَئِكَةُ مِنْ خِيفَتِهِ",
+      "transliteration": "Subhanal-ladhi yusabbihur-ra'du bihamdih wal-mala'ikatu min khifatih",
+      "english": "Gloire à Celui que les tonnerres et anges glorifient à cause de la crainte de Lui.",
+      "benefits": "Protection de la foudre et du tonnerre",
+      "source": "Al-Boukhari dans Al-Adab Al-Mufrad",
+      "occasion": "En entendant le tonnerre",
+      "color": "#F59E0B"
+    },
+    {
+      "id": 9,
+      "title": "Quand il Pleut",
+      "arabic": "اللَّهُمَّ صَيِّباً نَافِعاً",
+      "transliteration": "Allahumma sayyiban nafi'an",
+      "english": "Ô Allah, (envoie) une pluie bénéfique.",
+      "benefits": "Chercher une pluie bénéfique et des bénédictions",
+      "source": "Boukhari",
+      "occasion": "Quand il pleut",
+      "color": "#F59E0B"
+    },
+    {
+      "id": 10,
+      "title": "En Éternuant",
+      "arabic": "الْحَمْdُ لِلَّهِ",
+      "transliteration": "Alhamdulillah",
+      "english": "Toutes les louanges sont pour Allah.",
+      "benefits": "Remercier Allah et chercher Sa miséricorde",
+      "source": "Boukhari",
+      "occasion": "En éternuant",
+      "color": "#F59E0B"
+    },
+    {
+      "id": 11,
+      "title": "Quand Quelqu'un d'Autre Éternue",
+      "arabic": "يَرْحَمُكَ اللَّهُ",
+      "transliteration": "Yarhamukallah",
+      "english": "Qu'Allah ait miséricorde de toi.",
+      "benefits": "Chercher la miséricorde d'Allah pour la personne qui a éternué",
+      "source": "Boukhari",
+      "occasion": "Quand quelqu'un d'autre éternue et dit Alhamdulillah",
+      "color": "#F59E0B"
+    },
+    {
+      "id": 12,
+      "title": "En Se Sentant Effrayé",
+      "arabic": "لاَ إِلَهَ إِلاَّ اللَّهُ وَحْدَهُ لاَ شَرِيكَ لَهُ لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ",
+      "transliteration": "La ilaha illa Allah wahdahu la shareeka lah, lahul-mulku wa lahul-hamdu wa huwa 'ala kulli shay'in qadeer",
+      "english": "Nul n'a le droit d'être adoré sauf Allah, seul, sans associé, à Lui appartient toute la souveraineté et la louange et Il est omnipotent sur toute chose.",
+      "benefits": "Éliminer la peur et l'anxiété, apporter la paix du cœur",
+      "source": "At-Tirmidhi",
+      "occasion": "En se sentant effrayé ou anxieux",
+      "color": "#F59E0B"
+    }
+  ]
+} 

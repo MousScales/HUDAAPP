@@ -1,0 +1,25 @@
+{
+  "id": 29,
+  "title": "Basics of Islamic Jurisprudence",
+  "introduction": "Islamic jurisprudence (fiqh) is the science of understanding and applying Islamic law in our daily lives. It helps Muslims know how to worship, interact with others, and make choices that please Allah. By studying fiqh, we gain clarity on what is halal (permissible) and haram (forbidden), and learn to live with justice, mercy, and wisdom.",
+  "sections": [
+    {
+      "heading": "Sources of Law",
+      "content": "The main sources of Islamic law are the Quran, the Sunnah (the teachings and actions of the Prophet ﷺ), consensus of scholars (ijma), and analogical reasoning (qiyas). The Quran is the direct word of Allah and the ultimate source of guidance. The Sunnah explains and details what is in the Quran, showing us how to apply it. Ijma, or scholarly consensus, ensures that the community remains united on essential matters. Qiyas allows scholars to apply existing rulings to new situations, making Islamic law flexible and practical for all times and places."
+    },
+    {
+      "heading": "Schools of Thought",
+      "content": "Over time, Muslim scholars developed schools of thought (madhahib) to help people understand and practice Islamic law correctly. The four main Sunni schools are Hanafi, Maliki, Shafi'i, and Hanbali. Each school follows the Quran and Sunnah but may differ in some details based on interpretation, local customs, or the methods scholars used to derive rulings. These differences are a mercy for the Ummah, providing flexibility and accommodating different situations. Respecting all schools helps us appreciate the depth and richness of our legal tradition."
+    },
+    {
+      "heading": "Purpose of Fiqh",
+      "content": "Fiqh is not just about rules; its deeper purpose is to help us worship Allah in the best way, resolve disputes fairly, and build communities based on ethics and compassion. It covers all areas of life: acts of worship (ibadah) like prayer, fasting, and zakat; daily transactions and contracts (muamalat); family matters; criminal justice; and more. By learning fiqh, we gain the knowledge and confidence to live as responsible Muslims, making choices that bring benefit to ourselves and others while seeking Allah’s pleasure."
+    }
+  ],
+  "conclusion": "Learning fiqh helps us practice Islam with knowledge, balance, and confidence. It shows us that Islam is a complete way of life that brings justice, mercy, and wisdom to every aspect of our daily actions.",
+  "references": [
+    "Quran 5:3",
+    "Quran 16:89",
+    "Sahih Muslim 1718"
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "name": "react-native-device-activity-mono",
+  "version": "1.0.1",
+  "private": true,
+  "description": "Provides access to Apples DeviceActivity API",
+  "scripts": {
+    "lint": "eslint .",
+    "pre-push": "bun run typecheck && bun run lint && apps/example/ios/Pods/SwiftLint/swiftlint lint --strict",
+    "typecheck": "cd packages/react-native-device-activity && bun run typecheck && cd ../../apps/example && bun run typecheck",
+    "prepare": "husky",
+    "nail-workspace-dependency-versions": "bun run scripts/nail-workspace-dependency-versions.ts"
+  },
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "keywords": [
+    "react-native",
+    "expo",
+    "react-native-device-activity",
+    "device-activity",
+    "screen-time"
+  ],
+  "repository": {
+    "url": "git+https://github.com/kingstinct/react-native-device-activity.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kingstinct/react-native-device-activity/issues"
+  },
+  "author": "Robert Herber <robert@kingstinct.com> (https://github.com/robertherber)",
+  "license": "MIT",
+  "homepage": "https://github.com/kingstinct/react-native-device-activity#readme",
+  "devDependencies": {
+    "eslint": "8",
+    "husky": "^9.1.7",
+    "prettier": "^3.3.3"
+  }
+}

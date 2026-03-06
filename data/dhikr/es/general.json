@@ -1,0 +1,73 @@
+{
+  "category": "general",
+  "name": "Dhikr General",
+  "description": "Dhikr generales para recitar en cualquier momento",
+  "dhikr": [
+    {
+      "id": 201,
+      "title": "Subhanallah",
+      "arabic": "سُبْحَانَ اللَّهِ",
+      "transliteration": "Subhanallah",
+      "english": "Gloria a Allah",
+      "count": 33,
+      "benefits": "Purifica el corazón y elimina los pecados menores",
+      "source": "Bujari, Muslim",
+      "color": "#10B981"
+    },
+    {
+      "id": 202,
+      "title": "Alhamdulillah",
+      "arabic": "الْحَمْدُ لِلَّهِ",
+      "transliteration": "Alhamdulillah",
+      "english": "Todas las alabanzas son para Allah",
+      "count": 33,
+      "benefits": "Expresa gratitud y aumenta las bendiciones",
+      "source": "Bujari, Muslim",
+      "color": "#10B981"
+    },
+    {
+      "id": 203,
+      "title": "Allahu Akbar",
+      "arabic": "اللَّهُ أَكْبَرُ",
+      "transliteration": "Allahu Akbar",
+      "english": "Allah es el Más Grande",
+      "count": 33,
+      "benefits": "Fortalece la fe y humilla al ego",
+      "source": "Bujari, Muslim",
+      "color": "#10B981"
+    },
+    {
+      "id": 204,
+      "title": "La Ilaha Illallah",
+      "arabic": "لَا إِلَهَ إِلَّا اللَّهُ",
+      "transliteration": "La ilaha illallah",
+      "english": "No hay dios excepto Allah",
+      "count": 100,
+      "benefits": "Renueva la fe y purifica el corazón",
+      "source": "Bujari, Muslim",
+      "color": "#10B981"
+    },
+    {
+      "id": 205,
+      "title": "Astaghfirullah",
+      "arabic": "أَسْتَغْفِرُ اللَّهَ",
+      "transliteration": "Astaghfirullah",
+      "english": "Pido perdón a Allah",
+      "count": 100,
+      "benefits": "Expía los pecados y atrae el perdón divino",
+      "source": "Abu Dawud",
+      "color": "#10B981"
+    },
+    {
+      "id": 206,
+      "title": "La Hawla Wala Quwwata",
+      "arabic": "لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ",
+      "transliteration": "La hawla wala quwwata illa billah",
+      "english": "No hay poder ni fuerza excepto con Allah",
+      "count": 100,
+      "benefits": "Fortalece la confianza en Allah y elimina la ansiedad",
+      "source": "Bujari, Muslim",
+      "color": "#10B981"
+    }
+  ]
+} 

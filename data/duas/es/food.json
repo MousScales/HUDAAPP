@@ -1,0 +1,139 @@
+{
+  "category": "food",
+  "name": "Duas para Comida y Bebida",
+  "description": "Duas para comidas, bebidas y todas las situaciones relacionadas con la comida",
+  "duas": [
+    {
+      "id": 1,
+      "title": "Antes de Comer o Beber",
+      "arabic": "بِسْمِ اللَّهِ",
+      "transliteration": "Bismillah",
+      "english": "En el nombre de Allah.",
+      "benefits": "Buscar la bendición de Allah sobre la comida y protección del daño",
+      "source": "Abu Dawud, At-Tirmidhi",
+      "occasion": "Antes de comer o beber cualquier cosa",
+      "color": "#10B981"
+    },
+    {
+      "id": 2,
+      "title": "Si Olvidas Decir Bismillah",
+      "arabic": "بِسْمِ اللَّهِ أَوَّلَهُ وَآخِرَهُ",
+      "transliteration": "Bismillahi awwalahu wa akhirah",
+      "english": "En el nombre de Allah al principio y al final.",
+      "benefits": "Compensar olvidar decir Bismillah al inicio",
+      "source": "Abu Dawud, At-Tirmidhi",
+      "occasion": "Cuando recuerdas decir Bismillah durante la comida",
+      "color": "#10B981"
+    },
+    {
+      "id": 3,
+      "title": "Después de Terminar de Comer o Beber",
+      "arabic": "الْحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنِي هَذَا وَرَزَقَنِيهِ مِنْ غَيْرِ حَوْلٍ مِنِّي وَلاَ قُوَّةٍ",
+      "transliteration": "Alhamdu lillahi alladhi at'amani hadha wa razaqaneehi min ghayri hawlin minni wa la quwwah",
+      "english": "Todas las alabanzas son para Allah, Quien me alimentó con esto y me lo proporcionó sin ninguna fuerza ni poder de mi parte.",
+      "benefits": "Los pecados son perdonados",
+      "source": "Abu Dawud, At-Tirmidhi",
+      "occasion": "Después de terminar cualquier comida o bebida",
+      "color": "#10B981"
+    },
+    {
+      "id": 4,
+      "title": "Dua Simple Después de Comer",
+      "arabic": "الْحَمْدُ لِلَّهِ",
+      "transliteration": "Alhamdulillah",
+      "english": "Todas las alabanzas son para Allah.",
+      "benefits": "Expresar gratitud a Allah por Su provisión",
+      "source": "Bujari, Muslim",
+      "occasion": "Después de comer o beber",
+      "color": "#10B981"
+    },
+    {
+      "id": 5,
+      "title": "Cuando Te Invitan a Comer",
+      "arabic": "اللَّهُمَّ بَارِكْ لَهُمْ فِيمَا رَزَقْتَهُمْ وَاغْفِرْ لَهُمْ وَارْحَمْهُمْ",
+      "transliteration": "Allahumma barik lahum feema razaqtahum waghfir lahum warhamhum",
+      "english": "Oh Allah, bendice para ellos lo que les has proporcionado, perdónales y ten misericordia de ellos.",
+      "benefits": "Bendición para el anfitrión y su familia",
+      "source": "Muslim",
+      "occasion": "Cuando comes en casa de otra persona",
+      "color": "#10B981"
+    },
+    {
+      "id": 6,
+      "title": "Al Romper el Ayuno",
+      "arabic": "اللَّهُمَّ لَكَ صُمْتُ وَعَلَى رِزْقِكَ أَفْطَرْتُ",
+      "transliteration": "Allahumma laka sumtu wa 'ala rizqika aftart",
+      "english": "Oh Allah, por Ti he ayunado y con Tu provisión rompo mi ayuno.",
+      "benefits": "Reconocer la gracia de Allah en el ayuno y la provisión",
+      "source": "Abu Dawud",
+      "occasion": "Al romper el ayuno (iftar)",
+      "color": "#10B981"
+    },
+    {
+      "id": 7,
+      "title": "Al Beber Leche",
+      "arabic": "اللَّهُمَّ بَارِكْ لَنَا فِيهِ وَزِدْنَا مِنْهُ",
+      "transliteration": "Allahumma barik lana feehi wa zidna minh",
+      "english": "Oh Allah, bendícela para nosotros y danos más de ella.",
+      "benefits": "Buscar bendición y aumento en la provisión beneficiosa",
+      "source": "Abu Dawud, At-Tirmidhi",
+      "occasion": "Al beber leche",
+      "color": "#10B981"
+    },
+    {
+      "id": 8,
+      "title": "Al Beber Agua",
+      "arabic": "الْحَمْدُ لِلَّهِ الَّذِي سَقَانَا عَذْباً فُرَاتاً بِرَحْمَتِهِ وَلَمْ يَجْعَلْهُ مِلْحاً أُجَاجاً بِذُنُوبِنَا",
+      "transliteration": "Alhamdu lillahi alladhi saqana 'adhban furatan birahmatih wa lam yaj'alhu milhan ujajan bidhunubina",
+      "english": "Todas las alabanzas son para Allah, Quien nos dio agua dulce y agradable para beber por Su misericordia y no la hizo amarga y salada debido a nuestros pecados.",
+      "benefits": "Gratitud por la misericordia de Allah al proporcionar agua limpia",
+      "source": "Varias fuentes",
+      "occasion": "Al beber agua",
+      "color": "#10B981"
+    },
+    {
+      "id": 9,
+      "title": "Al Comer Dátiles",
+      "arabic": "اللَّهُمَّ بَارِكْ لَنَا فِيمَا رَزَقْتَنَا وَقِنَا عَذَابَ النَّارِ",
+      "transliteration": "Allahumma barik lana feema razaqtana wa qina 'adhab an-nar",
+      "english": "Oh Allah, bendice para nosotros lo que nos has proporcionado y sálvanos del castigo del Fuego.",
+      "benefits": "Buscar bendición y protección del Infierno",
+      "source": "Bujari, Muslim",
+      "occasion": "Al comer dátiles",
+      "color": "#10B981"
+    },
+    {
+      "id": 10,
+      "title": "Al Comer Miel",
+      "arabic": "اللَّهُمَّ بَارِكْ لَنَا فِيهِ",
+      "transliteration": "Allahumma barik lana feehi",
+      "english": "Oh Allah, bendícela para nosotros.",
+      "benefits": "Buscar bendición en este alimento curativo mencionado en el Corán",
+      "source": "Tradición islámica",
+      "occasion": "Al comer miel",
+      "color": "#10B981"
+    },
+    {
+      "id": 11,
+      "title": "Al Compartir Comida",
+      "arabic": "كُلُوا بِسْمِ اللَّهِ وَبَارَكَ اللَّهُ لَكُمْ",
+      "transliteration": "Kulu bismillahi wa baraka Allahu lakum",
+      "english": "Coman en el nombre de Allah, y que Allah la bendiga para ustedes.",
+      "benefits": "Bendición para todos los que comparten la comida",
+      "source": "Etiqueta islámica",
+      "occasion": "Al invitar a otros a comer",
+      "color": "#10B981"
+    },
+    {
+      "id": 12,
+      "title": "Cuando la Comida es Insuficiente",
+      "arabic": "اللَّهُمَّ بَارِكْ لَنَا فِيمَا رَزَقْتَنَا",
+      "transliteration": "Allahumma barik lana feema razaqtana",
+      "english": "Oh Allah, bendice para nosotros lo que nos has proporcionado.",
+      "benefits": "Buscar bendición para hacer que poca comida sea suficiente",
+      "source": "Varias fuentes auténticas",
+      "occasion": "Cuando la comida parece insuficiente para todos",
+      "color": "#10B981"
+    }
+  ]
+} 

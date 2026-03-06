@@ -1,0 +1,93 @@
+# This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
+# For more information see: https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
+
+name: NPM Publish
+run-name: ${{ inputs.description }} (${{ inputs.release_type }}) release by @${{ github.actor }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      description:
+        description: 'Description'
+        required: false
+        type: string
+      release_type:
+        description: 'Release Type'
+        required: true
+        default: 'patch'
+        type: choice
+        options:
+          - 'patch'
+          - 'minor'
+          - 'major'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - run: bun install
+      
+      - run: bun lint
+      
+      - run: bun typecheck
+
+  publish-to-npm:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: actions/setup-node@v4
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - run: git config user.name "$(git log -n 1 --pretty=format:%an)"
+      - run: git config user.email "$(git log -n 1 --pretty=format:%ae)"
+
+      - run: bun install
+
+      - run: bun run nail-workspace-dependency-versions
+
+      - run: npm version ${{ github.event.inputs.release_type }}
+        working-directory: packages/react-native-device-activity
+
+      - run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "versionTag=v${VERSION}" >> $GITHUB_ENV
+        working-directory: packages/react-native-device-activity
+
+      - name: Setup NPM Authentication
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
+
+      - run: git add packages/react-native-device-activity/package.json
+
+      - run: |
+          git commit -m 'chore: update version' --no-verify
+
+      - run: npm publish
+        working-directory: packages/react-native-device-activity
+
+      - run: |
+          git status
+          git branch -a
+          git log -1
+          git push origin HEAD --no-verify
+          git push origin --tags --no-verify
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: ${{ env.versionTag }} ${{ github.event.inputs.description }}
+          tag_name: ${{ env.versionTag }}
+          generate_release_notes: true

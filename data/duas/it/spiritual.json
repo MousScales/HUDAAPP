@@ -1,0 +1,139 @@
+{
+  "category": "spiritual",
+  "name": "Duas Spirituali",
+  "description": "Duas per la crescita spirituale e la connessione con Allah",
+  "duas": [
+    {
+      "id": 1,
+      "title": "Per la Crescita Spirituale",
+      "arabic": "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْهُدَى وَالتُّقَى وَالْعَفَافَ وَالْغِنَى",
+      "transliteration": "Allahumma inni as'alukal-huda wat-tuqa wal-'afafa wal-ghina",
+      "english": "O Allah, Ti chiedo la guida, la pietà, la castità e la ricchezza",
+      "benefits": "Per la crescita spirituale e la protezione dalle tentazioni",
+      "source": "Muslim",
+      "occasion": "Crescita spirituale",
+      "color": "#8E44AD"
+    },
+    {
+      "id": 2,
+      "title": "Per la Purificazione del Cuore",
+      "arabic": "اللَّهُمَّ طَهِّرْ قَلْبِي مِنَ النِّفَاقِ وَعَمَلِي مِنَ الرِّيَاءِ",
+      "transliteration": "Allahumma tahhir qalbi minan-nifaqi wa 'amali minar-riya'",
+      "english": "O Allah, purifica il mio cuore dall'ipocrisia e le mie azioni dall'ostentazione",
+      "benefits": "Per purificare il cuore dall'ipocrisia e dall'ostentazione",
+      "source": "Tirmidhi",
+      "occasion": "Purificazione del cuore",
+      "color": "#8E44AD"
+    },
+    {
+      "id": 3,
+      "title": "Per la Sincerità",
+      "arabic": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ مَا عَمِلْتُ وَمِنْ شَرِّ مَا لَمْ أَعْمَلْ",
+      "transliteration": "Allahumma inni a'udhu bika min sharri ma 'amiltu wa min sharri ma lam a'mal",
+      "english": "O Allah, mi rifugio in Te dal male di quello che ho fatto e dal male di quello che non ho fatto",
+      "benefits": "Per cercare protezione e sincerità nelle azioni",
+      "source": "Muslim",
+      "occasion": "Sincerità",
+      "color": "#8E44AD"
+    },
+    {
+      "id": 4,
+      "title": "Per l'Umiltà",
+      "arabic": "اللَّهُمَّ أَصْلِحْ لِي دِينِي الَّذِي هُوَ عِصْمَةُ أَمْرِي",
+      "transliteration": "Allahumma aslih li dini alladhi huwa 'ismatu amri",
+      "english": "O Allah, correggi la mia religione che è la protezione dei miei affari",
+      "benefits": "Per l'umiltà e la correzione della fede",
+      "source": "Muslim",
+      "occasion": "Umiltà",
+      "color": "#8E44AD"
+    },
+    {
+      "id": 5,
+      "title": "Per la Pazienza",
+      "arabic": "اللَّهُمَّ إِنِّي أَسْأَلُكَ الصَّبْرَ عَلَى قَضَائِكَ",
+      "transliteration": "Allahumma inni as'alukas-sabra 'ala qada'ik",
+      "english": "O Allah, Ti chiedo la pazienza con il Tuo decreto",
+      "benefits": "Per sviluppare la pazienza con il decreto di Allah",
+      "source": "Tirmidhi",
+      "occasion": "Pazienza",
+      "color": "#8E44AD"
+    },
+    {
+      "id": 6,
+      "title": "Per la Purificazione dell'Anima",
+      "arabic": "اللَّهُمَّ آتِ نَفْسِي تَقْوَاهَا وَزَكِّهَا أَنْتَ خَيْرُ مَنْ زَكَّاهَا أَنْتَ وَلِيُّهَا وَمَوْلاَهَا",
+      "transliteration": "Allahumma aati nafsi taqwaha wa zakkiha anta khayru man zakkaha anta waliyyuha wa mawlaha",
+      "english": "O Allah, concedi alla mia anima la sua rettitudine e purificala, poiché Tu sei il migliore per purificarla. Tu sei il suo protettore e guardiano.",
+      "benefits": "Purificazione dell'anima e aumento nella rettitudine",
+      "source": "Muslim",
+      "occasion": "Quando si cerca la purificazione spirituale",
+      "color": "#3B82F6"
+    },
+    {
+      "id": 7,
+      "title": "Per l'Accettazione delle Opere",
+      "arabic": "رَبَّنَا تَقَبَّلْ مِنَّا إِنَّكَ أَنْتَ السَّمِيعُ الْعَلِيمُ",
+      "transliteration": "Rabbana taqabbal minna innaka antas-samee'ul-'aleem",
+      "english": "Nostro Signore, accetta da noi. In verità Tu sei l'Audiente, il Conoscitore.",
+      "benefits": "Accettazione dell'adorazione e delle buone opere",
+      "source": "Quran 2:127",
+      "occasion": "Dopo aver compiuto qualsiasi buona opera o adorazione",
+      "color": "#3B82F6"
+    },
+    {
+      "id": 8,
+      "title": "Per la Protezione dallo Shirk",
+      "arabic": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ أَنْ أُشْرِكَ بِكَ وَأَنَا أَعْلَمُ وَأَسْتَغْفِرُكَ لِمَا لاَ أَعْلَمُ",
+      "transliteration": "Allahumma inni a'udhu bika an ushrika bika wa ana a'lam wa astaghfiruka lima la a'lam",
+      "english": "O Allah, mi rifugio in Te dall'associare soci a Te consapevolmente, e cerco il Tuo perdono per quello che non so.",
+      "benefits": "Protezione dal peccato maggiore (shirk) e perdono",
+      "source": "Ahmad",
+      "occasion": "Quando si cerca protezione dall'associare soci ad Allah",
+      "color": "#3B82F6"
+    },
+    {
+      "id": 9,
+      "title": "Per il Buon Carattere",
+      "arabic": "اللَّهُمَّ اهْدِنِي لأَحْسَنِ الأَخْلاَقِ لاَ يَهْدِي لأَحْسَنِهَا إِلاَّ أَنْتَ وَاصْرِفْ عَنِّي سَيِّئَهَا لاَ يَصْرِفُ عَنِّي سَيِّئَهَا إِلاَّ أَنْتَ",
+      "transliteration": "Allahummah-dini li-ahsanil-akhlaqi la yahdi li-ahsaniha illa anta wasrif 'anni sayyi'aha la yasrifu 'anni sayyi'aha illa ant",
+      "english": "O Allah, guidami verso i migliori caratteri, poiché nessuno può guidare verso di essi eccetto Te, e liberami dai peggiori caratteri, poiché nessuno può liberarmi da essi eccetto Te.",
+      "benefits": "Bello carattere e protezione da tratti cattivi",
+      "source": "Muslim",
+      "occasion": "Quando si cerca il buon carattere e i buoni modi",
+      "color": "#3B82F6"
+    },
+    {
+      "id": 10,
+      "title": "Per la Forza Spirituale",
+      "arabic": "اللَّهُمَّ أَصْلِحْ لِي دِينِي الَّذِي هُوَ عِصْمَةُ أَمْرِي",
+      "transliteration": "Allahumma aslih li deeni alladhi huwa 'ismatu amri",
+      "english": "O Allah, rendi la mia religione buona per me, poiché è la salvaguardia dei miei affari.",
+      "benefits": "Forza e guida negli affari religiosi",
+      "source": "Muslim",
+      "occasion": "Quando si cerca la guida religiosa e la forza",
+      "color": "#3B82F6"
+    },
+    {
+      "id": 11,
+      "title": "Per Seguire la Sunnah",
+      "arabic": "اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ",
+      "transliteration": "Allahumma salli 'ala Muhammadin wa 'ala ali Muhammad kama sallayta 'ala Ibraheema wa 'ala ali Ibraheem innaka hameedun majeed",
+      "english": "O Allah, invia preghiere su Muhammad e sulla famiglia di Muhammad come hai inviato preghiere su Ibrahim e sulla famiglia di Ibrahim. In verità, Tu sei Degno di Lode e Glorioso.",
+      "benefits": "Benedizioni e connessione con l'esempio del Profeta",
+      "source": "Bukhari, Muslim",
+      "occasion": "Quando si cerca di seguire l'esempio del Profeta",
+      "color": "#3B82F6"
+    },
+    {
+      "id": 12,
+      "title": "Per l'Aldilà",
+      "arabic": "رَبِّ أَعِنِّي وَلاَ تُعِنْ عَلَيَّ وَانْصُرْنِي وَلاَ تَنْصُرْ عَلَيَّ وَامْكُرْ لِي وَلاَ تَمْكُرْ عَلَيَّ وَاهْدِنِي وَيَسِّرِ الْهُدَى لِي وَانْصُرْنِي عَلَى مَنْ بَغَى عَلَيَّ",
+      "transliteration": "Rabbi a'inni wa la tu'in 'alayya wansurni wa la tansur 'alayya wamkur li wa la tamkur 'alayya wahdini wa yassir al-huda li wansurni 'ala man bagha 'alayy",
+      "english": "Mio Signore, aiutami e non aiutare contro di me; sostienimi e non sostenere contro di me; pianifica per me e non pianificare contro di me; guidami e rendi facile la guida per me; e sostienimi contro chi mi fa torto.",
+      "benefits": "Supplica comprensiva per l'assistenza divina",
+      "source": "Abu Dawud, At-Tirmidhi",
+      "occasion": "Quando si cerca l'aiuto e la guida comprensiva di Allah",
+      "color": "#3B82F6"
+    }
+  ]
+} 

@@ -1,0 +1,73 @@
+{
+  "category": "istighfar",
+  "name": "Istighfar (Seeking Forgiveness)",
+  "description": "Various authentic forms of seeking Allah's forgiveness and mercy",
+  "dhikrs": [
+    {
+      "id": 1,
+      "title": "Sayyid al-Istighfar (Master of Forgiveness)",
+      "arabic": "اللَّهُمَّ أَنْتَ رَبِّي لاَ إِلَهَ إِلاَّ أَنْتَ خَلَقْتَنِي وَأَنَا عَبْدُكَ وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ وَأَبُوءُ بِذَنْبِي فَاغْفِرْ لِي فَإِنَّهُ لاَ يَغْفِرُ الذُّنُوبَ إِلاَّ أَنْتَ",
+      "transliteration": "Allahumma anta rabbi la ilaha illa anta, khalaqtani wa ana 'abduka, wa ana 'ala 'ahdika wa wa'dika mas-tata'tu, a'udhu bika min sharri ma sana'tu, abu'u laka bi ni'matika 'alayya wa abu'u bi dhanbi faghfir li fa innahu la yaghfiru adh-dhunuba illa ant",
+      "translation": "O Allah, You are my Lord, there is no deity except You. You created me and I am Your servant, and I am faithful to my covenant and my promise as much as I can. I seek refuge with You from all the evil I have done. I acknowledge before You all the blessings You have bestowed upon me, and I confess to You all my sins. So I entreat You to forgive my sins, for nobody can forgive sins except You.",
+      "benefits": "Whoever says this with certainty in the evening and dies that night will enter Paradise, and whoever says it in the morning and dies that day will enter Paradise",
+      "source": "Bukhari",
+      "repetitions": "Morning and evening",
+      "color": "#DA70D6"
+    },
+    {
+      "id": 2,
+      "title": "Simple Istighfar",
+      "arabic": "أَسْتَغْفِرُ اللَّهَ",
+      "transliteration": "Astaghfirullah",
+      "translation": "I seek forgiveness from Allah.",
+      "benefits": "Opens doors of mercy and sustenance from Allah",
+      "source": "Various ahadith",
+      "repetitions": "100 times daily",
+      "color": "#DA70D6"
+    },
+    {
+      "id": 3,
+      "title": "Istighfar with Tawhid",
+      "arabic": "أَسْتَغْفِرُ اللَّهَ الَّذِي لاَ إِلَهَ إِلاَّ هُوَ الْحَيُّ الْقَيُّومُ وَأَتُوبُ إِلَيْهِ",
+      "transliteration": "Astaghfir-ullaha alladhi la ilaha illa huwal-hayyul-qayyoomu wa atoobu ilayh",
+      "translation": "I seek forgiveness of Allah, besides whom none has the right to be worshipped except He, the Ever Living, the Self-Subsisting and Supporter of all, and I turn to Him in repentance.",
+      "benefits": "Allah will forgive whoever says this, even if he fled from battle",
+      "source": "Abu Dawud, At-Tirmidhi",
+      "repetitions": "3 times",
+      "color": "#DA70D6"
+    },
+    {
+      "id": 4,
+      "title": "Istighfar with Praise",
+      "arabic": "أَسْتَغْفِرُ اللَّهَ الْعَظِيمَ رَبَّ الْعَرْشِ الْعَظِيمِ وَأَتُوبُ إِلَيْهِ",
+      "transliteration": "Astaghfir-ullaha al-'azeema rabbal-'arshil-'azeemi wa atoobu ilayh",
+      "translation": "I seek forgiveness from Allah the Mighty, Lord of the Mighty Throne, and I repent to Him.",
+      "benefits": "A comprehensive form of seeking forgiveness acknowledging Allah's greatness",
+      "source": "Abu Dawud",
+      "repetitions": "As needed",
+      "color": "#DA70D6"
+    },
+    {
+      "id": 5,
+      "title": "Dua of Prophet Yunus (AS)",
+      "arabic": "لاَ إِلَهَ إِلاَّ أَنْتَ سُبْحَانَكَ إِنِّي كُنْتُ مِنَ الظَّالِمِينَ",
+      "transliteration": "La ilaha illa anta subhanaka inni kuntu mina az-zalimeen",
+      "translation": "There is no deity except You; exalted are You. Indeed, I have been of the wrongdoers.",
+      "benefits": "No Muslim makes this dua for anything but Allah responds to him",
+      "source": "At-Tirmidhi",
+      "repetitions": "As needed",
+      "color": "#DA70D6"
+    },
+    {
+      "id": 6,
+      "title": "Asking for Complete Forgiveness",
+      "arabic": "رَبِّ اغْفِرْ لِي ذَنْبِي وَخَطَئِي وَجَهْلِي",
+      "transliteration": "Rabbi aghfir li dhanbi wa khata'i wa jahli",
+      "translation": "My Lord, forgive me my sin, my error, and my ignorance.",
+      "benefits": "Covers all types of sins - intentional, unintentional, and those done in ignorance",
+      "source": "Bukhari, Muslim",
+      "repetitions": "As needed",
+      "color": "#DA70D6"
+    }
+  ]
+} 

@@ -1,0 +1,62 @@
+{
+  "category": "evening",
+  "name": "Dhikr de la Tarde",
+  "description": "Dhikr para recitar por la tarde",
+  "dhikr": [
+    {
+      "id": 105,
+      "title": "Subhanallah",
+      "arabic": "سُبْحَانَ اللَّهِ",
+      "transliteration": "Subhanallah",
+      "english": "Gloria a Allah",
+      "count": 33,
+      "benefits": "Purifica el corazón y elimina los pecados menores",
+      "source": "Bujari, Muslim",
+      "color": "#8E44AD"
+    },
+    {
+      "id": 106,
+      "title": "Alhamdulillah",
+      "arabic": "الْحَمْدُ لِلَّهِ",
+      "transliteration": "Alhamdulillah",
+      "english": "Todas las alabanzas son para Allah",
+      "count": 33,
+      "benefits": "Expresa gratitud y aumenta las bendiciones",
+      "source": "Bujari, Muslim",
+      "color": "#8E44AD"
+    },
+    {
+      "id": 107,
+      "title": "Allahu Akbar",
+      "arabic": "اللَّهُ أَكْبَرُ",
+      "transliteration": "Allahu Akbar",
+      "english": "Allah es el Más Grande",
+      "count": 33,
+      "benefits": "Fortalece la fe y humilla al ego",
+      "source": "Bujari, Muslim",
+      "color": "#8E44AD"
+    },
+    {
+      "id": 108,
+      "title": "La Ilaha Illallah",
+      "arabic": "لَا إِلَهَ إِلَّا اللَّهُ",
+      "transliteration": "La ilaha illallah",
+      "english": "No hay dios excepto Allah",
+      "count": 100,
+      "benefits": "Renueva la fe y purifica el corazón",
+      "source": "Bujari, Muslim",
+      "color": "#8E44AD"
+    },
+    {
+      "id": 109,
+      "title": "Declaración de Fe de la Noche",
+      "arabic": "أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ وَالْحَمْدُ لِلَّهِ لاَ إِلَهَ إِلاَّ اللَّهُ وَحْدَهُ لاَ شَرِيكَ لَهُ لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ",
+      "transliteration": "Amsayna wa amsal-mulku lillah walhamdu lillah la ilaha illa Allah wahdahu la shareeka lah, lahul-mulku wa lahul-hamdu wa huwa 'ala kulli shay'in qadeer",
+      "english": "Hemos alcanzado la noche y en este momento mismo, toda la soberanía pertenece a Allah. Toda alabanza es para Allah. No hay nadie con derecho a ser adorado excepto Allah, solo, sin asociado, a Él pertenece toda la soberanía y la alabanza y Él es omnipotente sobre toda cosa.",
+      "count": 1,
+      "benefits": "Protección y bendiciones para la noche",
+      "source": "Abu Dawud",
+      "color": "#8E44AD"
+    }
+  ]
+} 

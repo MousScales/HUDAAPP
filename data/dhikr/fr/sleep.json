@@ -1,0 +1,51 @@
+{
+  "category": "sleep",
+  "name": "Dhikr du Sommeil",
+  "description": "Dhikr à réciter avant de dormir",
+  "dhikrs": [
+    {
+      "id": 501,
+      "title": "Bismika Allahumma",
+      "arabic": "بِاسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا",
+      "transliteration": "Bismika Allahumma amutu wa ahya",
+      "translation": "En Ton nom, ô Allah, je meurs et je vis",
+      "count": 1,
+      "benefits": "Protection pendant le sommeil",
+      "source": "Bukhari, Muslim",
+      "color": "#6366F1"
+    },
+    {
+      "id": 502,
+      "title": "Allahumma Qini",
+      "arabic": "اللَّهُمَّ قِنِي عَذَابَكَ يَوْمَ تَبْعَثُ عِبَادَكَ",
+      "transliteration": "Allahumma qini 'adhabaka yawma tab'athu 'ibadaka",
+      "translation": "Ô Allah, protège-moi de Ton châtiment le jour où Tu ressusciteras Tes serviteurs",
+      "count": 3,
+      "benefits": "Protection du châtiment du Jour du Jugement",
+      "source": "Abu Dawud",
+      "color": "#6366F1"
+    },
+    {
+      "id": 503,
+      "title": "Bismika Rabbi",
+      "arabic": "بِاسْمِكَ رَبِّي وَضَعْتُ جَنْبِي",
+      "transliteration": "Bismika Rabbi wada'tu janbi",
+      "translation": "En Ton nom, mon Seigneur, je pose mon côté",
+      "count": 1,
+      "benefits": "Protection pendant le sommeil",
+      "source": "Bukhari, Muslim",
+      "color": "#6366F1"
+    },
+    {
+      "id": 504,
+      "title": "Allahumma Khaliq",
+      "arabic": "اللَّهُمَّ خَلَقْتَ نَفْسِي وَأَنْتَ تَوَفَّاهَا",
+      "transliteration": "Allahumma khalaqta nafsi wa anta tawaffaha",
+      "translation": "Ô Allah, Tu as créé mon âme et Tu la reprendras",
+      "count": 1,
+      "benefits": "Rappel de la mortalité et retour vers Allah",
+      "source": "Bukhari, Muslim",
+      "color": "#6366F1"
+    }
+  ]
+} 

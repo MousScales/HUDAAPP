@@ -1,0 +1,139 @@
+{
+  "category": "protection",
+  "name": "Protection & Refuge",
+  "description": "Duas for protection from all forms of harm, evil eye, envy, and seeking Allah's refuge",
+  "duas": [
+    {
+      "id": 1,
+      "title": "General Protection",
+      "arabic": "أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ مِنْ شَرِّ مَا خَلَقَ",
+      "transliteration": "A'udhu bi kalimat-illahit-tammaati min sharri ma khalaq",
+      "english": "I seek refuge in the perfect words of Allah from the evil of what He has created.",
+      "benefits": "Protection from all types of harm and evil",
+      "source": "Muslim",
+      "occasion": "For general protection throughout the day",
+      "color": "#EF4444"
+    },
+    {
+      "id": 2,
+      "title": "Protection from Evil Eye",
+      "arabic": "أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ مِنْ كُلِّ شَيْطَانٍ وَهَامَّةٍ وَمِنْ كُلِّ عَيْنٍ لاَمَّةٍ",
+      "transliteration": "A'udhu bi kalimat-illahit-tammaati min kulli shaytanin wa hammatin wa min kulli 'aynin lammah",
+      "english": "I seek protection in the perfect words of Allah from every devil and poisonous pest and from every evil, harmful, envious eye.",
+      "benefits": "Protection from evil eye, envy, and harmful creatures",
+      "source": "Bukhari",
+      "occasion": "When fearing evil eye or envy",
+      "color": "#EF4444"
+    },
+    {
+      "id": 3,
+      "title": "Morning and Evening Protection",
+      "arabic": "أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ اللَّهُ لاَ إِلَهَ إِلاَّ هُوَ الْحَيُّ الْقَيُّومُ لاَ تَأْخُذُهُ سِنَةٌ وَلاَ نَوْمٌ لَهُ مَا فِي السَّمَوَاتِ وَمَا فِي الأَرْضِ مَنْ ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلاَّ بِإِذْنِهِ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ وَلاَ يُحِيطُونَ بِشَيْءٍ مِنْ عِلْمِهِ إِلاَّ بِمَا شَاءَ وَسِعَ كُرْسِيُّهُ السَّمَوَاتِ وَالأَرْضَ وَلاَ يَئُودُهُ حِفْظُهُمَا وَهُوَ الْعَلِيُّ الْعَظِيمُ",
+      "transliteration": "A'udhu billahi minash-shaytanir-rajeem. Allahu la ilaha illa huwal-hayyul-qayyoom, la ta'khudhuh sinatun wa la nawm, lahu ma fis-samawati wa ma fil-ard, man dhal-ladhi yashfa'u 'indahu illa bi-idhnih, ya'lamu ma bayna aydeehim wa ma khalfahum, wa la yuheetoona bi shay'in min 'ilmihi illa bima sha'a, wasi'a kursiyyuhus-samawati wal-arda, wa la ya'ooduhu hifzuhuma, wa huwal-'aliyyul-'azeem",
+      "english": "I seek refuge in Allah from Satan the accursed. Allah - there is no deity except Him, the Ever-Living, the Sustainer of existence. Neither drowsiness overtakes Him nor sleep. To Him belongs whatever is in the heavens and whatever is on the earth. Who is it that can intercede with Him except by His permission? He knows what is before them and what will be after them, and they encompass not a thing of His knowledge except for what He wills. His Kursi extends over the heavens and the earth, and their preservation tires Him not. And He is the Most High, the Most Great.",
+      "benefits": "Complete protection from Satan and all forms of evil",
+      "source": "Quran 2:255",
+      "occasion": "Morning and evening for daily protection",
+      "color": "#EF4444"
+    },
+    {
+      "id": 4,
+      "title": "The Two Refuges (Mu'awwidhatayn)",
+      "arabic": "قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ مِنْ شَرِّ مَا خَلَقَ وَمِنْ شَرِّ غَاسِقٍ إِذَا وَقَبَ وَمِنْ شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ وَمِنْ شَرِّ حَاسِدٍ إِذَا حَسَدَ",
+      "transliteration": "Qul a'udhu bi rabbil-falaq, min sharri ma khalaq, wa min sharri ghasiqin idha waqab, wa min sharrin-naffathati fil-'uqad, wa min sharri hasidin idha hasad",
+      "english": "Say: I seek refuge with the Lord of the dawn, from the evil of what He created, and from the evil of darkness when it settles, and from the evil of the blowers in knots, and from the evil of an envier when he envies.",
+      "benefits": "Protection from witchcraft, evil eye, and all forms of harm",
+      "source": "Quran 113",
+      "occasion": "Morning, evening, and before sleep",
+      "color": "#EF4444"
+    },
+    {
+      "id": 5,
+      "title": "Protection from People's Harm",
+      "arabic": "قُلْ أَعُوذُ بِرَبِّ النَّاسِ مَلِكِ النَّاسِ إِلَهِ النَّاسِ مِنْ شَرِّ الْوَسْوَاسِ الْخَنَّاسِ الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ مِنَ الْجِنَّةِ وَالنَّاسِ",
+      "transliteration": "Qul a'udhu bi rabbin-nas, malikin-nas, ilahin-nas, min sharril-waswasil-khannas, alladhi yuwaswisu fi sudoorin-nas, minal-jinnati wan-nas",
+      "english": "Say: I seek refuge with the Lord of mankind, the Sovereign of mankind, the God of mankind, from the evil of the retreating whisperer, who whispers into the hearts of mankind, from among the jinn and mankind.",
+      "benefits": "Protection from evil whispers and harmful people",
+      "source": "Quran 114",
+      "occasion": "When facing evil whispers or harmful people",
+      "color": "#EF4444"
+    },
+    {
+      "id": 6,
+      "title": "Protection During Travel",
+      "arabic": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ وَعْثَاءِ السَّفَرِ وَكَآبَةِ الْمَنْظَرِ وَسُوءِ الْمُنْقَلَبِ فِي الْمَالِ وَالأَهْلِ",
+      "transliteration": "Allahumma inni a'udhu bika min wa'tha'is-safari wa ka'abatil-manzari wa su'il-munqalabi fil-mali wal-ahl",
+      "english": "O Allah, I seek refuge with You from the hardships of travel, from having a change of heart and being in a bad predicament, and I seek refuge in You from an ill-fated outcome with wealth and family.",
+      "benefits": "Protection during journeys and travels",
+      "source": "Muslim",
+      "occasion": "When traveling or going on a journey",
+      "color": "#EF4444"
+    },
+    {
+      "id": 7,
+      "title": "Protection from Natural Disasters",
+      "arabic": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ زَوَالِ نِعْمَتِكَ وَتَحَوُّلِ عَافِيَتِكَ وَفُجَاءَةِ نِقْمَتِكَ وَجَمِيعِ سَخَطِكَ",
+      "transliteration": "Allahumma inni a'udhu bika min zawali ni'matika wa tahawwuli 'afiyatika wa fuja'ati niqmatika wa jamee'i sakhatik",
+      "english": "O Allah, I seek refuge in You from the decline of Your favor, the change of Your protection, the suddenness of Your punishment, and from all that brings Your wrath.",
+      "benefits": "Protection from sudden calamities and disasters",
+      "source": "Muslim",
+      "occasion": "When seeking protection from natural disasters",
+      "color": "#EF4444"
+    },
+    {
+      "id": 8,
+      "title": "Protection from Debt and Oppression",
+      "arabic": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْمَأْثَمِ وَالْمَغْرَمِ",
+      "transliteration": "Allahumma inni a'udhu bika minal-ma'thami wal-maghram",
+      "english": "O Allah, I seek refuge with You from sin and heavy debt.",
+      "benefits": "Protection from sin and financial difficulties",
+      "source": "Bukhari",
+      "occasion": "When facing financial difficulties or fearing sin",
+      "color": "#EF4444"
+    },
+    {
+      "id": 9,
+      "title": "Protection for Family and Home",
+      "arabic": "أُعِيذُكُمْ بِكَلِمَاتِ اللَّهِ التَّامَّةِ مِنْ كُلِّ شَيْطَانٍ وَهَامَّةٍ وَمِنْ كُلِّ عَيْنٍ لاَمَّةٍ",
+      "transliteration": "U'eedhukum bi kalimat-illahit-tammati min kulli shaytanin wa hammatin wa min kulli 'aynin lammah",
+      "english": "I seek protection for you in the perfect words of Allah from every devil and poisonous pest and from every evil, harmful, envious eye.",
+      "benefits": "Protection for family members and household",
+      "source": "Bukhari",
+      "occasion": "When seeking protection for family and home",
+      "color": "#EF4444"
+    },
+    {
+      "id": 10,
+      "title": "Protection from Black Magic",
+      "arabic": "اللَّهُمَّ رَبَّ النَّاسِ أَذْهِبِ الْبَأْسَ وَاشْفِ أَنْتَ الشَّافِي لاَ شِفَاءَ إِلاَّ شِفَاؤُكَ شِفَاءً لاَ يُغَادِرُ سَقَماً",
+      "transliteration": "Allahumma rabban-nasi adh-hibil-ba'sa washfi antash-shafi la shifa'a illa shifa'uka shifa'an la yughadiru saqama",
+      "english": "O Allah, Lord of the people, remove the hardship and heal, for You are the Healer. There is no healing except Your healing, a healing that leaves no disease.",
+      "benefits": "Healing and protection from magical harm",
+      "source": "Bukhari, Muslim",
+      "occasion": "When suspecting magical harm or seeking healing",
+      "color": "#EF4444"
+    },
+    {
+      "id": 11,
+      "title": "Protection from Harm of Creatures",
+      "arabic": "بِسْمِ اللَّهِ الَّذِي لاَ يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الأَرْضِ وَلاَ فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ",
+      "transliteration": "Bismillahi alladhi la yadurru ma'asmihi shay'un fil-ardi wa la fis-sama'i wa huwas-samee'ul-'aleem",
+      "english": "In the name of Allah with whose name nothing is harmed on earth nor in the heavens, and He is the Hearing, the Knowing.",
+      "benefits": "Protection from all harm when said three times morning and evening",
+      "source": "Abu Dawud, At-Tirmidhi",
+      "occasion": "Morning and evening for complete protection",
+      "color": "#EF4444"
+    },
+    {
+      "id": 12,
+      "title": "Comprehensive Protection Dua",
+      "arabic": "اللَّهُمَّ عَافِنِي فِي بَدَنِي اللَّهُمَّ عَافِنِي فِي سَمْعِي اللَّهُمَّ عَافِنِي فِي بَصَرِي لاَ إِلَهَ إِلاَّ أَنْتَ",
+      "transliteration": "Allahumma 'afini fi badani, allahumma 'afini fi sam'i, allahumma 'afini fi basari, la ilaha illa ant",
+      "english": "O Allah, grant me health in my body. O Allah, grant me health in my hearing. O Allah, grant me health in my sight. There is no deity except You.",
+      "benefits": "Health and protection for body and senses",
+      "source": "Abu Dawud",
+      "occasion": "Morning protection for physical and sensory health",
+      "color": "#EF4444"
+    }
+  ]
+} 

@@ -1,0 +1,25 @@
+{
+  "id": 42,
+  "title": "Sciences of the Quran",
+  "introduction": "The Quranic sciences (Ulum al-Quran) are the fields of knowledge that help us understand the Quran more deeply. They cover how the Quran was revealed, preserved, recited, and interpreted. Studying these sciences strengthens our connection to the Quran and deepens our appreciation for its beauty, precision, and miraculous nature.",
+  "sections": [
+    {
+      "heading": "Revelation and Compilation",
+      "content": "The Quran was revealed to the Prophet Muhammad ﷺ over a period of 23 years through the angel Jibreel (Gabriel). Verses were revealed in different situations to guide, comfort, and teach the believers. The Prophet ﷺ and his companions memorized the Quran, and scribes wrote it down on various materials. After the Prophet’s death, Abu Bakr (RA) initiated the collection of these verses into one compiled mushaf to preserve it. Later, during the caliphate of Uthman ibn Affan (RA), copies of the standard Quran were distributed to different regions, ensuring the Quran remained protected from changes or errors."
+    },
+    {
+      "heading": "Makki and Madani Surahs",
+      "content": "One important area of Quranic sciences is knowing which surahs are Makki and which are Madani. Makki surahs were revealed before the Hijrah (migration to Madinah) and mostly focus on the foundations of faith — Tawheed (oneness of Allah), the afterlife, and the stories of earlier prophets. They use strong, moving language to touch the heart. Madani surahs were revealed after the Prophet ﷺ settled in Madinah and deal more with community life, laws, family, justice, and social relations. Understanding the context of revelation helps us grasp the wisdom behind each verse and how to apply it today."
+    },
+    {
+      "heading": "Other Sciences",
+      "content": "Quranic sciences include many other areas. 'Asbab al-Nuzul' is the study of the reasons or occasions for revelation — understanding what situation or question a verse was revealed in response to. The science of abrogation (naskh) explains verses whose rulings were replaced by later verses. Tajweed is the science of recitation, preserving the proper pronunciation and melody of Quranic recitation as taught by the Prophet ﷺ. Tafsir (interpretation) is another essential field, where scholars explain the meanings of verses using linguistic knowledge, Hadith, and the context in which they were revealed."
+    }
+  ],
+  "conclusion": "Learning the sciences of the Quran helps us appreciate the depth, history, and miracle of Allah’s final revelation. It brings us closer to the Quran’s true meanings and teaches us how to recite, understand, and live by its guidance every day.",
+  "references": [
+    "Quran 15:9",
+    "Quran 75:17",
+    "Sahih Bukhari 4987"
+  ]
+}

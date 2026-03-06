@@ -1,0 +1,139 @@
+{
+  "category": "travel",
+  "name": "Travel & Journey Duas",
+  "description": "Comprehensive duas for all aspects of travel and journeys",
+  "duas": [
+    {
+      "id": 1,
+      "title": "When Starting a Journey",
+      "arabic": "سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ وَإِنَّا إِلَى رَبِّنَا لَمُنْقَلِبُونَ",
+      "transliteration": "Subhanal-ladhi sakhkhara lana hadha wa ma kunna lahu muqrineen wa inna ila rabbina la munqaliboon",
+      "english": "Glory unto Him Who created this transportation for us though we were unable to create it on our own. And unto our Lord we shall return.",
+      "benefits": "Safety and blessing throughout the journey",
+      "source": "Abu Dawud, At-Tirmidhi",
+      "occasion": "When beginning any journey by vehicle",
+      "color": "#F97316"
+    },
+    {
+      "id": 2,
+      "title": "General Travel Supplication",
+      "arabic": "اللَّهُمَّ إِنَّا نَسْأَلُكَ فِي سَفَرِنَا هَذَا الْبِرَّ وَالتَّقْوَى وَمِنَ الْعَمَلِ مَا تَرْضَى اللَّهُمَّ هَوِّنْ عَلَيْنَا سَفَرَنَا هَذَا وَاطْوِ عَنَّا بُعْدَهُ",
+      "transliteration": "Allahumma inna nas'aluka fi safarina hadhal-birra wat-taqwa wa minal-'amali ma tarda. Allahumma hawwin 'alayna safarana hadha watw i 'anna bu'dah",
+      "english": "O Allah, we ask You on this journey for goodness and piety, and for works that are pleasing to You. O Allah, make this journey easy for us and make its distance short for us.",
+      "benefits": "Ease in travel and spiritual benefit from the journey",
+      "source": "Muslim",
+      "occasion": "When embarking on any journey",
+      "color": "#F97316"
+    },
+    {
+      "id": 3,
+      "title": "When Returning from Travel",
+      "arabic": "آيِبُونَ تَائِبُونَ عَابِدُونَ لِرَبِّنَا حَامِدُونَ",
+      "transliteration": "Ayiboona ta'iboona 'abidoona li-rabbina hamidoon",
+      "english": "We return in repentance to Allah, worshipping Allah, and praising our Lord.",
+      "benefits": "Spiritual purification and gratitude upon return",
+      "source": "Bukhari, Muslim",
+      "occasion": "When returning from any journey",
+      "color": "#F97316"
+    },
+    {
+      "id": 4,
+      "title": "When Riding in Any Vehicle",
+      "arabic": "بِسْمِ اللَّهِ وَالْحَمْدُ لِلَّهِ سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ وَإِنَّا إِلَى رَبِّنَا لَمُنْقَلِبُونَ الْحَمْدُ لِلَّهِ الْحَمْدُ لِلَّهِ الْحَمْدُ لِلَّهِ اللَّهُ أَكْبَرُ اللَّهُ أَكْبَرُ اللَّهُ أَكْبَرُ سُبْحَانَكَ اللَّهُمَّ إِنِّي ظَلَمْتُ نَفْسِي فَاغْفِرْ لِي فَإِنَّهُ لاَ يَغْفِرُ الذُّنُوبَ إِلاَّ أَنْتَ",
+      "transliteration": "Bismillahi walhamdu lillah. Subhanal-ladhi sakhkhara lana hadha wa ma kunna lahu muqrineen wa inna ila rabbina la munqaliboon. Alhamdu lillahi, alhamdu lillahi, alhamdu lillah. Allahu akbar, Allahu akbar, Allahu akbar. Subhanaka allahumma inni zalamtu nafsi faghfir li fa innahu la yaghfirudh-dhunuba illa ant",
+      "english": "In the name of Allah and all praise is for Allah. Glory unto Him Who created this transportation for us though we were unable to create it on our own. And unto our Lord we shall return. All praise is for Allah (3x). Allah is the greatest (3x). Glory unto You, O Allah, I have wronged my soul, so forgive me, for none forgives sins except You.",
+      "benefits": "Complete protection, forgiveness, and blessing during travel",
+      "source": "Abu Dawud",
+      "occasion": "When getting into any means of transportation",
+      "color": "#F97316"
+    },
+    {
+      "id": 5,
+      "title": "When Stopping at a Rest Place",
+      "arabic": "أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ مِنْ شَرِّ مَا خَلَقَ",
+      "transliteration": "A'udhu bikalimaat-illahit-tammaati min sharri ma khalaq",
+      "english": "I seek refuge in the perfect words of Allah from the evil of what He has created.",
+      "benefits": "Protection from all harm during rest stops",
+      "source": "Muslim",
+      "occasion": "When stopping for rest during travel",
+      "color": "#F97316"
+    },
+    {
+      "id": 6,
+      "title": "When Ascending (Going Uphill)",
+      "arabic": "اللَّهُ أَكْبَرُ",
+      "transliteration": "Allahu akbar",
+      "english": "Allah is the greatest.",
+      "benefits": "Remembering Allah's greatness when ascending",
+      "source": "Bukhari",
+      "occasion": "When going uphill or ascending",
+      "color": "#F97316"
+    },
+    {
+      "id": 7,
+      "title": "When Descending (Going Downhill)",
+      "arabic": "سُبْحَانَ اللَّهِ",
+      "transliteration": "Subhan Allah",
+      "english": "Glory be to Allah.",
+      "benefits": "Glorifying Allah when descending",
+      "source": "Bukhari",
+      "occasion": "When going downhill or descending",
+      "color": "#F97316"
+    },
+    {
+      "id": 8,
+      "title": "When Traveling by Sea/Air",
+      "arabic": "بِسْمِ اللَّهِ مَجْرَاهَا وَمُرْسَاهَا إِنَّ رَبِّي لَغَفُورٌ رَحِيمٌ",
+      "transliteration": "Bismillahi majraha wa mursaha inna rabbi la-ghafoorun raheem",
+      "english": "In the name of Allah be its course and its mooring. Indeed my Lord is Forgiving and Merciful.",
+      "benefits": "Safety during sea or air travel",
+      "source": "Quran 11:41",
+      "occasion": "When traveling by ship, plane, or over water",
+      "color": "#F97316"
+    },
+    {
+      "id": 9,
+      "title": "When Entering a New City/Country",
+      "arabic": "اللَّهُمَّ رَبَّ السَّمَوَاتِ السَّبْعِ وَمَا أَظْلَلْنَ وَرَبَّ الأَرَضِينَ السَّبْعِ وَمَا أَقْلَلْنَ وَرَبَّ الشَّيَاطِينِ وَمَا أَضْلَلْنَ وَرَبَّ الرِّيَاحِ وَمَا ذَرَيْنَ أَسْأَلُكَ خَيْرَ هَذِهِ الْقَرْيَةِ وَخَيْرَ أَهْلِهَا وَخَيْرَ مَا فِيهَا وَأَعُوذُ بِكَ مِنْ شَرِّهَا وَشَرِّ أَهْلِهَا وَشَرِّ مَا فِيهَا",
+      "transliteration": "Allahumma rabbas-samawatis-sab'i wa ma azlalna wa rabbal-aradinas-sab'i wa ma aqlalna wa rabbash-shayateeni wa ma adlalna wa rabbar-riyahi wa ma dharayna as'aluka khayra hadhihil-qaryati wa khayra ahliha wa khayra ma fiha wa a'udhu bika min sharriha wa sharri ahliha wa sharri ma fiha",
+      "english": "O Allah, Lord of the seven heavens and all that they overshadow, Lord of the seven earths and all that they carry, Lord of the devils and all whom they misguide, Lord of the winds and all whom they scatter, I ask You for the good of this town, the good of its people, and for the good it contains. I seek refuge in You from its evil, the evil of its people, and from the evil it contains.",
+      "benefits": "Protection and blessing when entering a new place",
+      "source": "Al-Hakim, Ibn Hibban",
+      "occasion": "When entering a new city or country",
+      "color": "#F97316"
+    },
+    {
+      "id": 10,
+      "title": "For a Safe Journey",
+      "arabic": "اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنْ خَيْرِ هَذِهِ السَّفَرِ وَخَيْرِ مَا فِيهَا وَأَعُوذُ بِكَ مِنْ شَرِّهَا وَشَرِّ مَا فِيهَا",
+      "transliteration": "Allahumma inni as'aluka min khayri hadhihis-safari wa khayri ma fiha wa a'udhu bika min sharriha wa sharri ma fiha",
+      "english": "O Allah, I ask You for the good of this journey and the good of what it contains, and I seek refuge with You from its evil and the evil of what it contains.",
+      "benefits": "Seeking good and protection from harm during travel",
+      "source": "Muslim",
+      "occasion": "Before or during any journey",
+      "color": "#F97316"
+    },
+    {
+      "id": 11,
+      "title": "When Reaching Destination",
+      "arabic": "الْحَمْدُ لِلَّهِ الَّذِي بَلَّغَنَا هَذَا الْمَكَانَ بِسَلاَمَةٍ",
+      "transliteration": "Alhamdu lillahi alladhi ballaghana hadhal-makana bi-salamah",
+      "english": "All praise is for Allah Who brought us to this place in safety.",
+      "benefits": "Gratitude for safe arrival at destination",
+      "source": "Islamic tradition",
+      "occasion": "When safely reaching your destination",
+      "color": "#F97316"
+    },
+    {
+      "id": 12,
+      "title": "When Vehicle Breaks Down",
+      "arabic": "لاَ حَوْلَ وَلاَ قُوَّةَ إِلاَّ بِاللَّهِ الْعَلِيِّ الْعَظِيمِ",
+      "transliteration": "La hawla wa la quwwata illa billahil-'aliyyil-'azeem",
+      "english": "There is no might nor power except with Allah, the Exalted, the Mighty.",
+      "benefits": "Seeking Allah's help in difficult travel situations",
+      "source": "Various authentic sources",
+      "occasion": "When facing vehicle problems or travel difficulties",
+      "color": "#F97316"
+    }
+  ]
+} 

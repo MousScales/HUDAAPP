@@ -1,0 +1,25 @@
+{
+  "id": 42,
+  "title": "Sciences du Coran",
+  "introduction": "Les sciences coraniques (Ulum al-Quran) sont les domaines de connaissance qui nous aident à comprendre le Coran plus profondément. Elles couvrent comment le Coran a été révélé, préservé, récité et interprété. Étudier ces sciences renforce notre connexion au Coran et approfondit notre appréciation pour sa beauté, précision et nature miraculeuse.",
+  "sections": [
+    {
+      "heading": "Révélation et Compilation",
+      "content": "Le Coran a été révélé au Prophète Muhammad ﷺ sur une période de 23 ans à travers l'ange Jibreel (Gabriel). Les versets ont été révélés dans différentes situations pour guider, réconforter et enseigner les croyants. Le Prophète ﷺ et ses compagnons ont mémorisé le Coran, et les scribes l'ont écrit sur divers matériaux. Après la mort du Prophète, Abu Bakr (RA) a initié la collection de ces versets en un mushaf compilé pour le préserver. Plus tard, pendant le califat d'Uthman ibn Affan (RA), des copies du Coran standard ont été distribuées à différentes régions, assurant que le Coran reste protégé des changements ou erreurs."
+    },
+    {
+      "heading": "Sourates Makki et Madani",
+      "content": "Un domaine important des sciences coraniques est de savoir quelles sourates sont Makki et lesquelles sont Madani. Les sourates Makki ont été révélées avant l'Hijrah (migration vers Madinah) et se concentrent surtout sur les fondements de la foi — Tawheed (unicité d'Allah), l'au-delà et les histoires des prophètes antérieurs. Elles utilisent un langage fort et émouvant pour toucher le cœur. Les sourates Madani ont été révélées après que le Prophète ﷺ se soit installé à Madinah et traitent plus de la vie communautaire, lois, famille, justice et relations sociales. Comprendre le contexte de la révélation nous aide à saisir la sagesse derrière chaque verset et comment l'appliquer aujourd'hui."
+    },
+    {
+      "heading": "Autres Sciences",
+      "content": "Les sciences coraniques incluent beaucoup d'autres domaines. 'Asbab al-Nuzul' est l'étude des raisons ou occasions de la révélation — comprendre à quelle situation ou question un verset a été révélé en réponse. La science de l'abrogation (naskh) explique les versets dont les règles ont été remplacées par des versets ultérieurs. Le Tajweed est la science de la récitation, préservant la prononciation et mélodie appropriées de la récitation coranique comme enseignée par le Prophète ﷺ. Le Tafsir (interprétation) est un autre domaine essentiel, où les savants expliquent les significations des versets utilisant la connaissance linguistique, Hadith et le contexte dans lequel ils ont été révélés."
+    }
+  ],
+  "conclusion": "Apprendre les sciences du Coran nous aide à apprécier la profondeur, l'histoire et le miracle de la révélation finale d'Allah. Cela nous rapproche des vraies significations du Coran et nous enseigne comment réciter, comprendre et vivre selon sa guidance chaque jour.",
+  "references": [
+    "Quran 15:9",
+    "Quran 75:17",
+    "Sahih Bukhari 4987"
+  ]
+} 

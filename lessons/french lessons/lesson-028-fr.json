@@ -1,0 +1,27 @@
+{
+  "id": 28,
+  "title": "Introduction aux Sciences du Hadith",
+  "introduction": "Les sciences du Hadith (Uloom al-Hadith) sont la branche de la connaissance islamique qui étudie les paroles, actions et approbations du Prophète Muhammad ﷺ. Puisque le Coran nous commande de suivre le Prophète ﷺ, comprendre les hadiths authentiques est essentiel pour pratiquer l'Islam correctement. La science du hadith nous connecte à la Sunnah, expliquant comment vivre le Coran dans la vie quotidienne.",
+  "sections": [
+    {
+      "heading": "Qu'est-ce qu'un Hadith ?",
+      "content": "Un hadith est un rapport décrivant ce que le Prophète ﷺ a dit, fait, approuvé ou parfois tacitement permis. Les hadiths servent d'explication pratique du Coran — ils clarifient les commandements, fournissent des détails sur l'adoration et guident les musulmans dans les manières, l'éthique et les relations avec les autres. Par exemple, tandis que le Coran commande la prière, le hadith nous montre la façon exacte dont le Prophète ﷺ priait. Allah dit : 'Et il ne prononce rien sous l'effet de la passion ; ce n'est rien d'autre qu'une révélation inspirée.' (Coran 53:3-4)."
+    },
+    {
+      "heading": "Préservation du Hadith",
+      "content": "Après le décès du Prophète ﷺ, ses compagnons ont soigneusement préservé ses paroles et actions. Les premiers musulmans ont mémorisé, écrit et enseigné les hadiths avec un soin extrême. Alors que l'Islam se répandait, les savants ont développé des sciences rigoureuses pour vérifier chaque rapport. Ils ont examiné l'isnad (chaîne de narrateurs) et le matn (texte) pour assurer précision et fiabilité. De grands savants comme Imam Bukhari et Imam Muslim ont passé des années à voyager et vérifier l'honnêteté et mémoire des narrateurs. Cette préservation soigneuse protège la Sunnah des narrations fausses ou faibles."
+    },
+    {
+      "heading": "Types de Hadith",
+      "content": "Les savants classifient les hadiths en différentes catégories basées sur leur authenticité et fiabilité :\n- **Sahih (Authentique) :** La chaîne est ininterrompue, les narrateurs sont dignes de confiance, et le texte ne contredit pas des preuves plus fortes.\n- **Hasan (Bon) :** Légèrement moins fort que sahih mais encore fiable pour la pratique.\n- **Daif (Faible) :** A une rupture dans la chaîne ou des narrateurs avec une mémoire faible — pas utilisé pour les croyances fondamentales ou les règles.\nIl y a aussi des hadiths fabriqués (mawdu'), que les savants rejettent entièrement. En étudiant ces classifications, les musulmans peuvent distinguer entre la guidance forte et les rapports non fiables."
+    }
+  ],
+  "conclusion": "Étudier les sciences du hadith nous aide à suivre l'exemple du Prophète ﷺ avec précision et confiance. Cela renforce notre amour pour la Sunnah et nous connecte aux générations qui ont dédié leurs vies à la préserver. À travers cette connaissance, nous comprenons mieux comment vivre notre foi jour après jour.",
+  "references": [
+    "Quran 53:3-4",
+    "Sahih Bukhari Introduction",
+    "Sahih Muslim Introduction",
+    "Tirmidhi Introduction",
+    "Nawawi's Forty Hadith Introduction"
+  ]
+} 

@@ -1,0 +1,62 @@
+{
+  "category": "evening",
+  "name": "Evening Dhikr",
+  "description": "Authentic evening remembrances to end the day with Allah's protection",
+  "dhikrs": [
+    {
+      "id": 1,
+      "title": "Evening Declaration of Faith",
+      "arabic": "أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ وَالْحَمْدُ لِلَّهِ لاَ إِلَهَ إِلاَّ اللَّهُ وَحْدَهُ لاَ شَرِيكَ لَهُ لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ",
+      "transliteration": "Amsayna wa amsal-mulku lillah walhamdu lillah la ilaha illa Allah wahdahu la shareeka lah, lahul-mulku wa lahul-hamdu wa huwa 'ala kulli shay'in qadeer",
+      "translation": "We have reached the evening and at this very time unto Allah belongs all sovereignty. All praise is for Allah. None has the right to be worshipped except Allah, alone, without partner, to Him belongs all sovereignty and praise and He is over all things omnipotent.",
+      "benefits": "Protection and blessings for the night",
+      "source": "Abu Dawud",
+      "repetitions": "1 time",
+      "color": "#9370DB"
+    },
+    {
+      "id": 2,
+      "title": "Seeking Allah's Protection at Evening",
+      "arabic": "اللَّهُمَّ بِكَ أَمْسَيْنَا وَبِكَ أَصْبَحْنَا وَبِكَ نَحْيَا وَبِكَ نَمُوتُ وَإِلَيْكَ الْمَصِيرُ",
+      "transliteration": "Allahumma bika amsayna wa bika asbahna wa bika nahya wa bika namootu wa ilaykal-maseer",
+      "translation": "O Allah, by Your leave we have reached the evening and by Your leave we have reached the morning, by Your leave we live and die and unto You is our resurrection.",
+      "benefits": "Acknowledgment of complete dependence on Allah",
+      "source": "At-Tirmidhi",
+      "repetitions": "1 time",
+      "color": "#9370DB"
+    },
+    {
+      "id": 3,
+      "title": "Seeking Refuge from Evening Harm",
+      "arabic": "أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ مِنْ شَرِّ مَا خَلَقَ",
+      "transliteration": "A'udhu bi kalimaat-illahi at-tammaati min sharri ma khalaq",
+      "translation": "I seek refuge in Allah's perfect words from the evil of what He has created.",
+      "benefits": "Protection from all harmful things during the night",
+      "source": "Muslim",
+      "repetitions": "3 times",
+      "color": "#9370DB"
+    },
+    {
+      "id": 4,
+      "title": "The Three Quls - Al-Ikhlas",
+      "arabic": "قُلْ هُوَ اللَّهُ أَحَدٌ * اللَّهُ الصَّمَدُ * لَمْ يَلِدْ وَلَمْ يُولَدْ * وَلَمْ يَكُنْ لَهُ كُفُواً أَحَدٌ",
+      "transliteration": "Qul huwa Allahu ahad, Allah as-samad, lam yalid wa lam yoolad, wa lam yakun lahu kufuwan ahad",
+      "translation": "Say: He is Allah, the One! Allah, the Eternal, Absolute; He begets not, nor is He begotten; And there is none like unto Him.",
+      "benefits": "Equivalent to one-third of the Quran, brings immense reward",
+      "source": "Quran 112:1-4",
+      "repetitions": "3 times",
+      "color": "#9370DB"
+    },
+    {
+      "id": 5,
+      "title": "Seeking Allah's Forgiveness",
+      "arabic": "أَسْتَغْفِرُ اللَّهَ الْعَظِيمَ الَّذِي لاَ إِلَهَ إِلاَّ هُوَ الْحَيُّ الْقَيُّومُ وَأَتُوبُ إِلَيْهِ",
+      "transliteration": "Astaghfir-ullaha al-'azeema alladhi la ilaha illa huwal-hayyul-qayyoomu wa atoobu ilayh",
+      "translation": "I seek forgiveness of Allah the Mighty, besides whom none has the right to be worshipped except He, the Ever Living, the Self-Subsisting and Supporter of all, and I turn to Him in repentance.",
+      "benefits": "Complete forgiveness of sins",
+      "source": "Abu Dawud, At-Tirmidhi",
+      "repetitions": "3 times",
+      "color": "#9370DB"
+    }
+  ]
+} 

@@ -1,0 +1,25 @@
+{
+  "id": 42,
+  "title": "Ciencias del Corán",
+  "introduction": "Las ciencias coránicas (Ulum al-Quran) son los campos del conocimiento que nos ayudan a entender el Corán más profundamente. Cubren cómo el Corán fue revelado, preservado, recitado e interpretado. Estudiar estas ciencias fortalece nuestra conexión con el Corán y profundiza nuestra apreciación por su belleza, precisión y naturaleza milagrosa.",
+  "sections": [
+    {
+      "heading": "Revelación y Compilación",
+      "content": "El Corán fue revelado al Profeta Muhammad ﷺ durante un período de 23 años a través del ángel Jibreel (Gabriel). Los versículos fueron revelados en diferentes situaciones para guiar, consolar y enseñar a los creyentes. El Profeta ﷺ y sus compañeros memorizaron el Corán, y los escribas lo escribieron en varios materiales. Después de la muerte del Profeta, Abu Bakr (RA) inició la recolección de estos versículos en un mushaf compilado para preservarlo. Más tarde, durante el califato de Uthman ibn Affan (RA), copias del Corán estándar fueron distribuidas a diferentes regiones, asegurando que el Corán permaneciera protegido de cambios o errores."
+    },
+    {
+      "heading": "Surahs Makki y Madani",
+      "content": "Un área importante de las ciencias coránicas es saber qué surahs son Makki y cuáles son Madani. Las surahs Makki fueron reveladas antes de la Hégira (migración a Madinah) y se enfocan principalmente en los fundamentos de la fe — Tawhid (unicidad de Allah), la otra vida y las historias de profetas anteriores. Usan lenguaje fuerte y conmovedor para tocar el corazón. Las surahs Madani fueron reveladas después de que el Profeta ﷺ se estableció en Madinah y tratan más sobre vida comunitaria, leyes, familia, justicia y relaciones sociales. Entender el contexto de la revelación nos ayuda a comprender la sabiduría detrás de cada versículo y cómo aplicarlo hoy."
+    },
+    {
+      "heading": "Otras Ciencias",
+      "content": "Las ciencias coránicas incluyen muchas otras áreas. 'Asbab al-Nuzul' es el estudio de las razones u ocasiones de revelación — entender en qué situación o pregunta se reveló un versículo en respuesta. La ciencia de la abrogación (naskh) explica versículos cuyos dictámenes fueron reemplazados por versículos posteriores. Tajweed es la ciencia de la recitación, preservando la pronunciación y melodía apropiadas de la recitación coránica como enseñó el Profeta ﷺ. Tafsir (interpretación) es otro campo esencial, donde los eruditos explican los significados de los versículos usando conocimiento lingüístico, Hadiz y el contexto en el que fueron revelados."
+    }
+  ],
+  "conclusion": "Aprender las ciencias del Corán nos ayuda a apreciar la profundidad, historia y milagro de la revelación final de Allah. Nos acerca a los verdaderos significados del Corán y nos enseña cómo recitar, entender y vivir por Su guía cada día.",
+  "references": [
+    "Corán 15:9",
+    "Corán 75:17",
+    "Sahih Bukhari 4987"
+  ]
+} 

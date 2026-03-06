@@ -1,0 +1,25 @@
+{
+  "id": 27,
+  "title": "Great Islamic Scholars",
+  "introduction": "Islamic civilization has produced countless great scholars who advanced knowledge in both religious sciences and worldly sciences. Their dedication to seeking, preserving, and sharing knowledge shaped not only the Muslim world but contributed greatly to human civilization as a whole. Learning about these scholars reminds us of the honor and importance Islam gives to knowledge.",
+  "sections": [
+    {
+      "heading": "Early Scholars",
+      "content": "Among the early scholars were the Imams of Fiqh: Imam Abu Hanifah, Imam Malik, Imam Shafi’i, and Imam Ahmad ibn Hanbal. They dedicated their lives to preserving and explaining the teachings of the Quran and Sunnah, forming schools of thought that guide millions of Muslims to this day. Scholars of Hadith like Imam Bukhari and Imam Muslim travelled great distances to collect authentic sayings of the Prophet ﷺ with accuracy and care, preserving them for future generations. These scholars lived simple lives, faced many hardships, and worked with sincerity to protect the religion from distortions."
+    },
+    {
+      "heading": "Contributions to Science",
+      "content": "Muslim scholars also excelled in worldly sciences, driven by the Islamic principle that seeking beneficial knowledge is an act of worship. Physicians like Ibn Sina (Avicenna) wrote medical encyclopedias that were used in Europe for centuries. Mathematicians like Al-Khwarizmi laid the foundations of algebra. Astronomers like Al-Biruni and philosophers like Al-Farabi and Ibn Rushd made important discoveries and writings that advanced human understanding. These scholars saw no conflict between religious and scientific knowledge, believing that all knowledge ultimately leads to recognizing the greatness of Allah’s creation."
+    },
+    {
+      "heading": "Legacy of Scholarship",
+      "content": "The legacy of these scholars teaches us that seeking knowledge is a duty for every Muslim, male and female. The Prophet ﷺ said, 'Seeking knowledge is an obligation upon every Muslim.' Their hard work and sacrifices continue to benefit the world today. We benefit from their books, discoveries, and the systems they built for preserving and transmitting knowledge. By following in their footsteps — learning with sincerity and sharing what we know — we can honor their legacy and serve humanity with beneficial knowledge."
+    }
+  ],
+  "conclusion": "Learning about the great scholars of Islam inspires us to value knowledge, stay curious, and use what we learn to please Allah and benefit others. May we continue their legacy by seeking knowledge, acting upon it, and spreading goodness in the world.",
+  "references": [
+    "Quran 58:11",
+    "Quran 96:1-5",
+    "Sahih Muslim 2699"
+  ]
+}
