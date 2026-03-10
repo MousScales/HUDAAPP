@@ -1,0 +1,62 @@
+{
+  "category": "morning",
+  "name": "Morning Dhikr",
+  "description": "Authentic morning remembrances to start the day with Allah's blessings",
+  "dhikrs": [
+    {
+      "id": 1,
+      "title": "Morning Declaration of Faith",
+      "arabic": "أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ وَالْحَمْدُ لِلَّهِ لاَ إِلَهَ إِلاَّ اللَّهُ وَحْدَهُ لاَ شَرِيكَ لَهُ لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ",
+      "transliteration": "Asbahna wa asbahal-mulku lillah walhamdu lillah la ilaha illa Allah wahdahu la shareeka lah, lahul-mulku wa lahul-hamdu wa huwa 'ala kulli shay'in qadeer",
+      "translation": "We have reached the morning and at this very time unto Allah belongs all sovereignty. All praise is for Allah. None has the right to be worshipped except Allah, alone, without partner, to Him belongs all sovereignty and praise and He is over all things omnipotent.",
+      "benefits": "Protection and blessings for the day",
+      "source": "Abu Dawud",
+      "repetitions": "1 time",
+      "color": "#FFB347"
+    },
+    {
+      "id": 2,
+      "title": "Seeking Allah's Sufficiency",
+      "arabic": "حَسْبِيَ اللَّهُ لاَ إِلَهَ إِلاَّ هُوَ عَلَيْهِ تَوَكَّلْتُ وَهُوَ رَبُّ الْعَرْشِ الْعَظِيمِ",
+      "transliteration": "Hasbiyal-lahu la ilaha illa huwa 'alayhi tawakkaltu wa huwa rabbul-'arshil-'azeem",
+      "translation": "Allah is sufficient for me, none has the right to be worshipped except Him, upon Him I rely and He is Lord of the exalted throne.",
+      "benefits": "Allah will suffice whoever says this 7 times in the morning and evening against whatever worries him",
+      "source": "Abu Dawud",
+      "repetitions": "7 times",
+      "color": "#FFB347"
+    },
+    {
+      "id": 3,
+      "title": "Seeking Protection from All Evil",
+      "arabic": "أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ مِنْ شَرِّ مَا خَلَقَ",
+      "transliteration": "A'udhu bi kalimaat-illahi at-tammaati min sharri ma khalaq",
+      "translation": "I seek refuge in Allah's perfect words from the evil of what He has created.",
+      "benefits": "Protection from all harmful things",
+      "source": "Muslim",
+      "repetitions": "3 times",
+      "color": "#FFB347"
+    },
+    {
+      "id": 4,
+      "title": "Ayat al-Kursi",
+      "arabic": "اللَّهُ لاَ إِلَهَ إِلاَّ هُوَ الْحَيُّ الْقَيُّومُ لاَ تَأْخُذُهُ سِنَةٌ وَلاَ نَوْمٌ لَهُ مَا فِي السَّمَوَاتِ وَمَا فِي الأَرْضِ مَنْ ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلاَّ بِإِذْنِهِ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ وَلاَ يُحِيطُونَ بِشَيْءٍ مِنْ عِلْمِهِ إِلاَّ بِمَا شَاءَ وَسِعَ كُرْسِيُّهُ السَّمَوَاتِ وَالأَرْضَ وَلاَ يَئُودُهُ حِفْظُهُمَا وَهُوَ الْعَلِيُّ الْعَظِيمُ",
+      "transliteration": "Allahu la ilaha illa huwal-hayyul-qayyoom la ta'khudhuhu sinatun wa la nawm, lahu ma fis-samawati wa ma fil-ard man dhal-ladhi yashfa'u 'indahu illa bi-idhnih ya'lamu ma bayna aydeehim wa ma khalfahum wa la yuheetoona bi shay'in min 'ilmihi illa bima sha'a wasi'a kursiyyuhus-samawati wal-arda wa la ya'ooduhu hifzuhuma wa huwal-'aliyyul-'azeem",
+      "translation": "Allah - there is no deity except Him, the Ever-Living, the Sustainer of existence. Neither drowsiness overtakes Him nor sleep. To Him belongs whatever is in the heavens and whatever is on the earth. Who is it that can intercede with Him except by His permission? He knows what is before them and what will be after them, and they encompass not a thing of His knowledge except for what He wills. His Kursi extends over the heavens and the earth, and their preservation tires Him not. And He is the Most High, the Most Great.",
+      "benefits": "Whoever recites this in the morning will be protected from jinn until evening",
+      "source": "Quran 2:255",
+      "repetitions": "1 time",
+      "color": "#FFB347"
+    },
+    {
+      "id": 5,
+      "title": "Seeking Forgiveness and Repentance",
+      "arabic": "أَسْتَغْفِرُ اللَّهَ الَّذِي لاَ إِلَهَ إِلاَّ هُوَ الْحَيُّ الْقَيُّومُ وَأَتُوبُ إِلَيْهِ",
+      "transliteration": "Astaghfir-ullaha alladhi la ilaha illa huwal-hayyul-qayyoomu wa atoobu ilayh",
+      "translation": "I seek forgiveness of Allah, besides whom none has the right to be worshipped except He, the Ever Living, the Self-Subsisting and Supporter of all, and I turn to Him in repentance.",
+      "benefits": "Allah will forgive whoever says this, even if he fled from battle",
+      "source": "Abu Dawud, At-Tirmidhi",
+      "repetitions": "3 times",
+      "color": "#FFB347"
+    }
+  ]
+} 

@@ -1,0 +1,139 @@
+{
+  "category": "protection",
+  "name": "Duas di Protezione",
+  "description": "Duas per la protezione dal male e dalle difficoltà",
+  "duas": [
+    {
+      "id": 1,
+      "title": "Protezione Generale",
+      "arabic": "حَسْبِيَ اللَّهُ لَا إِلَهَ إِلَّا هُوَ عَلَيْهِ تَوَكَّلْتُ وَهُوَ رَبُّ الْعَرْشِ الْعَظِيمِ",
+      "transliteration": "Hasbiyallahu la ilaha illa huwa 'alayhi tawakkaltu wa huwa rabbul-'arshil-'azim",
+      "english": "Allah mi basta, non c'è dio all'infuori di Lui, in Lui ripongo la mia fiducia ed Egli è il Signore del Trono Maestoso",
+      "benefits": "Per la protezione generale e la fiducia in Allah",
+      "source": "Quran 9:129",
+      "occasion": "Protezione generale",
+      "color": "#E74C3C"
+    },
+    {
+      "id": 2,
+      "title": "Contro il Malocchio",
+      "arabic": "أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ الَّتِي لَا يُجَاوِزُهُنَّ بَرٌّ وَلَا فَاجِرٌ",
+      "transliteration": "A'udhu bi kalimatillahit-tammatillati la yujawizuhunna barrun wa la fajir",
+      "english": "Mi rifugio nelle parole perfette di Allah che né il giusto né il malvagio possono superare",
+      "benefits": "Per la protezione dal malocchio e dall'invidia",
+      "source": "Muslim",
+      "occasion": "Contro il malocchio",
+      "color": "#E74C3C"
+    },
+    {
+      "id": 3,
+      "title": "Protezione Mattutina",
+      "arabic": "أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ وَالْحَمْدُ لِلَّهِ لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ",
+      "transliteration": "Asbahna wa asbahal-mulku lillah walhamdu lillah la ilaha illallah wahdahu la shareeka lah",
+      "english": "Siamo arrivati al mattino e la sovranità appartiene ad Allah, tutte le lodi sono per Allah, non c'è dio all'infuori di Allah, Lui solo, senza associati",
+      "benefits": "Per la protezione mattutina e ricordare l'unicità di Allah",
+      "source": "Muslim",
+      "occasion": "Protezione mattutina",
+      "color": "#E74C3C"
+    },
+    {
+      "id": 4,
+      "title": "Contro le Difficoltà",
+      "arabic": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ جَهْدِ الْبَلَاءِ وَدَرَكِ الشَّقَاءِ وَسُوءِ الْقَضَاءِ وَشَمَاتَةِ الْأَعْدَاءِ",
+      "transliteration": "Allahumma inni a'udhu bika min jahdil-bala'i wa darakish-shaqa'i wa su'il-qada'i wa shamatatil-a'da'i",
+      "english": "O Allah, mi rifugio in Te dalla severità della calamità, dalla miseria della sventura, dal male del decreto e dalla gioia dei nemici",
+      "benefits": "Per la protezione dalle difficoltà e dalle calamità",
+      "source": "Bukhari",
+      "occasion": "Contro le difficoltà",
+      "color": "#E74C3C"
+    },
+    {
+      "id": 5,
+      "title": "Protezione del Cuore",
+      "arabic": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ قَلْبٍ لَا يَخْشَعُ وَمِنْ دُعَاءٍ لَا يُسْمَعُ وَمِنْ نَفْسٍ لَا تَشْبَعُ وَمِنْ عِلْمٍ لَا يَنْفَعُ",
+      "transliteration": "Allahumma inni a'udhu bika min qalbin la yakhsha'u wa min du'a'in la yusma'u wa min nafsin la tashba'u wa min 'ilmin la yanfa'u",
+      "english": "O Allah, mi rifugio in Te da un cuore che non si umilia, da una supplica che non si ascolta, da un'anima che non si sazia e da una scienza che non giova",
+      "benefits": "Per la protezione del cuore e la purificazione dell'anima",
+      "source": "Tirmidhi",
+      "occasion": "Protezione del cuore",
+      "color": "#E74C3C"
+    },
+    {
+      "id": 6,
+      "title": "Protezione Durante il Viaggio",
+      "arabic": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ وَعْثَاءِ السَّفَرِ وَكَآبَةِ الْمَنْظَرِ وَسُوءِ الْمُنْقَلَبِ فِي الْمَالِ وَالأَهْلِ",
+      "transliteration": "Allahumma inni a'udhu bika min wa'tha'is-safari wa ka'abatil-manzari wa su'il-munqalabi fil-mali wal-ahl",
+      "english": "O Allah, mi rifugio in Te dalle difficoltà del viaggio, dall'avere un cambio di cuore ed essere in una cattiva situazione, e mi rifugio in Te da un risultato sfortunato con la ricchezza e la famiglia.",
+      "benefits": "Protezione durante viaggi e traversate",
+      "source": "Muslim",
+      "occasion": "Quando si viaggia o si parte per un viaggio",
+      "color": "#EF4444"
+    },
+    {
+      "id": 7,
+      "title": "Protezione dai Disastri Naturali",
+      "arabic": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ زَوَالِ نِعْمَتِكَ وَتَحَوُّلِ عَافِيَتِكَ وَفُجَاءَةِ نِقْمَتِكَ وَجَمِيعِ سَخَطِكَ",
+      "transliteration": "Allahumma inni a'udhu bika min zawali ni'matika wa tahawwuli 'afiyatika wa fuja'ati niqmatika wa jamee'i sakhatik",
+      "english": "O Allah, mi rifugio in Te dal declino del Tuo favore, dal cambio della Tua protezione, dalla repentinità del Tuo castigo, e da tutto ciò che porta la Tua ira.",
+      "benefits": "Protezione da calamità e disastri improvvisi",
+      "source": "Muslim",
+      "occasion": "Quando si cerca protezione dai disastri naturali",
+      "color": "#EF4444"
+    },
+    {
+      "id": 8,
+      "title": "Protezione da Debiti e Oppressione",
+      "arabic": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْمَأْثَمِ وَالْمَغْرَمِ",
+      "transliteration": "Allahumma inni a'udhu bika minal-ma'thami wal-maghram",
+      "english": "O Allah, mi rifugio in Te dal peccato e dai debiti pesanti.",
+      "benefits": "Protezione dal peccato e dalle difficoltà finanziarie",
+      "source": "Bukhari",
+      "occasion": "Quando si affrontano difficoltà finanziarie o si teme il peccato",
+      "color": "#EF4444"
+    },
+    {
+      "id": 9,
+      "title": "Protezione per la Famiglia e la Casa",
+      "arabic": "أُعِيذُكُمْ بِكَلِمَاتِ اللَّهِ التَّامَّةِ مِنْ كُلِّ شَيْطَانٍ وَهَامَّةٍ وَمِنْ كُلِّ عَيْنٍ لاَمَّةٍ",
+      "transliteration": "U'eedhukum bi kalimat-illahit-tammati min kulli shaytanin wa hammatin wa min kulli 'aynin lammah",
+      "english": "Cerco protezione per voi nelle parole perfette di Allah da ogni demonio e piaga velenosa e da ogni occhio malvagio, dannoso e invidioso.",
+      "benefits": "Protezione per i membri della famiglia e la casa",
+      "source": "Bukhari",
+      "occasion": "Quando si cerca protezione per la famiglia e la casa",
+      "color": "#EF4444"
+    },
+    {
+      "id": 10,
+      "title": "Protezione dalla Magia Nera",
+      "arabic": "اللَّهُمَّ رَبَّ النَّاسِ أَذْهِبِ الْبَأْسَ وَاشْفِ أَنْتَ الشَّافِي لاَ شِفَاءَ إِلاَّ شِفَاؤُكَ شِفَاءً لاَ يُغَادِرُ سَقَماً",
+      "transliteration": "Allahumma rabban-nasi adh-hibil-ba'sa washfi antash-shafi la shifa'a illa shifa'uka shifa'an la yughadiru saqama",
+      "english": "O Allah, Signore della gente, elimina la difficoltà e sana, perché Tu sei il Guaritore. Non c'è guarigione eccetto la Tua guarigione, una guarigione che non lascia malattia.",
+      "benefits": "Guarigione e protezione dal danno magico",
+      "source": "Bukhari, Muslim",
+      "occasion": "Quando si sospetta danno magico o si cerca guarigione",
+      "color": "#EF4444"
+    },
+    {
+      "id": 11,
+      "title": "Protezione dal Danno delle Creature",
+      "arabic": "بِسْمِ اللَّهِ الَّذِي لاَ يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الأَرْضِ وَلاَ فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ",
+      "transliteration": "Bismillahi alladhi la yadurru ma'asmihi shay'un fil-ardi wa la fis-sama'i wa huwas-samee'ul-'aleem",
+      "english": "Nel nome di Allah con il cui nome nulla è danneggiato sulla terra né nei cieli, ed Egli è l'Audiente, il Conoscitore.",
+      "benefits": "Protezione da ogni danno quando detto tre volte al mattino e alla sera",
+      "source": "Abu Dawud, At-Tirmidhi",
+      "occasion": "Mattino e sera per protezione completa",
+      "color": "#EF4444"
+    },
+    {
+      "id": 12,
+      "title": "Dua di Protezione Integrale",
+      "arabic": "اللَّهُمَّ عَافِنِي فِي بَدَنِي اللَّهُمَّ عَافِنِي فِي سَمْعِي اللَّهُمَّ عَافِنِي فِي بَصَرِي لاَ إِلَهَ إِلاَّ أَنْتَ",
+      "transliteration": "Allahumma 'afini fi badani, allahumma 'afini fi sam'i, allahumma 'afini fi basari, la ilaha illa ant",
+      "english": "O Allah, concedimi salute nel mio corpo. O Allah, concedimi salute nella mia audizione. O Allah, concedimi salute nella mia vista. Non c'è divinità eccetto Te.",
+      "benefits": "Salute e protezione per il corpo e i sensi",
+      "source": "Abu Dawud",
+      "occasion": "Protezione mattutina per la salute fisica e sensoriale",
+      "color": "#EF4444"
+    }
+  ]
+} 

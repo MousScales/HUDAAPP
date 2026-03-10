@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "689382239718",
+    "project_id": "locked-dd553",
+    "storage_bucket": "locked-dd553.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:689382239718:android:0b753dfeb62223e1973a27",
+        "android_client_info": {
+          "package_name": "com.digaifounder.huda"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "689382239718-5vio3epqkhctehdad483nl9qdd7bgj34.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwl9a7ykdO_BJBpvTGryWklvVkbCmmI_w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "689382239718-5vio3epqkhctehdad483nl9qdd7bgj34.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "689382239718-38i7c6mj5d5kk8oh8ksohf9gbol22vm4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.digaifounder.huda"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:689382239718:android:da9d425a2d31a2ba973a27",
+        "android_client_info": {
+          "package_name": "com.digfounder.huda"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "689382239718-5vio3epqkhctehdad483nl9qdd7bgj34.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwl9a7ykdO_BJBpvTGryWklvVkbCmmI_w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "689382239718-5vio3epqkhctehdad483nl9qdd7bgj34.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "689382239718-38i7c6mj5d5kk8oh8ksohf9gbol22vm4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.digaifounder.huda"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

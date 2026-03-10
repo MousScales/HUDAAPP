@@ -1,0 +1,139 @@
+{
+  "category": "emotional",
+  "name": "Emotional & Mental Well-being",
+  "description": "Duas for anxiety, sadness, stress, gratitude, and emotional healing",
+  "duas": [
+    {
+      "id": 1,
+      "title": "For Anxiety and Distress",
+      "arabic": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ وَأَعُوذُ بِكَ مِنَ الْعَجْزِ وَالْكَسَلِ وَأَعُوذُ بِكَ مِنَ الْجُبْنِ وَالْبُخْلِ وَأَعُوذُ بِكَ مِنْ غَلَبَةِ الدَّيْنِ وَقَهْرِ الرِّجَالِ",
+      "transliteration": "Allahumma inni a'udhu bika minal-hammi wal-hazan, wa a'udhu bika minal-'ajzi wal-kasal, wa a'udhu bika minal-jubni wal-bukhl, wa a'udhu bika min ghalabatid-dayni wa qahrir-rijal",
+      "english": "O Allah, I take refuge in You from anxiety and sorrow, weakness and laziness, miserliness and cowardice, the burden of debts and from being overpowered by men.",
+      "benefits": "Relief from anxiety, stress, and emotional burdens",
+      "source": "Bukhari",
+      "occasion": "When feeling anxious, worried, or distressed",
+      "color": "#8B5CF6"
+    },
+    {
+      "id": 2,
+      "title": "When Feeling Sad or Depressed",
+      "arabic": "لاَ إِلَهَ إِلاَّ أَنْتَ سُبْحَانَكَ إِنِّي كُنْتُ مِنَ الظَّالِمِينَ",
+      "transliteration": "La ilaha illa anta subhanaka inni kuntu mina az-zalimeen",
+      "english": "There is no deity except You; exalted are You. Indeed, I have been of the wrongdoers.",
+      "benefits": "No Muslim makes this supplication for anything but Allah will respond to him",
+      "source": "At-Tirmidhi",
+      "occasion": "When feeling sad, depressed, or in distress",
+      "color": "#8B5CF6"
+    },
+    {
+      "id": 3,
+      "title": "For Peace of Heart",
+      "arabic": "اللَّهُمَّ أَصْلِحْ لِي دِينِي الَّذِي هُوَ عِصْمَةُ أَمْرِي وَأَصْلِحْ لِي دُنْيَايَ الَّتِي فِيهَا مَعَاشِي وَأَصْلِحْ لِي آخِرَتِي الَّتِي فِيهَا مَعَادِي",
+      "transliteration": "Allahumma aslih li deeni alladhi huwa 'ismatu amri, wa aslih li dunyaya allati fiha ma'ashi, wa aslih li akhirati allati fiha ma'adi",
+      "english": "O Allah, make my religion good for me, for it is the safeguard of my affairs. Make my world good for me, for it contains my livelihood. Make my Hereafter good for me, for it is my place of return.",
+      "benefits": "Comprehensive peace and improvement in all aspects of life",
+      "source": "Muslim",
+      "occasion": "When seeking overall peace and betterment",
+      "color": "#8B5CF6"
+    },
+    {
+      "id": 4,
+      "title": "When Feeling Overwhelmed",
+      "arabic": "حَسْبُنَا اللَّهُ وَنِعْمَ الْوَكِيلُ",
+      "transliteration": "Hasbuna Allahu wa ni'mal-wakeel",
+      "english": "Allah is sufficient for us, and He is the best Disposer of affairs.",
+      "benefits": "Trusting in Allah and finding strength in His sufficiency",
+      "source": "Quran 3:173",
+      "occasion": "When feeling overwhelmed or helpless",
+      "color": "#8B5CF6"
+    },
+    {
+      "id": 5,
+      "title": "For Gratitude and Joy",
+      "arabic": "اللَّهُمَّ أَعِنِّي عَلَى ذِكْرِكَ وَشُكْرِكَ وَحُسْنِ عِبَادَتِكَ",
+      "transliteration": "Allahumma a'inni 'ala dhikrika wa shukrika wa husni 'ibadatik",
+      "english": "O Allah, help me to remember You, to thank You, and to worship You in an excellent manner.",
+      "benefits": "Increasing gratitude and closeness to Allah",
+      "source": "Abu Dawud, An-Nasa'i",
+      "occasion": "When feeling grateful or wanting to increase gratitude",
+      "color": "#8B5CF6"
+    },
+    {
+      "id": 6,
+      "title": "When Angry",
+      "arabic": "أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ",
+      "transliteration": "A'udhu billahi minash-shaytanir-rajeem",
+      "english": "I seek refuge in Allah from Satan, the accursed.",
+      "benefits": "Calming anger and seeking protection from Satan's influence",
+      "source": "Bukhari, Muslim",
+      "occasion": "When feeling angry",
+      "color": "#8B5CF6"
+    },
+    {
+      "id": 7,
+      "title": "When Feeling Lonely",
+      "arabic": "اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنْ خَيْرِ مَا سَأَلَكَ مِنْهُ عَبْدُكَ وَنَبِيُّكَ وَأَعُوذُ بِكَ مِنْ شَرِّ مَا عَاذَ بِكَ مِنْهُ عَبْدُكَ وَنَبِيُّكَ",
+      "transliteration": "Allahumma inni as'aluka min khayri ma sa'alaka minhu 'abduka wa nabiyyuka wa a'udhu bika min sharri ma 'adha bika minhu 'abduka wa nabiyyuk",
+      "english": "O Allah, I ask You for the good that Your servant and Prophet asked You for, and I seek refuge in You from the evil that Your servant and Prophet sought refuge in You from.",
+      "benefits": "Following the example of Prophet Muhammad (ﷺ) in supplication",
+      "source": "Ibn Majah",
+      "occasion": "When feeling lonely or disconnected",
+      "color": "#8B5CF6"
+    },
+    {
+      "id": 8,
+      "title": "For Patience in Hardship",
+      "arabic": "اللَّهُمَّ لاَ سَهْلَ إِلاَّ مَا جَعَلْتَهُ سَهْلاً وَأَنْتَ تَجْعَلُ الْحَزْنَ إِذَا شِئْتَ سَهْلاً",
+      "transliteration": "Allahumma la sahla illa ma ja'altahu sahlan wa anta taj'alul-hazna idha shi'ta sahla",
+      "english": "O Allah, nothing is easy except what You have made easy. If You wish, You can make the difficult easy.",
+      "benefits": "Finding ease in difficulty through Allah's help",
+      "source": "Ibn Hibban",
+      "occasion": "When facing difficulties or hardships",
+      "color": "#8B5CF6"
+    },
+    {
+      "id": 9,
+      "title": "When Feeling Stressed",
+      "arabic": "اللَّهُمَّ رَحْمَتَكَ أَرْجُو فَلاَ تَكِلْنِي إِلَى نَفْسِي طَرْفَةَ عَيْنٍ وَأَصْلِحْ لِي شَأْنِي كُلَّهُ لاَ إِلَهَ إِلاَّ أَنْتَ",
+      "transliteration": "Allahumma rahmataka arju fala takilni ila nafsi tarfata 'aynin wa aslih li sha'ni kullahu la ilaha illa ant",
+      "english": "O Allah, it is Your mercy that I hope for, so do not leave me in charge of my affairs even for a blink of an eye and rectify for me all of my affairs. None has the right to be worshipped except You.",
+      "benefits": "Seeking Allah's mercy and help in managing life's affairs",
+      "source": "Abu Dawud",
+      "occasion": "When feeling stressed or unable to cope",
+      "color": "#8B5CF6"
+    },
+    {
+      "id": 10,
+      "title": "For Inner Peace",
+      "arabic": "رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ",
+      "transliteration": "Rabbana atina fi'd-dunya hasanatan wa fi'l-akhirati hasanatan wa qina 'adhab an-nar",
+      "english": "Our Lord, give us in this world that which is good and in the next world that which is good, and save us from the punishment of the Fire.",
+      "benefits": "Comprehensive supplication for goodness in this life and the next",
+      "source": "Quran 2:201",
+      "occasion": "When seeking peace and goodness in all aspects of life",
+      "color": "#8B5CF6"
+    },
+    {
+      "id": 11,
+      "title": "When Feeling Fear",
+      "arabic": "اللَّهُ اللَّهُ رَبِّي لاَ أُشْرِكُ بِهِ شَيْئاً",
+      "transliteration": "Allahu Allahu rabbi la ushriku bihi shay'a",
+      "english": "Allah, Allah is my Lord, I do not associate anything with Him.",
+      "benefits": "Finding safety and protection through affirming Allah's lordship",
+      "source": "Abu Dawud",
+      "occasion": "When feeling afraid or threatened",
+      "color": "#8B5CF6"
+    },
+    {
+      "id": 12,
+      "title": "For Contentment",
+      "arabic": "اللَّهُمَّ اكْفِنِي بِحَلاَلِكَ عَنْ حَرَامِكَ وَأَغْنِنِي بِفَضْلِكَ عَمَّنْ سِوَاكَ",
+      "transliteration": "Allahummakfini bihalalika 'an haramika wa aghnini bifadlika 'amman siwak",
+      "english": "O Allah, make what is lawful enough for me, as opposed to what is unlawful, and make me independent of all others besides You.",
+      "benefits": "Contentment with halal provision and independence through Allah",
+      "source": "At-Tirmidhi",
+      "occasion": "When seeking contentment and freedom from unlawful desires",
+      "color": "#8B5CF6"
+    }
+  ]
+} 

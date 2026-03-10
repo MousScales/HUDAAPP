@@ -1,0 +1,138 @@
+{
+  "expo": {
+    "name": "Hudā",
+    "slug": "huda-app",
+    "version": "1.10.0",
+    "orientation": "portrait",
+    "icon": "./assets/logo.png",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/load.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#FFFFFF"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "appleTeamId": "6TNGS7897R",
+      "supportsTablet": false,
+      "bundleIdentifier": "com.digaifounder.huda",
+      "buildNumber": "1.10.1",
+      "entitlements": {
+        "com.apple.security.application-groups": [
+          "group.com.digaifounder.huda"
+        ],
+        "com.apple.developer.family-controls": true
+      },
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "This app uses location to provide accurate prayer times for your area.",
+        "NSCameraUsageDescription": "This app uses camera for profile photos.",
+        "NSMicrophoneUsageDescription": "This app uses microphone for voice features.",
+        "UIBackgroundModes": [
+          "fetch",
+          "remote-notification"
+        ],
+        "ITSAppUsesNonExemptEncryption": false,
+        "NSTimeSensitiveNotificationsUsageDescription": "This app uses time-sensitive notifications to alert you of prayer times at the exact moment they occur.",
+        "NSSupportsLiveActivities": true,
+        "CFBundleURLTypes": [
+          {
+            "CFBundleURLSchemes": [
+              "huda"
+            ]
+          }
+        ]
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "package": "com.digaifounder.huda",
+      "versionCode": 10,
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "CAMERA",
+        "RECORD_AUDIO",
+        "VIBRATE",
+        "WAKE_LOCK",
+        "RECEIVE_BOOT_COMPLETED",
+        "SCHEDULE_EXACT_ALARM"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "@bacons/apple-targets",
+      "expo-dev-client",
+      "expo-apple-authentication",
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow Hudā to use your location to provide accurate prayer times."
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/icon.png",
+          "color": "#0F172A",
+          "sounds": [],
+          "mode": "development",
+          "categories": [
+            {
+              "identifier": "prayer",
+              "actions": [
+                {
+                  "identifier": "mark-complete",
+                  "buttonTitle": "Mark Complete",
+                  "options": {
+                    "isDestructive": false,
+                    "isAuthenticationRequired": false
+                  }
+                },
+                {
+                  "identifier": "mark-excused",
+                  "buttonTitle": "Mark Excused",
+                  "options": {
+                    "isDestructive": false,
+                    "isAuthenticationRequired": false
+                  }
+                }
+              ],
+              "options": {
+                "allowAnnouncement": true,
+                "allowInCarPlay": true,
+                "hiddenPreviewsShowTitle": true,
+                "hiddenPreviewsShowSubtitle": true,
+                "isTimeSensitive": true
+              }
+            }
+          ]
+        }
+      ],
+      [
+        "expo-background-fetch",
+        {
+          "minimumInterval": 60
+        }
+      ],
+      "expo-av",
+      "expo-audio"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "06fc807b-d01f-45d3-92e3-965e851cbb48"
+      }
+    },
+    "owner": "digaifounder",
+    "runtimeVersion": "1.10.0",
+    "updates": {
+      "url": "https://u.expo.dev/06fc807b-d01f-45d3-92e3-965e851cbb48"
+    }
+  }
+}

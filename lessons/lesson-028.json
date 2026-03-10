@@ -1,0 +1,27 @@
+{
+  "id": 28,
+  "title": "Introduction to Hadith Sciences",
+  "introduction": "Hadith sciences (Uloom al-Hadith) are the branch of Islamic knowledge that study the sayings, actions, and approvals of Prophet Muhammad ﷺ. Since the Quran commands us to follow the Prophet ﷺ, understanding authentic hadith is essential for practicing Islam correctly. The science of hadith connects us to the Sunnah, explaining how to live the Quran in daily life.",
+  "sections": [
+    {
+      "heading": "What is Hadith?",
+      "content": "A hadith is a report describing what the Prophet ﷺ said, did, approved, or sometimes silently allowed. Hadiths serve as a practical explanation of the Quran — they clarify commands, provide details about worship, and guide Muslims in manners, ethics, and dealing with others. For example, while the Quran commands prayer, the hadith shows us the exact way the Prophet ﷺ prayed. Allah says: 'Nor does he speak from [his own] desire. It is not but a revelation revealed.' (Quran 53:3-4)."
+    },
+    {
+      "heading": "Preservation of Hadith",
+      "content": "After the Prophet ﷺ passed away, his companions carefully preserved his words and actions. Early Muslims memorized, wrote, and taught hadith with extreme care. As Islam spread, scholars developed rigorous sciences to verify every report. They examined the isnad (chain of narrators) and the matn (text) to ensure accuracy and reliability. Great scholars like Imam Bukhari and Imam Muslim spent years traveling and cross-checking narrators’ honesty and memory. This careful preservation protects the Sunnah from false or weak narrations."
+    },
+    {
+      "heading": "Types of Hadith",
+      "content": "Scholars classify hadith into different categories based on their authenticity and reliability:    - **Sahih (Authentic):** The chain is unbroken, narrators are trustworthy, and the text does not contradict stronger evidence.    - **Hasan (Good):** Slightly less strong than sahih but still reliable for practice.    - **Daif (Weak):** Has a break in the chain or narrators with weak memory — not used for core beliefs or rulings.    There are also fabricated (mawdu‘) hadiths, which scholars reject entirely. By studying these classifications, Muslims can distinguish between strong guidance and unreliable reports."
+    }
+  ],
+  "conclusion": "Studying hadith sciences helps us follow the Prophet’s ﷺ example with accuracy and confidence. It strengthens our love for the Sunnah and connects us to the generations who dedicated their lives to preserving it. Through this knowledge, we better understand how to live our faith day by day.",
+  "references": [
+    "Quran 53:3-4",
+    "Sahih Bukhari Introduction",
+    "Sahih Muslim Introduction",
+    "Tirmidhi Introduction",
+    "Nawawi's Forty Hadith Introduction"
+  ]
+}

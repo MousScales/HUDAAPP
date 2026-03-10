@@ -1,0 +1,73 @@
+{
+  "category": "general",
+  "name": "Dhikr Generale",
+  "description": "Dhikr generali da recitare in qualsiasi momento",
+  "dhikr": [
+    {
+      "id": 201,
+      "title": "Subhanallah",
+      "arabic": "سُبْحَانَ اللَّهِ",
+      "transliteration": "Subhanallah",
+      "english": "Gloria ad Allah",
+      "count": 33,
+      "benefits": "Purifica il cuore ed elimina i peccati minori",
+      "source": "Bukhari, Muslim",
+      "color": "#10B981"
+    },
+    {
+      "id": 202,
+      "title": "Alhamdulillah",
+      "arabic": "الْحَمْدُ لِلَّهِ",
+      "transliteration": "Alhamdulillah",
+      "english": "Tutte le lodi appartengono ad Allah",
+      "count": 33,
+      "benefits": "Esprime gratitudine e aumenta le benedizioni",
+      "source": "Bukhari, Muslim",
+      "color": "#10B981"
+    },
+    {
+      "id": 203,
+      "title": "Allahu Akbar",
+      "arabic": "اللَّهُ أَكْبَرُ",
+      "transliteration": "Allahu Akbar",
+      "english": "Allah è il Più Grande",
+      "count": 33,
+      "benefits": "Rafforza la fede e umilia l'ego",
+      "source": "Bukhari, Muslim",
+      "color": "#10B981"
+    },
+    {
+      "id": 204,
+      "title": "La Ilaha Illallah",
+      "arabic": "لَا إِلَهَ إِلَّا اللَّهُ",
+      "transliteration": "La ilaha illallah",
+      "english": "Non c'è dio eccetto Allah",
+      "count": 100,
+      "benefits": "Rinnova la fede e purifica il cuore",
+      "source": "Bukhari, Muslim",
+      "color": "#10B981"
+    },
+    {
+      "id": 205,
+      "title": "Astaghfirullah",
+      "arabic": "أَسْتَغْفِرُ اللَّهَ",
+      "transliteration": "Astaghfirullah",
+      "english": "Chiedo perdono ad Allah",
+      "count": 100,
+      "benefits": "Espia i peccati e attira il perdono divino",
+      "source": "Abu Dawud",
+      "color": "#10B981"
+    },
+    {
+      "id": 206,
+      "title": "La Hawla Wala Quwwata",
+      "arabic": "لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ",
+      "transliteration": "La hawla wala quwwata illa billah",
+      "english": "Non c'è potere né forza eccetto con Allah",
+      "count": 100,
+      "benefits": "Rafforza la fiducia in Allah ed elimina l'ansia",
+      "source": "Bukhari, Muslim",
+      "color": "#10B981"
+    }
+  ]
+} 

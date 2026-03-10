@@ -1,0 +1,62 @@
+{
+  "category": "afterPrayer",
+  "name": "Dhikr Après la Prière",
+  "description": "Dhikr à réciter après les prières",
+  "dhikrs": [
+    {
+      "id": 301,
+      "title": "Subhanallah",
+      "arabic": "سُبْحَانَ اللَّهِ",
+      "transliteration": "Subhanallah",
+      "translation": "Gloire à Allah",
+      "count": 33,
+      "benefits": "Purifie le cœur et efface les péchés mineurs",
+      "source": "Bukhari, Muslim",
+      "color": "#3B82F6"
+    },
+    {
+      "id": 302,
+      "title": "Alhamdulillah",
+      "arabic": "الْحَمْدُ لِلَّهِ",
+      "transliteration": "Alhamdulillah",
+      "translation": "Toute louange appartient à Allah",
+      "count": 33,
+      "benefits": "Exprime la gratitude et augmente les bénédictions",
+      "source": "Bukhari, Muslim",
+      "color": "#3B82F6"
+    },
+    {
+      "id": 303,
+      "title": "Allahu Akbar",
+      "arabic": "اللَّهُ أَكْبَرُ",
+      "transliteration": "Allahu Akbar",
+      "translation": "Allah est le Plus Grand",
+      "count": 33,
+      "benefits": "Renforce la foi et humilie l'ego",
+      "source": "Bukhari, Muslim",
+      "color": "#3B82F6"
+    },
+    {
+      "id": 304,
+      "title": "La Ilaha Illallah",
+      "arabic": "لَا إِلَهَ إِلَّا اللَّهُ",
+      "transliteration": "La ilaha illallah",
+      "translation": "Il n'y a de dieu qu'Allah",
+      "count": 100,
+      "benefits": "Renouvelle la foi et purifie le cœur",
+      "source": "Bukhari, Muslim",
+      "color": "#3B82F6"
+    },
+    {
+      "id": 305,
+      "title": "Astaghfirullah",
+      "arabic": "أَسْتَغْفِرُ اللَّهَ",
+      "transliteration": "Astaghfirullah",
+      "translation": "Je demande pardon à Allah",
+      "count": 100,
+      "benefits": "Expie les péchés et attire le pardon divin",
+      "source": "Abu Dawud",
+      "color": "#3B82F6"
+    }
+  ]
+} 

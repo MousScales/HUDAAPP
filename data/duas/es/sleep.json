@@ -1,0 +1,139 @@
+{
+  "category": "sleep",
+  "name": "Duas para Dormir",
+  "description": "Duas para recitar antes de dormir y para un sueño tranquilo",
+  "duas": [
+    {
+      "id": 1,
+      "title": "Antes de Dormir",
+      "arabic": "بِاسْمِكَ رَبِّي وَضَعْتُ جَنْبِي وَبِكَ أَرْفَعُهُ فَإِنْ أَمْسَكْتَ نَفْسِي فَارْحَمْهَا وَإِنْ أَرْسَلْتَهَا فَاحْفَظْهَا بِمَا تَحْفَظُ بِهِ عِبَادَكَ الصَّالِحِينَ",
+      "transliteration": "Bismika rabbi wada'tu janbi wa bika arfa'uhu fa in amsakta nafsi farhamha wa in arsaltaha fahfazha bima tahfazu bihi 'ibadakas-saliheen",
+      "english": "En Tu nombre, mi Señor, pongo mi costado y con Tu ayuda lo levanto. Si retienes mi alma, ten misericordia de ella, y si la envías, protégela con lo que proteges a Tus siervos rectos",
+      "benefits": "Para protección durante el sueño y misericordia divina",
+      "source": "Bukhari",
+      "occasion": "Antes de dormir",
+      "color": "#3498DB"
+    },
+    {
+      "id": 2,
+      "title": "Para un Sueño Tranquilo",
+      "arabic": "اللَّهُمَّ إِنِّي أَسْلَمْتُ نَفْسِي إِلَيْكَ وَفَوَّضْتُ أَمْرِي إِلَيْكَ وَوَجَّهْتُ وَجْهِي إِلَيْكَ وَأَلْجَأْتُ ظَهْرِي إِلَيْكَ رَغْبَةً وَرَهْبَةً إِلَيْكَ لَا مَلْجَأَ وَلَا مَنْجَا مِنْكَ إِلَّا إِلَيْكَ آمَنْتُ بِكِتَابِكَ الَّذِي أَنْزَلْتَ وَبِنَبِيِّكَ الَّذِي أَرْسَلْتَ",
+      "transliteration": "Allahumma inni aslamtu nafsi ilayka wa fawwadtu amri ilayka wa wajjahtu wajhi ilayka wa alja'tu zahri ilayka raghbatan wa rahbatan ilayka la malja'a wa la manja minka illa ilayka amantu bikitabikalladhi anzalta wa binabiyyikalladhi arsalta",
+      "english": "O Allah, he entregado mi alma a Ti, he confiado mi asunto a Ti, he dirigido mi rostro hacia Ti, he puesto mi espalda en Ti, con deseo y temor hacia Ti. No hay refugio ni escape de Ti excepto hacia Ti. He creído en Tu libro que has revelado y en Tu profeta que has enviado",
+      "benefits": "Para confiar completamente en Allah antes de dormir",
+      "source": "Bukhari",
+      "occasion": "Antes de dormir",
+      "color": "#3498DB"
+    },
+    {
+      "id": 3,
+      "title": "Para Protección Nocturna",
+      "arabic": "أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ الَّتِي لَا يُجَاوِزُهُنَّ بَرٌّ وَلَا فَاجِرٌ",
+      "transliteration": "A'udhu bi kalimatillahit-tammatillati la yujawizuhunna barrun wa la fajir",
+      "english": "Me refugio en las palabras perfectas de Allah que ni el justo ni el malvado pueden superar",
+      "benefits": "Para protección contra el mal durante la noche",
+      "source": "Muslim",
+      "occasion": "Protección nocturna",
+      "color": "#3498DB"
+    },
+    {
+      "id": 4,
+      "title": "Para el Descanso",
+      "arabic": "اللَّهُمَّ قِنِي عَذَابَكَ يَوْمَ تَبْعَثُ عِبَادَكَ",
+      "transliteration": "Allahumma qini 'adhabaka yawma tab'athu 'ibadak",
+      "english": "O Allah, protégeme de Tu castigo el día en que resucites a Tus siervos",
+      "benefits": "Para protección del castigo divino",
+      "source": "Abu Dawud",
+      "occasion": "Antes de dormir",
+      "color": "#3498DB"
+    },
+    {
+      "id": 5,
+      "title": "Para la Gratitud",
+      "arabic": "الْحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنِي هَذَا وَرَزَقَنِيهِ مِنْ غَيْرِ حَوْلٍ مِنِّي وَلَا قُوَّةٍ",
+      "transliteration": "Alhamdu lillahilladhi at'amani hadha wa razaqanihi min ghayri hawlin minni wa la quwwah",
+      "english": "Todas las alabanzas son para Allah quien me alimentó con esto y me lo proporcionó sin mi poder ni fuerza",
+      "benefits": "Para expresar gratitud por las bendiciones",
+      "source": "Abu Dawud",
+      "occasion": "Gratitud",
+      "color": "#3498DB"
+    },
+    {
+      "id": 6,
+      "title": "Cuando Se Tienen Malos Sueños",
+      "arabic": "أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ مِنْ غَضَبِهِ وَعِقَابِهِ وَشَرِّ عِبَادِهِ وَمِنْ هَمَزَاتِ الشَّيَاطِينِ وَأَنْ يَحْضُرُونِ",
+      "transliteration": "A'udhu bikalimat-illahi at-tammati min ghadabihi wa 'iqabihi wa sharri 'ibadihi wa min hamazatish-shayateeni wa an yahduroon",
+      "english": "Me refugio en las palabras perfectas de Allah de Su ira y castigo, del mal de Sus siervos, y de los susurros de los demonios y su presencia.",
+      "benefits": "Protección de pesadillas y sueños malos",
+      "source": "Abu Dawud, At-Tirmidhi",
+      "occasion": "Cuando se experimentan malos sueños o pesadillas",
+      "color": "#6366F1"
+    },
+    {
+      "id": 7,
+      "title": "Al Despertar por la Mañana",
+      "arabic": "الْحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا وَإِلَيْهِ النُّشُورُ",
+      "transliteration": "Alhamdu lillahi alladhi ahyana ba'da ma amatana wa ilayhin-nushur",
+      "english": "Todas las alabanzas son para Allah quien nos dio vida después de habérnosla quitado y hacia Él es la resurrección.",
+      "benefits": "Comenzar el día con gratitud y recuerdo de Allah",
+      "source": "Bukhari",
+      "occasion": "Primera cosa al despertar",
+      "color": "#6366F1"
+    },
+    {
+      "id": 8,
+      "title": "Cuando No Se Puede Dormir",
+      "arabic": "اللَّهُمَّ رَبَّ السَّمَوَاتِ السَّبْعِ وَمَا أَظَلَّتْ وَرَبَّ الأَرَضِينَ وَمَا أَقَلَّتْ وَرَبَّ الشَّيَاطِينِ وَمَا أَضَلَّتْ كُنْ لِي جَاراً مِنْ شَرِّ خَلْقِكَ أَجْمَعِينَ أَنْ يَفْرُطَ عَلَيَّ أَحَدٌ مِنْهُمْ أَوْ يَطْغَى عَزَّ جَارُكَ وَجَلَّ ثَنَاؤُكَ وَلاَ إِلَهَ إِلاَّ أَنْتَ",
+      "transliteration": "Allahumma rabbas-samawatis-sab'i wa ma azallat wa rabbal-aradeena wa ma aqallat wa rabbash-shayateeni wa ma adallat kun li jaran min sharri khalqika ajma'een an yafruta 'alayya ahadun minhum aw yatgha, 'azza jaruka wa jalla thana'uka wa la ilaha illa ant",
+      "english": "O Allah, Señor de los siete cielos y todo lo que cubren, Señor de las tierras y todo lo que llevan, Señor de los demonios y todos los que extravían, sé mi protector del mal de toda Tu creación, para que ninguno de ellos transgreda contra mí o me oprima. Honrado es Tu amparo, y bendito es Tu nombre, y no hay deidad excepto Tú.",
+      "benefits": "Protección y paz para quienes no pueden dormir",
+      "source": "At-Tirmidhi",
+      "occasion": "Cuando no se puede conciliar el sueño debido a preocupación o miedo",
+      "color": "#6366F1"
+    },
+    {
+      "id": 9,
+      "title": "Al Tomar una Siesta",
+      "arabic": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ تَحْوِيلِ عَافِيَتِكَ وَفُجَاءَةِ نِقْمَتِكَ وَجَمِيعِ سَخَطِكَ",
+      "transliteration": "Allahumma inni a'udhu bika min tahweeli 'afiyatika wa fuja'ati niqmatika wa jamee'i sakhatik",
+      "english": "O Allah, me refugio en Ti del cambio de Tu favor, de la repentinidad de Tu castigo, y de todo Tu desagrado.",
+      "benefits": "Buscar la protección de Allah durante el descanso",
+      "source": "Muslim",
+      "occasion": "Antes de tomar una siesta durante el día",
+      "color": "#6366F1"
+    },
+    {
+      "id": 10,
+      "title": "Para el Sueño de los Niños",
+      "arabic": "أُعِيذُكَ بِكَلِمَاتِ اللَّهِ التَّامَّةِ مِنْ كُلِّ شَيْطَانٍ وَهَامَّةٍ وَمِنْ كُلِّ عَيْنٍ لاَمَّةٍ",
+      "transliteration": "U'eedhuka bi kalimat-illahit-tammati min kulli shaytanin wa hammatin wa min kulli 'aynin lammah",
+      "english": "Busco protección para ti en las palabras perfectas de Allah de todo demonio y plaga venenosa y de todo ojo malvado, dañino y envidioso.",
+      "benefits": "Protección para los niños durante el sueño",
+      "source": "Bukhari",
+      "occasion": "Cuando se acuesta a los niños",
+      "color": "#6366F1"
+    },
+    {
+      "id": 11,
+      "title": "Cuando Se Siente Inquieto por la Noche",
+      "arabic": "لاَ إِلَهَ إِلاَّ اللَّهُ الْوَاحِدُ الْقَهَّارُ رَبُّ السَّمَوَاتِ وَالأَرْضِ وَمَا بَيْنَهُمَا الْعَزِيزُ الْغَفَّارُ",
+      "transliteration": "La ilaha illallahul-wahidul-qahhar, rabbas-samawati wal-ardi wa ma baynahumal-'azeezul-ghaffar",
+      "english": "No hay deidad excepto Allah, el Único, el Dominante. Señor de los cielos y la tierra y todo lo que hay entre ellos, el Poderoso, el Perpetuo Perdonador.",
+      "benefits": "Paz y tranquilidad durante las noches inquietas",
+      "source": "Ibn Hibban",
+      "occasion": "Cuando se siente inquieto o ansioso por la noche",
+      "color": "#6366F1"
+    },
+    {
+      "id": 12,
+      "title": "Antes del Amanecer (Hora de Tahajjud)",
+      "arabic": "اللَّهُمَّ لَكَ الْحَمْدُ أَنْتَ نُورُ السَّمَوَاتِ وَالأَرْضِ وَمَنْ فِيهِنَّ وَلَكَ الْحَمْدُ أَنْتَ قَيِّمُ السَّمَوَاتِ وَالأَرْضِ وَمَنْ فِيهِنَّ",
+      "transliteration": "Allahumma lakal-hamdu anta noorus-samawati wal-ardi wa man feehinna wa lakal-hamdu anta qayyimus-samawati wal-ardi wa man feehinn",
+      "english": "O Allah, a Ti pertenecen todas las alabanzas. Tú eres la Luz de los cielos y la tierra y quien esté en ellos. Y a Ti pertenecen todas las alabanzas, Tú eres el Sustentador de los cielos y la tierra y quien esté en ellos.",
+      "benefits": "Preparación espiritual para la oración nocturna y la adoración",
+      "source": "Bukhari, Muslim",
+      "occasion": "Cuando se despierta para la oración nocturna (Tahajjud)",
+      "color": "#6366F1"
+    }
+  ]
+} 

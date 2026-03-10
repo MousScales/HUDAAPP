@@ -1,0 +1,62 @@
+{
+  "category": "morning",
+  "name": "Dhikr du Matin",
+  "description": "Dhikr authentiques du matin pour commencer la journée avec les bénédictions d'Allah",
+  "dhikrs": [
+    {
+      "id": 1,
+      "title": "Déclaration de Foi du Matin",
+      "arabic": "أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ وَالْحَمْدُ لِلَّهِ لاَ إِلَهَ إِلاَّ اللَّهُ وَحْدَهُ لاَ شَرِيكَ لَهُ لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ",
+      "transliteration": "Asbahna wa asbahal-mulku lillah walhamdu lillah la ilaha illa Allah wahdahu la shareeka lah, lahul-mulku wa lahul-hamdu wa huwa 'ala kulli shay'in qadeer",
+      "translation": "Nous avons atteint le matin et à ce moment même, toute la souveraineté appartient à Allah. Toute louange est pour Allah. Nul n'a le droit d'être adoré sauf Allah, seul, sans associé, à Lui appartient toute la souveraineté et la louange et Il est omnipotent sur toute chose.",
+      "benefits": "Protection et bénédictions pour la journée",
+      "source": "Abu Dawud",
+      "repetitions": "1 fois",
+      "color": "#FFB347"
+    },
+    {
+      "id": 2,
+      "title": "Demander la Suffisance d'Allah",
+      "arabic": "حَسْبِيَ اللَّهُ لاَ إِلَهَ إِلاَّ هُوَ عَلَيْهِ تَوَكَّلْتُ وَهُوَ رَبُّ الْعَرْشِ الْعَظِيمِ",
+      "transliteration": "Hasbiyal-lahu la ilaha illa huwa 'alayhi tawakkaltu wa huwa rabbul-'arshil-'azeem",
+      "translation": "Allah me suffit, nul n'a le droit d'être adoré sauf Lui, en Lui je place ma confiance et Il est le Seigneur du Trône majestueux.",
+      "benefits": "Allah suffira à quiconque dit cela 7 fois le matin et le soir contre tout ce qui l'inquiète",
+      "source": "Abu Dawud",
+      "repetitions": "7 fois",
+      "color": "#FFB347"
+    },
+    {
+      "id": 3,
+      "title": "Demander Protection Contre Tout Mal",
+      "arabic": "أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ الَّتِي لاَ يُجَاوِزُهُنَّ بَرٌّ وَلاَ فَاجِرٌ",
+      "transliteration": "A'udhu bi kalimatil-lahit-tammatil-lati la yujawizuhunna barrun wa la fajir",
+      "translation": "Je cherche refuge dans les paroles parfaites d'Allah qu'aucun être vertueux ou pervers ne peut dépasser.",
+      "benefits": "Protection complète contre tout mal",
+      "source": "Muslim",
+      "repetitions": "3 fois",
+      "color": "#FFB347"
+    },
+    {
+      "id": 4,
+      "title": "Gloire à Allah et Louange à Lui",
+      "arabic": "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ",
+      "transliteration": "Subhanallahi wa bihamdihi",
+      "translation": "Gloire à Allah et louange à Lui.",
+      "benefits": "Celui qui dit cela cent fois le matin et le soir, ses péchés seront effacés même s'ils sont comme l'écume de la mer",
+      "source": "Bukhari, Muslim",
+      "repetitions": "100 fois",
+      "color": "#FFB347"
+    },
+    {
+      "id": 5,
+      "title": "Il n'y a de Dieu qu'Allah",
+      "arabic": "لاَ إِلَهَ إِلاَّ اللَّهُ وَحْدَهُ لاَ شَرِيكَ لَهُ لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ",
+      "transliteration": "La ilaha illa Allah wahdahu la shareeka lah, lahul-mulku wa lahul-hamdu wa huwa 'ala kulli shay'in qadeer",
+      "translation": "Il n'y a de dieu qu'Allah, seul, sans associé, à Lui appartient la souveraineté et la louange et Il est omnipotent sur toute chose.",
+      "benefits": "Protection et bénédictions pour la journée",
+      "source": "Abu Dawud",
+      "repetitions": "1 fois",
+      "color": "#FFB347"
+    }
+  ]
+} 

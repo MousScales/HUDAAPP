@@ -1,0 +1,139 @@
+{
+  "category": "travel",
+  "name": "Duas de Voyage",
+  "description": "Duas pour la sécurité et la bénédiction pendant les voyages",
+  "duas": [
+    {
+      "id": 1,
+      "title": "Au Départ en Voyage",
+      "arabic": "اللَّهُمَّ إِنَّا نَسْأَلُكَ فِي سَفَرِنَا هَذَا الْبِرَّ وَالتَّقْوَى وَمِنَ الْعَمَلِ مَا تَرْضَى اللَّهُمَّ هَوِّنْ عَلَيْنَا سَفَرَنَا هَذَا وَاطْوِ عَنَّا بُعْدَهُ",
+      "transliteration": "Allahumma inna nas'aluka fi safarina hadha al-birra wat-taqwa wa minal-'amali ma tardha allahumma hawwin 'alayna safarana hadha watwi 'anna bu'dahu",
+      "english": "O Allah, nous Te demandons dans ce voyage la piété et la crainte, et des actions qui Te plaisent. O Allah, facilite-nous ce voyage et raccourcis pour nous sa distance",
+      "benefits": "Pour la sécurité et la facilité du voyage",
+      "source": "Muslim",
+      "occasion": "Au départ",
+      "color": "#FF9800"
+    },
+    {
+      "id": 2,
+      "title": "En Montant un Véhicule",
+      "arabic": "بِسْمِ اللَّهِ",
+      "transliteration": "Bismillah",
+      "english": "Au nom d'Allah",
+      "benefits": "Pour la bénédiction et la protection",
+      "source": "Abu Dawud",
+      "occasion": "En montant",
+      "color": "#FF9800"
+    },
+    {
+      "id": 3,
+      "title": "Pour la Protection du Voyage",
+      "arabic": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ وَعْثَاءِ السَّفَرِ وَكَآبَةِ الْمَنْظَرِ وَسُوءِ الْمُنْقَلَبِ فِي الْمَالِ وَالْأَهْلِ",
+      "transliteration": "Allahumma inni a'udhu bika min wa'thaa'is-safari wa ka'abatil-manzari wa su'il-munqalabi fil-mali wal-ahli",
+      "english": "O Allah, je me réfugie en Toi contre la fatigue du voyage, la tristesse du spectacle et le mauvais retour dans les biens et la famille",
+      "benefits": "Pour la protection contre les difficultés du voyage",
+      "source": "Muslim",
+      "occasion": "Protection",
+      "color": "#FF9800"
+    },
+    {
+      "id": 4,
+      "title": "En Entrant dans une Ville",
+      "arabic": "اللَّهُمَّ بَارِكْ لَنَا فِيهَا اللَّهُمَّ ارْزُقْنَا جَلَابِيبَهَا وَحُبَّهَا إِلَى قُلُوبِنَا",
+      "transliteration": "Allahumma barik lana fiha allahummar-zuqna jalabibaha wa hubbaha ila qulubina",
+      "english": "O Allah, bénis-nous en elle. O Allah, accorde-nous ses fruits et fais que nous l'aimions dans nos cœurs",
+      "benefits": "Pour la bénédiction de la destination",
+      "source": "Abu Dawud",
+      "occasion": "En entrant",
+      "color": "#FF9800"
+    },
+    {
+      "id": 5,
+      "title": "Au Retour de Voyage",
+      "arabic": "آيِبُونَ تَائِبُونَ عَابِدُونَ لِرَبِّنَا حَامِدُونَ",
+      "transliteration": "Ayibuna ta'ibuna 'abiduna li rabbina hamidun",
+      "english": "Nous revenons, nous nous repentons, nous adorons notre Seigneur, nous Le louons",
+      "benefits": "Pour remercier Allah du voyage en sécurité",
+      "source": "Muslim",
+      "occasion": "Au retour",
+      "color": "#FF9800"
+    },
+    {
+      "id": 6,
+      "title": "En Montant (Gravir une Pente)",
+      "arabic": "اللَّهُ أَكْبَرُ",
+      "transliteration": "Allahu akbar",
+      "english": "Allah est le plus grand.",
+      "benefits": "Se souvenir de la grandeur d'Allah en montant",
+      "source": "Boukhari",
+      "occasion": "En gravissant une pente ou en montant",
+      "color": "#F97316"
+    },
+    {
+      "id": 7,
+      "title": "En Descendant (Descendre une Pente)",
+      "arabic": "سُبْحَانَ اللَّهِ",
+      "transliteration": "Subhan Allah",
+      "english": "Gloire à Allah.",
+      "benefits": "Glorifier Allah en descendant",
+      "source": "Boukhari",
+      "occasion": "En descendant une pente ou en descendant",
+      "color": "#F97316"
+    },
+    {
+      "id": 8,
+      "title": "En Voyageant par Mer/Air",
+      "arabic": "بِسْمِ اللَّهِ مَجْرَاهَا وَمُرْسَاهَا إِنَّ رَبِّي لَغَفُورٌ رَحِيمٌ",
+      "transliteration": "Bismillahi majraha wa mursaha inna rabbi la-ghafoorun raheem",
+      "english": "Au nom d'Allah soit son cours et son mouillage. En vérité mon Seigneur est Pardonneur et Miséricordieux.",
+      "benefits": "Sécurité pendant le voyage par mer ou air",
+      "source": "Quran 11:41",
+      "occasion": "En voyageant en bateau, avion ou sur l'eau",
+      "color": "#F97316"
+    },
+    {
+      "id": 9,
+      "title": "En Entrant dans une Nouvelle Ville/Pays",
+      "arabic": "اللَّهُمَّ رَبَّ السَّمَوَاتِ السَّبْعِ وَمَا أَظْلَلْنَ وَرَبَّ الأَرَضِينَ السَّبْعِ وَمَا أَقْلَلْنَ وَرَبَّ الشَّيَاطِينِ وَمَا أَضْلَلْنَ وَرَبَّ الرِّيَاحِ وَمَا ذَرَيْنَ أَسْأَلُكَ خَيْرَ هَذِهِ الْقَرْيَةِ وَخَيْرَ أَهْلِهَا وَخَيْرَ مَا فِيهَا وَأَعُوذُ بِكَ مِنْ شَرِّهَا وَشَرِّ أَهْلِهَا وَشَرِّ مَا فِيهَا",
+      "transliteration": "Allahumma rabbas-samawatis-sab'i wa ma azlalna wa rabbal-aradinas-sab'i wa ma aqlalna wa rabbash-shayateeni wa ma adlalna wa rabbar-riyahi wa ma dharayna as'aluka khayra hadhihil-qaryati wa khayra ahliha wa khayra ma fiha wa a'udhu bika min sharriha wa sharri ahliha wa sharri ma fiha",
+      "english": "Ô Allah, Seigneur des sept cieux et tout ce qu'ils couvrent, Seigneur des sept terres et tout ce qu'elles portent, Seigneur des démons et tous ceux qu'ils égarent, Seigneur des vents et tous ceux qu'ils dispersent, je Te demande le bien de cette ville, le bien de ses habitants, et le bien qu'elle contient. Je me réfugie en Toi contre son mal, le mal de ses habitants, et contre le mal qu'elle contient.",
+      "benefits": "Protection et bénédiction en entrant dans un nouveau lieu",
+      "source": "Al-Hakim, Ibn Hibban",
+      "occasion": "En entrant dans une nouvelle ville ou pays",
+      "color": "#F97316"
+    },
+    {
+      "id": 10,
+      "title": "Pour un Voyage Sûr",
+      "arabic": "اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنْ خَيْرِ هَذِهِ السَّفَرِ وَخَيْرِ مَا فِيهَا وَأَعُوذُ بِكَ مِنْ شَرِّهَا وَشَرِّ مَا فِيهَا",
+      "transliteration": "Allahumma inni as'aluka min khayri hadhihis-safari wa khayri ma fiha wa a'udhu bika min sharriha wa sharri ma fiha",
+      "english": "Ô Allah, je Te demande le bien de ce voyage et le bien de ce qu'il contient, et je me réfugie en Toi contre son mal et le mal de ce qu'il contient.",
+      "benefits": "Chercher le bien et la protection contre le mal pendant le voyage",
+      "source": "Muslim",
+      "occasion": "Avant ou pendant tout voyage",
+      "color": "#F97316"
+    },
+    {
+      "id": 11,
+      "title": "En Atteignant la Destination",
+      "arabic": "الْحَمْدُ لِلَّهِ الَّذِي بَلَّغَنَا هَذَا الْمَكَانَ بِسَلاَمَةٍ",
+      "transliteration": "Alhamdu lillahi alladhi ballaghana hadhal-makana bi-salamah",
+      "english": "Toutes les louanges sont pour Allah Qui nous a amenés à cet endroit en sécurité.",
+      "benefits": "Gratitude pour l'arrivée sûre à destination",
+      "source": "Tradition islamique",
+      "occasion": "En arrivant sûrement à destination",
+      "color": "#F97316"
+    },
+    {
+      "id": 12,
+      "title": "Quand le Véhicule Tombe en Panne",
+      "arabic": "لاَ حَوْلَ وَلاَ قُوَّةَ إِلاَّ بِاللَّهِ الْعَلِيِّ الْعَظِيمِ",
+      "transliteration": "La hawla wa la quwwata illa billahil-'aliyyil-'azeem",
+      "english": "Il n'y a de puissance ni de force qu'en Allah, l'Exalté, le Puissant.",
+      "benefits": "Chercher l'aide d'Allah dans les situations difficiles de voyage",
+      "source": "Diverses sources authentiques",
+      "occasion": "En faisant face à des problèmes de véhicule ou des difficultés de voyage",
+      "color": "#F97316"
+    }
+  ]
+} 

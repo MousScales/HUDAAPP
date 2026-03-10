@@ -1,0 +1,73 @@
+{
+  "category": "istighfar",
+  "name": "Dhikr d'Istighfar",
+  "description": "Dhikr de pardon et de repentir",
+  "dhikrs": [
+    {
+      "id": 401,
+      "title": "Astaghfirullah",
+      "arabic": "أَسْتَغْفِرُ اللَّهَ",
+      "transliteration": "Astaghfirullah",
+      "translation": "Je demande pardon à Allah",
+      "count": 100,
+      "benefits": "Expie les péchés et attire le pardon divin",
+      "source": "Abu Dawud",
+      "color": "#8B5CF6"
+    },
+    {
+      "id": 402,
+      "title": "Astaghfirullah Al-Azim",
+      "arabic": "أَسْتَغْفِرُ اللَّهَ الْعَظِيمَ",
+      "transliteration": "Astaghfirullah al-Azim",
+      "translation": "Je demande pardon à Allah le Plus Grand",
+      "count": 100,
+      "benefits": "Pardon des péchés majeurs et mineurs",
+      "source": "Bukhari, Muslim",
+      "color": "#8B5CF6"
+    },
+    {
+      "id": 403,
+      "title": "Astaghfirullah Al-Lazi",
+      "arabic": "أَسْتَغْفِرُ اللَّهَ الَّذِي لَا إِلَهَ إِلَّا هُوَ",
+      "transliteration": "Astaghfirullah al-lazi la ilaha illa huwa",
+      "translation": "Je demande pardon à Allah, il n'y a de dieu que Lui",
+      "count": 100,
+      "benefits": "Renouvelle la foi et purifie le cœur",
+      "source": "Abu Dawud",
+      "color": "#8B5CF6"
+    },
+    {
+      "id": 404,
+      "title": "Rabbighfirli",
+      "arabic": "رَبِّ اغْفِرْ لِي",
+      "transliteration": "Rabbighfirli",
+      "translation": "Mon Seigneur, pardonne-moi",
+      "count": 100,
+      "benefits": "Supplication humble pour le pardon",
+      "source": "Bukhari, Muslim",
+      "color": "#8B5CF6"
+    },
+    {
+      "id": 405,
+      "title": "Astaghfirullah Wa Atubu Ilayh",
+      "arabic": "أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ",
+      "transliteration": "Astaghfirullah wa atubu ilayh",
+      "translation": "Je demande pardon à Allah et je me repens devant Lui",
+      "count": 100,
+      "benefits": "Repentir sincère et retour vers Allah",
+      "source": "Abu Dawud",
+      "color": "#8B5CF6"
+    },
+    {
+      "id": 406,
+      "title": "Allahumma Anta Rabbi",
+      "arabic": "اللَّهُمَّ أَنْتَ رَبِّي",
+      "transliteration": "Allahumma anta Rabbi",
+      "translation": "Ô Allah, Tu es mon Seigneur",
+      "count": 100,
+      "benefits": "Reconnaissance de la souveraineté d'Allah",
+      "source": "Bukhari, Muslim",
+      "color": "#8B5CF6"
+    }
+  ]
+} 

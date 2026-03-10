@@ -1,0 +1,51 @@
+{
+  "category": "travel",
+  "name": "Dhikr del Viaje",
+  "description": "Dhikr para recitar durante los viajes",
+  "dhikr": [
+    {
+      "id": 601,
+      "title": "Allahu Akbar",
+      "arabic": "اللَّهُ أَكْبَرُ",
+      "transliteration": "Allahu Akbar",
+      "english": "Allah es el Más Grande",
+      "count": 3,
+      "benefits": "Protección durante el viaje",
+      "source": "Bujari, Muslim",
+      "color": "#F97316"
+    },
+    {
+      "id": 602,
+      "title": "Subhanallahi",
+      "arabic": "سُبْحَانَ اللَّهِ",
+      "transliteration": "Subhanallahi",
+      "english": "Gloria a Allah",
+      "count": 3,
+      "benefits": "Purifica el corazón durante el viaje",
+      "source": "Bujari, Muslim",
+      "color": "#F97316"
+    },
+    {
+      "id": 603,
+      "title": "Alhamdulillah",
+      "arabic": "الْحَمْدُ لِلَّهِ",
+      "transliteration": "Alhamdulillah",
+      "english": "Todas las alabanzas son para Allah",
+      "count": 3,
+      "benefits": "Gratitud por el viaje seguro",
+      "source": "Bujari, Muslim",
+      "color": "#F97316"
+    },
+    {
+      "id": 604,
+      "title": "La Ilaha Illallah",
+      "arabic": "لَا إِلَهَ إِلَّا اللَّهُ",
+      "transliteration": "La ilaha illallah",
+      "english": "No hay dios excepto Allah",
+      "count": 1,
+      "benefits": "Renueva la fe durante el viaje",
+      "source": "Bujari, Muslim",
+      "color": "#F97316"
+    }
+  ]
+} 

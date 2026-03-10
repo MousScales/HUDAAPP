@@ -1,0 +1,139 @@
+{
+  "category": "daily",
+  "name": "Daily Duas",
+  "description": "Essential duas for everyday situations and daily routine",
+  "duas": [
+    {
+      "id": 1,
+      "title": "Upon Waking Up",
+      "arabic": "الْحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا وَإِلَيْهِ النُّشُورُ",
+      "transliteration": "Alhamdu lillahi alladhi ahyana ba'da ma amatana wa ilayhin-nushur",
+      "english": "All praise is for Allah who gave us life after having taken it from us and unto Him is the resurrection.",
+      "benefits": "Thanking Allah for restoring life after sleep",
+      "source": "Bukhari",
+      "occasion": "Upon waking up",
+      "color": "#F59E0B"
+    },
+    {
+      "id": 2,
+      "title": "When Looking in the Mirror",
+      "arabic": "اللَّهُمَّ أَنْتَ حَسَّنْتَ خَلْقِي فَحَسِّنْ خُلُقِي",
+      "transliteration": "Allahumma anta hassanta khalqi fa hassin khuluqi",
+      "english": "O Allah, just as You have made my external features beautiful, make my character beautiful as well.",
+      "benefits": "Seeking beautiful character and inner beauty",
+      "source": "Ahmad",
+      "occasion": "When looking in the mirror",
+      "color": "#F59E0B"
+    },
+    {
+      "id": 3,
+      "title": "When Leaving the House",
+      "arabic": "بِسْمِ اللَّهِ تَوَكَّلْتُ عَلَى اللَّهِ وَلاَ حَوْلَ وَلاَ قُوَّةَ إِلاَّ بِاللَّهِ",
+      "transliteration": "Bismillahi tawakkaltu 'alallahi wa la hawla wa la quwwata illa billah",
+      "english": "In the name of Allah, I trust in Allah, and there is no might nor power except with Allah.",
+      "benefits": "Protection, guidance, and being spared from going astray",
+      "source": "Abu Dawud, At-Tirmidhi",
+      "occasion": "When leaving the house",
+      "color": "#F59E0B"
+    },
+    {
+      "id": 4,
+      "title": "When Entering the House",
+      "arabic": "اللَّهُمَّ إِنِّي أَسْأَلُكَ خَيْرَ الْمَوْلِجِ وَخَيْرَ الْمَخْرَجِ بِسْمِ اللَّهِ وَلَجْنَا وَبِسْمِ اللَّهِ خَرَجْنَا وَعَلَى اللَّهِ رَبِّنَا تَوَكَّلْنَا",
+      "transliteration": "Allahumma inni as'aluka khayral-mawliji wa khayral-makhraji bismillahi walajna wa bismillahi kharajna wa 'alallahi rabbina tawakkalna",
+      "english": "O Allah, I ask You for the best entering and the best exiting. In the name of Allah we enter, in the name of Allah we leave, and upon our Lord we depend.",
+      "benefits": "Blessing and protection for the home and family",
+      "source": "Abu Dawud",
+      "occasion": "When entering the house",
+      "color": "#F59E0B"
+    },
+    {
+      "id": 5,
+      "title": "Before Using the Bathroom",
+      "arabic": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْخُبُثِ وَالْخَبَائِثِ",
+      "transliteration": "Allahumma inni a'udhu bika minal-khubuthi wal-khaba'ith",
+      "english": "O Allah, I seek refuge with You from all evil and evil-doers.",
+      "benefits": "Protection from jinn and evil spirits",
+      "source": "Bukhari, Muslim",
+      "occasion": "Before entering the bathroom",
+      "color": "#F59E0B"
+    },
+    {
+      "id": 6,
+      "title": "After Using the Bathroom",
+      "arabic": "غُفْرَانَكَ",
+      "transliteration": "Ghufranaka",
+      "english": "I ask You (Allah) for forgiveness.",
+      "benefits": "Seeking Allah's forgiveness and expressing gratitude",
+      "source": "Abu Dawud, At-Tirmidhi",
+      "occasion": "After leaving the bathroom",
+      "color": "#F59E0B"
+    },
+    {
+      "id": 7,
+      "title": "When Wearing New Clothes",
+      "arabic": "اللَّهُمَّ لَكَ الْحَمْدُ أَنْتَ كَسَوْتَنِيهِ أَسْأَلُكَ خَيْرَهُ وَخَيْرَ مَا صُنِعَ لَهُ وَأَعُوذُ بِكَ مِنْ شَرِّهِ وَشَرِّ مَا صُنِعَ لَهُ",
+      "transliteration": "Allahumma lakal-hamdu anta kasawtanihi as'aluka khayrah wa khayra ma suni'a lah wa a'udhu bika min sharrih wa sharri ma suni'a lah",
+      "english": "O Allah, for You is all praise, You have clothed me with it. I ask You for the good of it and the good for which it was made, and I seek refuge with You from the evil of it and the evil for which it was made.",
+      "benefits": "Blessing and protection in wearing new clothes",
+      "source": "Abu Dawud, At-Tirmidhi",
+      "occasion": "When wearing new clothes",
+      "color": "#F59E0B"
+    },
+    {
+      "id": 8,
+      "title": "When Hearing Thunder",
+      "arabic": "سُبْحَانَ الَّذِي يُسَبِّحُ الرَّعْدُ بِحَمْدِهِ وَالْمَلاَئِكَةُ مِنْ خِيفَتِهِ",
+      "transliteration": "Subhanal-ladhi yusabbihur-ra'du bihamdih wal-mala'ikatu min khifatih",
+      "english": "Glory is to Him Whom thunder and angels glorify due to fear of Him.",
+      "benefits": "Protection from lightning and thunder",
+      "source": "Al-Bukhari in Al-Adab Al-Mufrad",
+      "occasion": "When hearing thunder",
+      "color": "#F59E0B"
+    },
+    {
+      "id": 9,
+      "title": "When It Rains",
+      "arabic": "اللَّهُمَّ صَيِّباً نَافِعاً",
+      "transliteration": "Allahumma sayyiban nafi'an",
+      "english": "O Allah, (send) beneficial rain.",
+      "benefits": "Seeking beneficial rain and blessings",
+      "source": "Bukhari",
+      "occasion": "When it rains",
+      "color": "#F59E0B"
+    },
+    {
+      "id": 10,
+      "title": "When Sneezing",
+      "arabic": "الْحَمْدُ لِلَّهِ",
+      "transliteration": "Alhamdulillah",
+      "english": "All praise is for Allah.",
+      "benefits": "Thanking Allah and seeking His mercy",
+      "source": "Bukhari",
+      "occasion": "When sneezing",
+      "color": "#F59E0B"
+    },
+    {
+      "id": 11,
+      "title": "When Someone Else Sneezes",
+      "arabic": "يَرْحَمُكَ اللَّهُ",
+      "transliteration": "Yarhamukallah",
+      "english": "May Allah have mercy upon you.",
+      "benefits": "Seeking Allah's mercy for the person who sneezed",
+      "source": "Bukhari",
+      "occasion": "When someone else sneezes and says Alhamdulillah",
+      "color": "#F59E0B"
+    },
+    {
+      "id": 12,
+      "title": "When Feeling Afraid",
+      "arabic": "لاَ إِلَهَ إِلاَّ اللَّهُ وَحْدَهُ لاَ شَرِيكَ لَهُ لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ",
+      "transliteration": "La ilaha illa Allah wahdahu la shareeka lah, lahul-mulku wa lahul-hamdu wa huwa 'ala kulli shay'in qadeer",
+      "english": "None has the right to be worshipped except Allah, alone, without partner, to Him belongs all sovereignty and praise and He is over all things omnipotent.",
+      "benefits": "Removing fear and anxiety, bringing peace of heart",
+      "source": "At-Tirmidhi",
+      "occasion": "When feeling afraid or anxious",
+      "color": "#F59E0B"
+    }
+  ]
+} 

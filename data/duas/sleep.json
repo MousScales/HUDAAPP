@@ -1,0 +1,139 @@
+{
+  "category": "sleep",
+  "name": "Sleep & Rest Duas",
+  "description": "Duas for bedtime, peaceful sleep, waking up, and nighttime protection",
+  "duas": [
+    {
+      "id": 1,
+      "title": "Before Going to Sleep",
+      "arabic": "بِاسْمِكَ رَبِّي وَضَعْتُ جَنْبِي وَبِكَ أَرْفَعُهُ فَإِنْ أَمْسَكْتَ نَفْسِي فَارْحَمْهَا وَإِنْ أَرْسَلْتَهَا فَاحْفَظْهَا بِمَا تَحْفَظُ بِهِ عِبَادَكَ الصَّالِحِينَ",
+      "transliteration": "Bismika rabbi wada'tu janbi wa bika arfa'uh fa in amsakta nafsi farhamha wa in arsaltaha fahfazha bima tahfazu bihi 'ibadakas-saliheen",
+      "english": "In Your name my Lord, I lie down and in Your name I rise, so if You should take my soul then have mercy upon it, and if You should return my soul then protect it in the manner You do so with Your righteous servants.",
+      "benefits": "Protection during sleep and peaceful rest",
+      "source": "Bukhari, Muslim",
+      "occasion": "When going to bed",
+      "color": "#6366F1"
+    },
+    {
+      "id": 2,
+      "title": "Ayat al-Kursi Before Sleep",
+      "arabic": "اللَّهُ لاَ إِلَهَ إِلاَّ هُوَ الْحَيُّ الْقَيُّومُ لاَ تَأْخُذُهُ سِنَةٌ وَلاَ نَوْمٌ لَهُ مَا فِي السَّمَوَاتِ وَمَا فِي الأَرْضِ مَنْ ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلاَّ بِإِذْنِهِ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ وَلاَ يُحِيطُونَ بِشَيْءٍ مِنْ عِلْمِهِ إِلاَّ بِمَا شَاءَ وَسِعَ كُرْسِيُّهُ السَّمَوَاتِ وَالأَرْضَ وَلاَ يَئُودُهُ حِفْظُهُمَا وَهُوَ الْعَلِيُّ الْعَظِيمُ",
+      "transliteration": "Allahu la ilaha illa huwal-hayyul-qayyoom, la ta'khudhuh sinatun wa la nawm, lahu ma fis-samawati wa ma fil-ard, man dhal-ladhi yashfa'u 'indahu illa bi-idhnih, ya'lamu ma bayna aydeehim wa ma khalfahum, wa la yuheetoona bi shay'in min 'ilmihi illa bima sha'a, wasi'a kursiyyuhus-samawati wal-arda, wa la ya'ooduhu hifzuhuma, wa huwal-'aliyyul-'azeem",
+      "english": "Allah - there is no deity except Him, the Ever-Living, the Sustainer of existence. Neither drowsiness overtakes Him nor sleep. To Him belongs whatever is in the heavens and whatever is on the earth. Who is it that can intercede with Him except by His permission? He knows what is before them and what will be after them, and they encompass not a thing of His knowledge except for what He wills. His Kursi extends over the heavens and the earth, and their preservation tires Him not. And He is the Most High, the Most Great.",
+      "benefits": "Protection from Satan and evil throughout the night",
+      "source": "Quran 2:255, Bukhari",
+      "occasion": "Before sleeping for divine protection",
+      "color": "#6366F1"
+    },
+    {
+      "id": 3,
+      "title": "The Three Quls Before Sleep",
+      "arabic": "قُلْ هُوَ اللَّهُ أَحَدٌ اللَّهُ الصَّمَدُ لَمْ يَلِدْ وَلَمْ يُولَدْ وَلَمْ يَكُنْ لَهُ كُفُواً أَحَدٌ",
+      "transliteration": "Qul huwa Allahu ahad, Allahus-samad, lam yalid wa lam yoolad, wa lam yakun lahu kufuwan ahad",
+      "english": "Say: He is Allah, the One! Allah, the Eternal, Absolute; He begets not, nor is He begotten; And there is none like unto Him.",
+      "benefits": "Complete protection when recited three times with the other Quls",
+      "source": "Quran 112, Abu Dawud",
+      "occasion": "Before sleep (part of the Three Quls)",
+      "color": "#6366F1"
+    },
+    {
+      "id": 4,
+      "title": "Upon Waking Up at Night",
+      "arabic": "لاَ إِلَهَ إِلاَّ اللَّهُ وَحْدَهُ لاَ شَرِيكَ لَهُ لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ الْحَمْدُ لِلَّهِ وَسُبْحَانَ اللَّهِ وَلاَ إِلَهَ إِلاَّ اللَّهُ وَاللَّهُ أَكْبَرُ وَلاَ حَوْلَ وَلاَ قُوَّةَ إِلاَّ بِاللَّهِ",
+      "transliteration": "La ilaha illallahu wahdahu la shareeka lah, lahul-mulku wa lahul-hamd, wa huwa 'ala kulli shay'in qadeer. Alhamdu lillahi wa subhan Allahi wa la ilaha illallahu wallahu akbar wa la hawla wa la quwwata illa billah",
+      "english": "There is no deity except Allah, alone without partner, to Him belongs all sovereignty and praise, and He is over all things competent. All praise is for Allah, and exalted is Allah, and there is no deity except Allah, and Allah is greatest. And there is no might nor power except in Allah.",
+      "benefits": "Any supplication made after this will be answered",
+      "source": "Bukhari",
+      "occasion": "When waking up during the night",
+      "color": "#6366F1"
+    },
+    {
+      "id": 5,
+      "title": "For Peaceful Sleep",
+      "arabic": "اللَّهُمَّ غَارَتِ النُّجُومُ وَهَدَأَتِ الْعُيُونُ وَأَنْتَ حَيٌّ قَيُّومٌ لاَ تَأْخُذُكَ سِنَةٌ وَلاَ نَوْمٌ يَا حَيُّ يَا قَيُّومُ أَهْدِئْ لَيْلِي وَأَنِمْ عَيْنِي",
+      "transliteration": "Allahumma gharatin-nujoomu wa hada'atil-'uyoonu wa anta hayyun qayyoom, la ta'khudhuka sinatun wa la nawm, ya hayyu ya qayyoom ahdi' layli wa anim 'ayni",
+      "english": "O Allah, the stars have set and the eyes have become calm, and You are Ever-Living, Self-Sustaining, neither slumber nor sleep overtakes You. O Ever-Living, O Self-Sustaining, grant me a peaceful night and restful sleep.",
+      "benefits": "Peaceful and restful sleep",
+      "source": "Various Islamic sources",
+      "occasion": "When having trouble falling asleep",
+      "color": "#6366F1"
+    },
+    {
+      "id": 6,
+      "title": "When Having Bad Dreams",
+      "arabic": "أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ مِنْ غَضَبِهِ وَعِقَابِهِ وَشَرِّ عِبَادِهِ وَمِنْ هَمَزَاتِ الشَّيَاطِينِ وَأَنْ يَحْضُرُونِ",
+      "transliteration": "A'udhu bikalimat-illahi at-tammati min ghadabihi wa 'iqabihi wa sharri 'ibadihi wa min hamazatish-shayateeni wa an yahduroon",
+      "english": "I seek refuge in the perfect words of Allah from His wrath and punishment, from the evil of His servants, and from the whispers of devils and their presence.",
+      "benefits": "Protection from nightmares and evil dreams",
+      "source": "Abu Dawud, At-Tirmidhi",
+      "occasion": "When experiencing bad dreams or nightmares",
+      "color": "#6366F1"
+    },
+    {
+      "id": 7,
+      "title": "Upon Waking Up in the Morning",
+      "arabic": "الْحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا وَإِلَيْهِ النُّشُورُ",
+      "transliteration": "Alhamdu lillahi alladhi ahyana ba'da ma amatana wa ilayhin-nushur",
+      "english": "All praise is for Allah who gave us life after having taken it from us and unto Him is the resurrection.",
+      "benefits": "Starting the day with gratitude and remembrance of Allah",
+      "source": "Bukhari",
+      "occasion": "First thing upon waking up",
+      "color": "#6366F1"
+    },
+    {
+      "id": 8,
+      "title": "When Unable to Sleep",
+      "arabic": "اللَّهُمَّ رَبَّ السَّمَوَاتِ السَّبْعِ وَمَا أَظَلَّتْ وَرَبَّ الأَرَضِينَ وَمَا أَقَلَّتْ وَرَبَّ الشَّيَاطِينِ وَمَا أَضَلَّتْ كُنْ لِي جَاراً مِنْ شَرِّ خَلْقِكَ أَجْمَعِينَ أَنْ يَفْرُطَ عَلَيَّ أَحَدٌ مِنْهُمْ أَوْ يَطْغَى عَزَّ جَارُكَ وَجَلَّ ثَنَاؤُكَ وَلاَ إِلَهَ إِلاَّ أَنْتَ",
+      "transliteration": "Allahumma rabbas-samawatis-sab'i wa ma azallat wa rabbal-aradeena wa ma aqallat wa rabbash-shayateeni wa ma adallat kun li jaran min sharri khalqika ajma'een an yafruta 'alayya ahadun minhum aw yatgha, 'azza jaruka wa jalla thana'uka wa la ilaha illa ant",
+      "english": "O Allah, Lord of the seven heavens and all that they overshadow, Lord of the earths and all that they carry, Lord of the devils and all whom they misguide, be my protector from the evil of all Your creation, lest any of them transgress against me or oppress me. Honored is Your protection, and blessed is Your name, and there is no deity except You.",
+      "benefits": "Protection and peace for those unable to sleep",
+      "source": "At-Tirmidhi",
+      "occasion": "When unable to fall asleep due to worry or fear",
+      "color": "#6366F1"
+    },
+    {
+      "id": 9,
+      "title": "When Taking a Nap",
+      "arabic": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ تَحْوِيلِ عَافِيَتِكَ وَفُجَاءَةِ نِقْمَتِكَ وَجَمِيعِ سَخَطِكَ",
+      "transliteration": "Allahumma inni a'udhu bika min tahweeli 'afiyatika wa fuja'ati niqmatika wa jamee'i sakhatik",
+      "english": "O Allah, I seek refuge in You from the change of Your favor, the suddenness of Your punishment, and all of Your displeasure.",
+      "benefits": "Seeking Allah's protection during rest",
+      "source": "Muslim",
+      "occasion": "Before taking a nap during the day",
+      "color": "#6366F1"
+    },
+    {
+      "id": 10,
+      "title": "For Children's Sleep",
+      "arabic": "أُعِيذُكَ بِكَلِمَاتِ اللَّهِ التَّامَّةِ مِنْ كُلِّ شَيْطَانٍ وَهَامَّةٍ وَمِنْ كُلِّ عَيْنٍ لاَمَّةٍ",
+      "transliteration": "U'eedhuka bi kalimat-illahit-tammati min kulli shaytanin wa hammatin wa min kulli 'aynin lammah",
+      "english": "I seek protection for you in the perfect words of Allah from every devil and poisonous pest and from every evil, harmful, envious eye.",
+      "benefits": "Protection for children during sleep",
+      "source": "Bukhari",
+      "occasion": "When putting children to bed",
+      "color": "#6366F1"
+    },
+    {
+      "id": 11,
+      "title": "When Feeling Restless at Night",
+      "arabic": "لاَ إِلَهَ إِلاَّ اللَّهُ الْوَاحِدُ الْقَهَّارُ رَبُّ السَّمَوَاتِ وَالأَرْضِ وَمَا بَيْنَهُمَا الْعَزِيزُ الْغَفَّارُ",
+      "transliteration": "La ilaha illallahul-wahidul-qahhar, rabbas-samawati wal-ardi wa ma baynahumal-'azeezul-ghaffar",
+      "english": "There is no deity except Allah, the One, the Prevailing. Lord of the heavens and the earth and whatever is between them, the Exalted in Might, the Perpetual Forgiver.",
+      "benefits": "Peace and tranquility during restless nights",
+      "source": "Ibn Hibban",
+      "occasion": "When feeling restless or anxious at night",
+      "color": "#6366F1"
+    },
+    {
+      "id": 12,
+      "title": "Before Dawn (Tahajjud Time)",
+      "arabic": "اللَّهُمَّ لَكَ الْحَمْدُ أَنْتَ نُورُ السَّمَوَاتِ وَالأَرْضِ وَمَنْ فِيهِنَّ وَلَكَ الْحَمْدُ أَنْتَ قَيِّمُ السَّمَوَاتِ وَالأَرْضِ وَمَنْ فِيهِنَّ",
+      "transliteration": "Allahumma lakal-hamdu anta noorus-samawati wal-ardi wa man feehinna wa lakal-hamdu anta qayyimus-samawati wal-ardi wa man feehinn",
+      "english": "O Allah, to You belongs all praise. You are the Light of the heavens and the earth and whoever is in them. And to You belongs all praise, You are the Sustainer of the heavens and the earth and whoever is in them.",
+      "benefits": "Spiritual preparation for night prayer and worship",
+      "source": "Bukhari, Muslim",
+      "occasion": "When waking up for night prayer (Tahajjud)",
+      "color": "#6366F1"
+    }
+  ]
+} 

@@ -1,0 +1,25 @@
+{
+  "id": 29,
+  "title": "Fundamentos de la Jurisprudencia Islámica",
+  "introduction": "La jurisprudencia islámica (fiqh) es la ciencia de entender y aplicar la ley islámica en nuestras vidas diarias. Ayuda a los musulmanes a saber cómo adorar, interactuar con otros y tomar decisiones que agraden a Allah. Al estudiar fiqh, obtenemos claridad sobre lo que es halal (permitido) y haram (prohibido), y aprendemos a vivir con justicia, misericordia y sabiduría.",
+  "sections": [
+    {
+      "heading": "Fuentes de la Ley",
+      "content": "Las principales fuentes de la ley islámica son el Corán, la Sunnah (las enseñanzas y acciones del Profeta ﷺ), el consenso de eruditos (ijma), y el razonamiento analógico (qiyas). El Corán es la palabra directa de Allah y la fuente última de guía. La Sunnah explica y detalla lo que está en el Corán, mostrándonos cómo aplicarlo. Ijma, o consenso erudito, asegura que la comunidad permanezca unida en asuntos esenciales. Qiyas permite a los eruditos aplicar dictámenes existentes a nuevas situaciones, haciendo la ley islámica flexible y práctica para todos los tiempos y lugares."
+    },
+    {
+      "heading": "Escuelas de Pensamiento",
+      "content": "Con el tiempo, los eruditos musulmanes desarrollaron escuelas de pensamiento (madhahib) para ayudar a la gente a entender y practicar la ley islámica correctamente. Las cuatro principales escuelas sunníes son Hanafi, Maliki, Shafi'i y Hanbali. Cada escuela sigue el Corán y la Sunnah pero puede diferir en algunos detalles basándose en interpretación, costumbres locales o los métodos que los eruditos usaron para derivar dictámenes. Estas diferencias son una misericordia para la Umma, proporcionando flexibilidad y acomodando diferentes situaciones. Respetar todas las escuelas nos ayuda a apreciar la profundidad y riqueza de nuestra tradición legal."
+    },
+    {
+      "heading": "Propósito del Fiqh",
+      "content": "Fiqh no es solo sobre reglas; su propósito más profundo es ayudarnos a adorar a Allah de la mejor manera, resolver disputas justamente y construir comunidades basadas en ética y compasión. Cubre todas las áreas de la vida: actos de adoración (ibadah) como oración, ayuno y zakat; transacciones diarias y contratos (muamalat); asuntos familiares; justicia penal; y más. Al aprender fiqh, obtenemos el conocimiento y confianza para vivir como musulmanes responsables, tomando decisiones que traen beneficio a nosotros y otros mientras buscamos el placer de Allah."
+    }
+  ],
+  "conclusion": "Aprender fiqh nos ayuda a practicar el Islam con conocimiento, equilibrio y confianza. Nos muestra que el Islam es una forma completa de vida que trae justicia, misericordia y sabiduría a cada aspecto de nuestras acciones diarias.",
+  "references": [
+    "Corán 5:3",
+    "Corán 16:89",
+    "Sahih Muslim 1718"
+  ]
+} 

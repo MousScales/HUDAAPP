@@ -1,0 +1,62 @@
+{
+  "category": "afterPrayer",
+  "name": "After Prayer Dhikr",
+  "description": "Authentic remembrances to recite after completing the five daily prayers",
+  "dhikrs": [
+    {
+      "id": 1,
+      "title": "Seeking Forgiveness After Prayer",
+      "arabic": "أَسْتَغْفِرُ اللَّهَ (ثَلاَثاً) اللَّهُمَّ أَنْتَ السَّلاَمُ وَمِنْكَ السَّلاَمُ تَبَارَكْتَ يَا ذَا الْجَلاَلِ وَالإِكْرَامِ",
+      "transliteration": "Astaghfirullah (3 times), Allahumma antas-salamu wa minkas-salamu, tabarakta ya dhal-jalali wal-ikram",
+      "translation": "I seek forgiveness from Allah (3 times). O Allah, You are peace and from You comes peace. Blessed are You, O Owner of majesty and honor.",
+      "benefits": "Seeking Allah's forgiveness after worship and acknowledging His perfection",
+      "source": "Muslim",
+      "repetitions": "1 time after each prayer",
+      "color": "#FF6347"
+    },
+    {
+      "id": 2,
+      "title": "Post-Prayer Tasbih, Tahmid, Takbir",
+      "arabic": "سُبْحَانَ اللَّهِ (33) الْحَمْدُ لِلَّهِ (33) اللَّهُ أَكْبَرُ (34)",
+      "transliteration": "Subhan Allah (33), Alhamdulillah (33), Allahu Akbar (34)",
+      "translation": "Glory be to Allah (33 times), All praise is due to Allah (33 times), Allah is the Greatest (34 times).",
+      "benefits": "These dhikrs after prayer are more beloved to Allah than the world and all it contains",
+      "source": "Muslim",
+      "repetitions": "33, 33, 34 times respectively",
+      "color": "#FF6347"
+    },
+    {
+      "id": 3,
+      "title": "La ilaha illa Allah after Prayer",
+      "arabic": "لاَ إِلَهَ إِلاَّ اللَّهُ وَحْدَهُ لاَ شَرِيكَ لَهُ لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ",
+      "transliteration": "La ilaha illa Allah wahdahu la shareeka lah, lahul-mulku wa lahul-hamdu wa huwa 'ala kulli shay'in qadeer",
+      "translation": "There is no deity except Allah, alone without partner, to Him belongs all sovereignty and praise and He is over all things omnipotent.",
+      "benefits": "Sins are forgiven even if they are like the foam of the sea",
+      "source": "Muslim",
+      "repetitions": "1 time after each prayer",
+      "color": "#FF6347"
+    },
+    {
+      "id": 4,
+      "title": "Ayat al-Kursi After Prayer",
+      "arabic": "اللَّهُ لاَ إِلَهَ إِلاَّ هُوَ الْحَيُّ الْقَيُّومُ لاَ تَأْخُذُهُ سِنَةٌ وَلاَ نَوْمٌ لَهُ مَا فِي السَّمَوَاتِ وَمَا فِي الأَرْضِ",
+      "transliteration": "Allahu la ilaha illa huwal-hayyul-qayyoom la ta'khudhuhu sinatun wa la nawm, lahu ma fis-samawati wa ma fil-ard...",
+      "translation": "Allah - there is no deity except Him, the Ever-Living, the Sustainer of existence. Neither drowsiness overtakes Him nor sleep...",
+      "benefits": "Nothing prevents entry into Paradise except death for whoever recites this after every prayer",
+      "source": "An-Nasa'i",
+      "repetitions": "1 time after each prayer",
+      "color": "#FF6347"
+    },
+    {
+      "id": 5,
+      "title": "Dua for Guidance and Provision",
+      "arabic": "اللَّهُمَّ أَعِنِّي عَلَى ذِكْرِكَ وَشُكْرِكَ وَحُسْنِ عِبَادَتِكَ",
+      "transliteration": "Allahumma a'inni 'ala dhikrika wa shukrika wa husni 'ibadatik",
+      "translation": "O Allah, help me to remember You, to thank You, and to worship You in the best manner.",
+      "benefits": "The Prophet ﷺ advised Muadh to never leave this dua after every prayer",
+      "source": "Abu Dawud, An-Nasa'i",
+      "repetitions": "1 time after each prayer",
+      "color": "#FF6347"
+    }
+  ]
+} 

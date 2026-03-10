@@ -1,0 +1,26 @@
+{
+  "id": 130,
+  "title": "Islamic Contributions to Science and Medicine",
+  "introduction": "The Islamic Golden Age, spanning from the 8th to the 13th centuries, witnessed remarkable advances in science, medicine, mathematics, and technology. Muslim scholars, inspired by the Quran’s repeated encouragement to observe, think, and seek knowledge, made groundbreaking discoveries that laid the foundations for modern science and medicine. Their contributions remind us that Islam values knowledge, inquiry, and service to humanity as acts of worship and ways to benefit all of mankind.",
+  "sections": [
+    {
+      "heading": "Medical Advances and Hospitals",
+      "content": "Muslim physicians made revolutionary contributions that saved countless lives and shaped modern medical practices. Al-Razi (Rhazes) was the first to differentiate smallpox from measles and wrote extensive medical encyclopedias that were translated into Latin and studied in Europe for centuries. Ibn Sina (Avicenna) authored 'The Canon of Medicine,' which remained Europe’s standard medical text for 600 years. Al-Zahrawi (Albucasis) is known as the father of modern surgery for pioneering surgical techniques and inventing over 200 surgical instruments. Muslims built the world’s first true hospitals with separate wards, pharmacies, medical schools, and trained staff. These hospitals offered free care to everyone, regardless of faith or social status, embodying the Islamic teaching: *'And whoever saves a life, it is as if he has saved all of mankind.'* (Quran 5:32). Their work shows how compassion, knowledge, and service went hand in hand."
+    },
+    {
+      "heading": "Mathematics and Astronomy",
+      "content": "Muslim mathematicians and astronomers transformed human understanding of numbers and the cosmos. Al-Khwarizmi, the 'Father of Algebra,' developed algebra (*al-jabr*) and introduced the decimal number system to Europe. His name lives on in the word 'algorithm.' Muslim scholars preserved, translated, and built upon Greek mathematical works while making original discoveries in geometry, trigonometry, and calculus. In astronomy, Muslims constructed sophisticated observatories, accurate star charts, and tables that improved navigation and timekeeping for prayer and fasting. Al-Battani refined the length of the solar year more accurately than before. Ibn al-Haytham (Alhazen) laid the foundations of modern optics and explained how vision works by experimenting with light and lenses. These scholars saw studying the stars and the order of the universe as signs of Allah’s wisdom, in line with the Quran’s encouragement to reflect on creation."
+    },
+    {
+      "heading": "Scientific Method and Philosophy",
+      "content": "Muslim scholars were pioneers of the scientific method — emphasizing observation, experimentation, and critical thinking. Ibn al-Haytham’s insistence that theories must be tested through experiments earned him the title 'Father of Modern Optics' and 'Father of the Scientific Method.' Al-Biruni compared scientific data across cultures and conducted detailed field research in geography and geology. Muslim philosophers like Al-Farabi, Ibn Sina, and Ibn Rushd (Averroes) showed how reason and revelation strengthen each other, not conflict. They demonstrated that seeking knowledge is a religious duty that deepens our understanding of Allah’s creation. Their work in fields such as chemistry (then called alchemy), physics, engineering, and anthropology laid the groundwork for future discoveries and inspired later European scholars during the Renaissance."
+    }
+  ],
+  "conclusion": "The contributions of Muslim scholars to science and medicine show that faith and reason are partners in the Islamic tradition. Their legacy reminds us that seeking knowledge is an act of worship that brings us closer to Allah and enables us to serve humanity with excellence. May we be inspired to carry on their tradition of curiosity, integrity, and service for the benefit of all.",
+  "references": [
+    "Quran 96:1-5",
+    "Quran 35:27-28",
+    "Sahih Bukhari 71",
+    "Science and Civilization in Islam by Seyyed Hossein Nasr"
+  ]
+}

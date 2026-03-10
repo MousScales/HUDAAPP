@@ -1,0 +1,17 @@
+disabled_rules:
+  - type_name
+  - line_length
+  - identifier_name
+  - function_body_length
+  - force_cast
+  - closure_parameter_position
+  - type_body_length
+  - cyclomatic_complexity
+  - file_length
+  - function_parameter_count
+  - inclusive_language
+
+included:
+- packages/react-native-device-activity/ios
+- apps/example/ios
+- packages/react-native-device-activity/targets

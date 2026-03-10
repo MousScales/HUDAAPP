@@ -1,0 +1,139 @@
+{
+  "category": "food",
+  "name": "Food & Drink Duas",
+  "description": "Duas for meals, drinks, and all food-related situations",
+  "duas": [
+    {
+      "id": 1,
+      "title": "Before Eating or Drinking",
+      "arabic": "بِسْمِ اللَّهِ",
+      "transliteration": "Bismillah",
+      "english": "In the name of Allah.",
+      "benefits": "Seeking Allah's blessing on the food and protection from harm",
+      "source": "Abu Dawud, At-Tirmidhi",
+      "occasion": "Before eating or drinking anything",
+      "color": "#10B981"
+    },
+    {
+      "id": 2,
+      "title": "If You Forget to Say Bismillah",
+      "arabic": "بِسْمِ اللَّهِ أَوَّلَهُ وَآخِرَهُ",
+      "transliteration": "Bismillahi awwalahu wa akhirah",
+      "english": "In the name of Allah at its beginning and at its end.",
+      "benefits": "Making up for forgetting to say Bismillah at the start",
+      "source": "Abu Dawud, At-Tirmidhi",
+      "occasion": "When you remember to say Bismillah during eating",
+      "color": "#10B981"
+    },
+    {
+      "id": 3,
+      "title": "After Finishing Eating or Drinking",
+      "arabic": "الْحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنِي هَذَا وَرَزَقَنِيهِ مِنْ غَيْرِ حَوْلٍ مِنِّي وَلاَ قُوَّةٍ",
+      "transliteration": "Alhamdu lillahi alladhi at'amani hadha wa razaqaneehi min ghayri hawlin minni wa la quwwah",
+      "english": "All praise is for Allah, Who fed me this and provided it for me without any might nor power from myself.",
+      "benefits": "Sins are forgiven",
+      "source": "Abu Dawud, At-Tirmidhi",
+      "occasion": "After finishing any meal or drink",
+      "color": "#10B981"
+    },
+    {
+      "id": 4,
+      "title": "Simple After-Eating Dua",
+      "arabic": "الْحَمْدُ لِلَّهِ",
+      "transliteration": "Alhamdulillah",
+      "english": "All praise is for Allah.",
+      "benefits": "Expressing gratitude to Allah for His provision",
+      "source": "Bukhari, Muslim",
+      "occasion": "After eating or drinking",
+      "color": "#10B981"
+    },
+    {
+      "id": 5,
+      "title": "When Invited to Eat",
+      "arabic": "اللَّهُمَّ بَارِكْ لَهُمْ فِيمَا رَزَقْتَهُمْ وَاغْفِرْ لَهُمْ وَارْحَمْهُمْ",
+      "transliteration": "Allahumma barik lahum feema razaqtahum waghfir lahum warhamhum",
+      "english": "O Allah, bless for them that which You have provided them, and forgive them and have mercy upon them.",
+      "benefits": "Blessing for the host and their family",
+      "source": "Muslim",
+      "occasion": "When eating at someone else's house",
+      "color": "#10B981"
+    },
+    {
+      "id": 6,
+      "title": "When Breaking Fast",
+      "arabic": "اللَّهُمَّ لَكَ صُمْتُ وَعَلَى رِزْقِكَ أَفْطَرْتُ",
+      "transliteration": "Allahumma laka sumtu wa 'ala rizqika aftart",
+      "english": "O Allah, for You I fasted and on Your provision I break my fast.",
+      "benefits": "Acknowledging Allah's favor in fasting and provision",
+      "source": "Abu Dawud",
+      "occasion": "When breaking fast (iftar)",
+      "color": "#10B981"
+    },
+    {
+      "id": 7,
+      "title": "When Drinking Milk",
+      "arabic": "اللَّهُمَّ بَارِكْ لَنَا فِيهِ وَزِدْنَا مِنْهُ",
+      "transliteration": "Allahumma barik lana feehi wa zidna minh",
+      "english": "O Allah, bless it for us and give us more of it.",
+      "benefits": "Seeking blessing and increase in beneficial provision",
+      "source": "Abu Dawud, At-Tirmidhi",
+      "occasion": "When drinking milk",
+      "color": "#10B981"
+    },
+    {
+      "id": 8,
+      "title": "When Drinking Water",
+      "arabic": "الْحَمْدُ لِلَّهِ الَّذِي سَقَانَا عَذْباً فُرَاتاً بِرَحْمَتِهِ وَلَمْ يَجْعَلْهُ مِلْحاً أُجَاجاً بِذُنُوبِنَا",
+      "transliteration": "Alhamdu lillahi alladhi saqana 'adhban furatan birahmatih wa lam yaj'alhu milhan ujajan bidhunubina",
+      "english": "All praise is for Allah, Who gave us sweet, pleasant water to drink by His mercy and did not make it bitter and salty because of our sins.",
+      "benefits": "Gratitude for Allah's mercy in providing clean water",
+      "source": "Various sources",
+      "occasion": "When drinking water",
+      "color": "#10B981"
+    },
+    {
+      "id": 9,
+      "title": "When Eating Dates",
+      "arabic": "اللَّهُمَّ بَارِكْ لَنَا فِيمَا رَزَقْتَنَا وَقِنَا عَذَابَ النَّارِ",
+      "transliteration": "Allahumma barik lana feema razaqtana wa qina 'adhab an-nar",
+      "english": "O Allah, bless for us what You have provided us and save us from the punishment of the Fire.",
+      "benefits": "Seeking blessing and protection from Hellfire",
+      "source": "At-Tirmidhi",
+      "occasion": "When eating dates or fruits",
+      "color": "#10B981"
+    },
+    {
+      "id": 10,
+      "title": "When Eating Honey",
+      "arabic": "اللَّهُمَّ بَارِكْ لَنَا فِيهِ",
+      "transliteration": "Allahumma barik lana feehi",
+      "english": "O Allah, bless it for us.",
+      "benefits": "Seeking blessing in this healing food mentioned in Quran",
+      "source": "Islamic tradition",
+      "occasion": "When eating honey",
+      "color": "#10B981"
+    },
+    {
+      "id": 11,
+      "title": "When Sharing Food",
+      "arabic": "كُلُوا بِسْمِ اللَّهِ وَبَارَكَ اللَّهُ لَكُمْ",
+      "transliteration": "Kulu bismillahi wa baraka Allahu lakum",
+      "english": "Eat in the name of Allah, and may Allah bless it for you.",
+      "benefits": "Blessing for all who share the meal",
+      "source": "Islamic etiquette",
+      "occasion": "When inviting others to eat",
+      "color": "#10B981"
+    },
+    {
+      "id": 12,
+      "title": "When Food is Insufficient",
+      "arabic": "اللَّهُمَّ بَارِكْ لَنَا فِيمَا رَزَقْتَنَا",
+      "transliteration": "Allahumma barik lana feema razaqtana",
+      "english": "O Allah, bless for us what You have provided us.",
+      "benefits": "Seeking blessing to make little food sufficient",
+      "source": "Various authentic sources",
+      "occasion": "When food seems insufficient for everyone",
+      "color": "#10B981"
+    }
+  ]
+} 

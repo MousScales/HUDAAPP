@@ -1,0 +1,51 @@
+{
+  "category": "travel",
+  "name": "Travel Dhikr",
+  "description": "Protective remembrances for safe and blessed journeys",
+  "dhikrs": [
+    {
+      "id": 1,
+      "title": "Dua for Beginning a Journey",
+      "arabic": "سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ وَإِنَّا إِلَى رَبِّنَا لَمُنْقَلِبُونَ",
+      "transliteration": "Subhanal-ladhi sakhkhara lana hadha wa ma kunna lahu muqrineen wa inna ila rabbina la munqaliboon",
+      "translation": "Glory unto Him Who created this transportation for us though we were unable to create it on our own. And unto our Lord we shall return.",
+      "benefits": "Safety and blessing in travel",
+      "source": "Abu Dawud, At-Tirmidhi",
+      "repetitions": "1 time when starting journey",
+      "color": "#8B4513"
+    },
+    {
+      "id": 2,
+      "title": "Takbir While Ascending",
+      "arabic": "اللَّهُ أَكْبَرُ",
+      "transliteration": "Allahu Akbar",
+      "translation": "Allah is the Greatest.",
+      "benefits": "Remembering Allah's greatness while ascending hills or high places",
+      "source": "Bukhari",
+      "repetitions": "3 times when going uphill",
+      "color": "#8B4513"
+    },
+    {
+      "id": 3,
+      "title": "Tasbih While Descending",
+      "arabic": "سُبْحَانَ اللَّهِ",
+      "transliteration": "Subhan Allah",
+      "translation": "Glory be to Allah.",
+      "benefits": "Glorifying Allah while descending or going downhill",
+      "source": "Bukhari",
+      "repetitions": "3 times when going downhill",
+      "color": "#8B4513"
+    },
+    {
+      "id": 4,
+      "title": "Seeking Protection During Travel",
+      "arabic": "اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنْ خَيْرِ هَذِهِ السَّفَرِ وَخَيْرِ مَا فِيهَا وَأَعُوذُ بِكَ مِنْ شَرِّهَا وَشَرِّ مَا فِيهَا",
+      "transliteration": "Allahumma inni as'aluka min khayri hadhihis-safari wa khayri ma fiha wa a'udhu bika min sharriha wa sharri ma fiha",
+      "translation": "O Allah, I ask You for the goodness of this journey and the good that is in it, and I seek refuge with You from its evil and the evil that is in it.",
+      "benefits": "Protection from all travel-related harm",
+      "source": "Muslim",
+      "repetitions": "1 time at journey start",
+      "color": "#8B4513"
+    }
+  ]
+} 

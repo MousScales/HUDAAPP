@@ -1,0 +1,51 @@
+{
+  "category": "protection",
+  "name": "Dhikr de Protection",
+  "description": "Dhikr pour protection contre le mal",
+  "dhikrs": [
+    {
+      "id": 701,
+      "title": "Ayat Al-Kursi",
+      "arabic": "اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ",
+      "transliteration": "Allahu la ilaha illa huwal-hayyul-qayyum. La ta'khudhuhu sinatuw-wa la nawm",
+      "translation": "Allah - il n'y a de dieu que Lui, le Vivant, l'Autosuffisant. Ni la somnolence ni le sommeil ne L'atteignent",
+      "count": 1,
+      "benefits": "Protection complète contre tout mal",
+      "source": "Bukhari, Muslim",
+      "color": "#EF4444"
+    },
+    {
+      "id": 702,
+      "title": "Mu'awwidhatayn",
+      "arabic": "قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ",
+      "transliteration": "Qul a'udhu bi rabbil-falaq",
+      "translation": "Dis : Je me réfugie auprès du Seigneur de l'aube",
+      "count": 3,
+      "benefits": "Protection contre la magie et le mauvais œil",
+      "source": "Bukhari, Muslim",
+      "color": "#EF4444"
+    },
+    {
+      "id": 703,
+      "title": "Qul Huwa Allahu Ahad",
+      "arabic": "قُلْ هُوَ اللَّهُ أَحَدٌ",
+      "transliteration": "Qul huwa Allahu ahad",
+      "translation": "Dis : Il est Allah, [qui est] Un",
+      "count": 3,
+      "benefits": "Protection contre la magie et le mal",
+      "source": "Bukhari, Muslim",
+      "color": "#EF4444"
+    },
+    {
+      "id": 704,
+      "title": "Bismillah",
+      "arabic": "بِسْمِ اللَّهِ",
+      "transliteration": "Bismillah",
+      "translation": "Au nom d'Allah",
+      "count": 1,
+      "benefits": "Protection générale et bénédictions",
+      "source": "Bukhari, Muslim",
+      "color": "#EF4444"
+    }
+  ]
+} 

@@ -1,0 +1,117 @@
+/* 
+ * COMMENTED OUT: Live Activities functionality disabled until further implementation
+ * This file is kept for reference but should not be imported or used
+ * 
+ * To re-enable:
+ * 1. Uncomment this file and rename it back to prayerTimesLiveActivity.js
+ * 2. Uncomment the import in widgetService.js
+ * 3. Uncomment the updateLiveActivity calls in widgetService.js
+ * 4. Uncomment the PrayerTimesLiveActivity registration in targets/widget/index.swift
+ * 5. Ensure the native module is properly registered in Xcode
+ */
+
+/*
+import { requireNativeModule, EventEmitter } from 'expo-modules-core';
+
+// Get the native module
+let PrayerTimesLiveActivityModule;
+let emitter; // Declare emitter here
+try {
+  PrayerTimesLiveActivityModule = requireNativeModule('PrayerTimesLiveActivity');
+  emitter = new EventEmitter(PrayerTimesLiveActivityModule); // Initialize here
+  console.log('✅ PrayerTimesLiveActivityModule loaded successfully');
+} catch (e) {
+  console.error('❌ Error loading PrayerTimesLiveActivityModule:', e);
+  console.error('❌ This usually means the module is not registered. Try running: npx expo prebuild -p ios --clean');
+  // Fallback if module is not available (e.g., on older iOS versions or Android)
+  PrayerTimesLiveActivityModule = {
+    areActivitiesEnabled: () => Promise.resolve(false),
+    isActivityInProgress: () => Promise.resolve(false),
+    startActivity: () => Promise.resolve(false),
+    updateActivity: () => {},
+    endActivity: () => {},
+  };
+  emitter = { addListener: () => ({ remove: () => {} }) }; // Mock emitter for fallback
+}
+
+export default {
+  async areActivitiesEnabled() {
+    try {
+      if (!PrayerTimesLiveActivityModule || typeof PrayerTimesLiveActivityModule.areActivitiesEnabled !== 'function') {
+        console.log('⚠️ PrayerTimesLiveActivityModule not available');
+        return false;
+      }
+      const result = await PrayerTimesLiveActivityModule.areActivitiesEnabled();
+      console.log('🔍 areActivitiesEnabled result:', result);
+      return result;
+    } catch (error) {
+      console.error('❌ Error checking if activities are enabled:', error);
+      return false;
+    }
+  },
+
+  async isActivityInProgress() {
+    try {
+      return await PrayerTimesLiveActivityModule.isActivityInProgress();
+    } catch (error) {
+      console.error('❌ Error checking if activity is in progress:', error);
+      return false;
+    }
+  },
+
+  async startActivity(prayerName, prayerTime, activityId = 'prayer-times') {
+    try {
+      if (!PrayerTimesLiveActivityModule || typeof PrayerTimesLiveActivityModule.startActivity !== 'function') {
+        console.log('⚠️ PrayerTimesLiveActivityModule.startActivity not available');
+        return false;
+      }
+      
+      console.log('🚀 Starting Live Activity:', { prayerName, prayerTime, activityId });
+      
+      const isEnabled = await this.areActivitiesEnabled();
+      console.log('🔍 Live Activities enabled check (informational):', isEnabled);
+      console.log('⚠️ Note: This check may be inaccurate. Attempting to start anyway...');
+      
+      const result = await PrayerTimesLiveActivityModule.startActivity(prayerName, prayerTime, activityId);
+      console.log('✅ Live Activity start result:', result);
+      
+      if (!result) {
+        console.log('❌ Live Activity failed to start - check Xcode console for detailed error messages');
+        console.log('💡 Common causes:');
+        console.log('   1. Live Activities disabled in Settings → Face ID & Passcode');
+        console.log('   2. App-specific Live Activities disabled in Settings → [App Name] → Live Activities');
+        console.log('   3. Widget extension not properly configured');
+      }
+      
+      return result;
+    } catch (error) {
+      console.error('❌ Error starting Live Activity:', error);
+      return false;
+    }
+  },
+
+  updateActivity(prayerName, prayerTime) {
+    try {
+      PrayerTimesLiveActivityModule.updateActivity(prayerName, prayerTime);
+    } catch (error) {
+      console.error('❌ Error updating Live Activity:', error);
+    }
+  },
+
+  endActivity() {
+    try {
+      PrayerTimesLiveActivityModule.endActivity();
+    } catch (error) {
+      console.error('❌ Error ending Live Activity:', error);
+    }
+  },
+
+  addOnLiveActivityCancelListener(callback) {
+    if (emitter && emitter.addListener) {
+      return emitter.addListener('onLiveActivityCancel', callback);
+    }
+    return { remove: () => {} }; // Return a no-op subscription if emitter is not available
+  },
+};
+*/
+

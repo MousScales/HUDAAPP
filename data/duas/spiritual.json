@@ -1,0 +1,139 @@
+{
+  "category": "spiritual",
+  "name": "Spiritual Growth & Guidance",
+  "description": "Duas for seeking guidance, forgiveness, increasing faith, and spiritual development",
+  "duas": [
+    {
+      "id": 1,
+      "title": "Seeking Guidance (Istikhara)",
+      "arabic": "اللَّهُمَّ إِنِّي أَسْتَخِيرُكَ بِعِلْمِكَ وَأَسْتَقْدِرُكَ بِقُدْرَتِكَ وَأَسْأَلُكَ مِنْ فَضْلِكَ الْعَظِيمِ فَإِنَّكَ تَقْدِرُ وَلاَ أَقْدِرُ وَتَعْلَمُ وَلاَ أَعْلَمُ وَأَنْتَ عَلاَّمُ الْغُيُوبِ",
+      "transliteration": "Allahumma inni astakheeruka bi'ilmika wa astaqdiruka bi qudratika wa as'aluka min fadlikal-'azeem fa innaka taqdiru wa la aqdir wa ta'lamu wa la a'lam wa anta 'allamul-ghuyoob",
+      "english": "O Allah, I seek guidance from Your knowledge, and Power from Your Might and I ask for Your great blessings. You are capable and I am not. You know and I do not and You are the Knower of the unseen.",
+      "benefits": "Divine guidance in making important decisions",
+      "source": "Bukhari",
+      "occasion": "When seeking guidance for important decisions",
+      "color": "#3B82F6"
+    },
+    {
+      "id": 2,
+      "title": "For Increase in Faith",
+      "arabic": "رَبَّنَا لاَ تُزِغْ قُلُوبَنَا بَعْدَ إِذْ هَدَيْتَنَا وَهَبْ لَنَا مِنْ لَدُنْكَ رَحْمَةً إِنَّكَ أَنْتَ الْوَهَّابُ",
+      "transliteration": "Rabbana la tuzigh quloobana ba'da idh hadaytana wa hab lana min ladunka rahmatan innaka antal-wahhab",
+      "english": "Our Lord, do not let our hearts deviate after You have guided us and grant us from Yourself mercy. Indeed, You are the Bestower.",
+      "benefits": "Steadfastness in faith and protection from misguidance",
+      "source": "Quran 3:8",
+      "occasion": "When seeking to strengthen and maintain faith",
+      "color": "#3B82F6"
+    },
+    {
+      "id": 3,
+      "title": "For Knowledge and Wisdom",
+      "arabic": "رَبِّ زِدْنِي عِلْماً",
+      "transliteration": "Rabbi zidni 'ilma",
+      "english": "My Lord, increase me in knowledge.",
+      "benefits": "Increase in beneficial knowledge and wisdom",
+      "source": "Quran 20:114",
+      "occasion": "When seeking knowledge or before studying",
+      "color": "#3B82F6"
+    },
+    {
+      "id": 4,
+      "title": "Seeking Forgiveness (Sayyid al-Istighfar)",
+      "arabic": "اللَّهُمَّ أَنْتَ رَبِّي لاَ إِلَهَ إِلاَّ أَنْتَ خَلَقْتَنِي وَأَنَا عَبْدُكَ وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ وَأَبُوءُ بِذَنْبِي فَاغْفِرْ لِي فَإِنَّهُ لاَ يَغْفِرُ الذُّنُوبَ إِلاَّ أَنْتَ",
+      "transliteration": "Allahumma anta rabbi la ilaha illa anta, khalaqtani wa ana 'abduka, wa ana 'ala 'ahdika wa wa'dika mas-tata'tu, a'udhu bika min sharri ma sana'tu, abu'u laka bi ni'matika 'alayya wa abu'u bi dhanbi faghfir li fa innahu la yaghfiru adh-dhunuba illa ant",
+      "english": "O Allah, You are my Lord, none has the right to be worshipped except You, You created me and I am Your servant and I abide to Your covenant and promise as best I can, I take refuge in You from the evil of which I have committed. I acknowledge Your favor upon me and I acknowledge my sin, so forgive me, for verily none can forgive sin except You.",
+      "benefits": "Complete forgiveness and entry to Paradise if said with sincerity",
+      "source": "Bukhari",
+      "occasion": "Morning, evening, or when seeking forgiveness",
+      "color": "#3B82F6"
+    },
+    {
+      "id": 5,
+      "title": "For Righteous Deeds",
+      "arabic": "اللَّهُمَّ أَعِنِّي عَلَى ذِكْرِكَ وَشُكْرِكَ وَحُسْنِ عِبَادَتِكَ",
+      "transliteration": "Allahumma a'inni 'ala dhikrika wa shukrika wa husni 'ibadatik",
+      "english": "O Allah, help me to remember You, to thank You, and to worship You in an excellent manner.",
+      "benefits": "Assistance in performing good deeds and worship",
+      "source": "Abu Dawud, An-Nasa'i",
+      "occasion": "When seeking help in worship and righteous deeds",
+      "color": "#3B82F6"
+    },
+    {
+      "id": 6,
+      "title": "For Purification of the Soul",
+      "arabic": "اللَّهُمَّ آتِ نَفْسِي تَقْوَاهَا وَزَكِّهَا أَنْتَ خَيْرُ مَنْ زَكَّاهَا أَنْتَ وَلِيُّهَا وَمَوْلاَهَا",
+      "transliteration": "Allahumma aati nafsi taqwaha wa zakkiha anta khayru man zakkaha anta waliyyuha wa mawlaha",
+      "english": "O Allah, grant my soul its righteousness and purify it, for You are the best to purify it. You are its protector and guardian.",
+      "benefits": "Purification of the soul and increase in righteousness",
+      "source": "Muslim",
+      "occasion": "When seeking spiritual purification",
+      "color": "#3B82F6"
+    },
+    {
+      "id": 7,
+      "title": "For Acceptance of Deeds",
+      "arabic": "رَبَّنَا تَقَبَّلْ مِنَّا إِنَّكَ أَنْتَ السَّمِيعُ الْعَلِيمُ",
+      "transliteration": "Rabbana taqabbal minna innaka antas-samee'ul-'aleem",
+      "english": "Our Lord, accept from us. Indeed You are the Hearing, the Knowing.",
+      "benefits": "Acceptance of worship and good deeds",
+      "source": "Quran 2:127",
+      "occasion": "After performing any good deed or worship",
+      "color": "#3B82F6"
+    },
+    {
+      "id": 8,
+      "title": "For Protection from Shirk",
+      "arabic": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ أَنْ أُشْرِكَ بِكَ وَأَنَا أَعْلَمُ وَأَسْتَغْفِرُكَ لِمَا لاَ أَعْلَمُ",
+      "transliteration": "Allahumma inni a'udhu bika an ushrika bika wa ana a'lam wa astaghfiruka lima la a'lam",
+      "english": "O Allah, I seek refuge in You from associating partners with You knowingly, and I seek Your forgiveness for what I do not know.",
+      "benefits": "Protection from the greatest sin (shirk) and forgiveness",
+      "source": "Ahmad",
+      "occasion": "When seeking protection from associating partners with Allah",
+      "color": "#3B82F6"
+    },
+    {
+      "id": 9,
+      "title": "For Good Character",
+      "arabic": "اللَّهُمَّ اهْدِنِي لأَحْسَنِ الأَخْلاَقِ لاَ يَهْدِي لأَحْسَنِهَا إِلاَّ أَنْتَ وَاصْرِفْ عَنِّي سَيِّئَهَا لاَ يَصْرِفُ عَنِّي سَيِّئَهَا إِلاَّ أَنْتَ",
+      "transliteration": "Allahummah-dini li-ahsanil-akhlaqi la yahdi li-ahsaniha illa anta wasrif 'anni sayyi'aha la yasrifu 'anni sayyi'aha illa ant",
+      "english": "O Allah, guide me to the best of characters for none can guide to it other than You, and deliver me from the worst of characters for none can deliver me from it other than You.",
+      "benefits": "Beautiful character and protection from bad traits",
+      "source": "Muslim",
+      "occasion": "When seeking good character and manners",
+      "color": "#3B82F6"
+    },
+    {
+      "id": 10,
+      "title": "For Spiritual Strength",
+      "arabic": "اللَّهُمَّ أَصْلِحْ لِي دِينِي الَّذِي هُوَ عِصْمَةُ أَمْرِي",
+      "transliteration": "Allahumma aslih li deeni alladhi huwa 'ismatu amri",
+      "english": "O Allah, make my religion good for me, for it is the safeguard of my affairs.",
+      "benefits": "Strength and guidance in religious matters",
+      "source": "Muslim",
+      "occasion": "When seeking religious guidance and strength",
+      "color": "#3B82F6"
+    },
+    {
+      "id": 11,
+      "title": "For Following the Sunnah",
+      "arabic": "اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ",
+      "transliteration": "Allahumma salli 'ala Muhammadin wa 'ala ali Muhammad kama sallayta 'ala Ibraheema wa 'ala ali Ibraheem innaka hameedun majeed",
+      "english": "O Allah, send prayers upon Muhammad and upon the family of Muhammad as You sent prayers upon Ibrahim and upon the family of Ibrahim. Indeed, You are Praiseworthy and Glorious.",
+      "benefits": "Blessings and connection to the Prophet's example",
+      "source": "Bukhari, Muslim",
+      "occasion": "When seeking to follow the Prophet's example",
+      "color": "#3B82F6"
+    },
+    {
+      "id": 12,
+      "title": "For the Hereafter",
+      "arabic": "رَبِّ أَعِنِّي وَلاَ تُعِنْ عَلَيَّ وَانْصُرْنِي وَلاَ تَنْصُرْ عَلَيَّ وَامْكُرْ لِي وَلاَ تَمْكُرْ عَلَيَّ وَاهْدِنِي وَيَسِّرِ الْهُدَى لِي وَانْصُرْنِي عَلَى مَنْ بَغَى عَلَيَّ",
+      "transliteration": "Rabbi a'inni wa la tu'in 'alayya wansurni wa la tansur 'alayya wamkur li wa la tamkur 'alayya wahdini wa yassir al-huda li wansurni 'ala man bagha 'alayy",
+      "english": "My Lord, help me and do not help against me; support me and do not support against me; plan for me and do not plan against me; guide me and make guidance easy for me; and support me against whoever wrongs me.",
+      "benefits": "Comprehensive supplication for divine assistance",
+      "source": "Abu Dawud, At-Tirmidhi",
+      "occasion": "When seeking Allah's comprehensive help and guidance",
+      "color": "#3B82F6"
+    }
+  ]
+} 

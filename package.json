@@ -1,0 +1,72 @@
+{
+  "name": "revertapp",
+  "version": "1.9.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
+    "web": "expo start --web",
+    "fix-lesson-json": "node scripts/fixLessonJSON.js",
+    "upload-lessons": "node scripts/uploadLessons.js",
+    "migrate-lessons": "npm run fix-lesson-json && npm run upload-lessons"
+  },
+  "dependencies": {
+    "@bacons/apple-targets": "^3.0.6",
+    "@expo/metro-runtime": "~5.0.5",
+    "@expo/vector-icons": "^14.1.0",
+    "@react-native-async-storage/async-storage": "2.1.2",
+    "@react-native-community/datetimepicker": "8.4.1",
+    "@react-navigation/bottom-tabs": "^7.4.2",
+    "@react-navigation/native": "^7.1.14",
+    "@react-navigation/stack": "^7.4.2",
+    "@siteed/expo-audio-studio": "^2.18.1",
+    "expo": "~53.0.25",
+    "expo-apple-authentication": "~7.2.4",
+    "expo-audio": "~0.4.9",
+    "expo-av": "~15.1.7",
+    "expo-background-fetch": "^13.1.6",
+    "expo-constants": "~17.1.8",
+    "expo-dev-client": "~5.2.4",
+    "expo-device": "~7.1.4",
+    "expo-file-system": "~18.1.11",
+    "expo-font": "^13.3.2",
+    "expo-haptics": "~14.1.4",
+    "expo-image": "2.2.0",
+    "expo-linear-gradient": "~14.1.5",
+    "expo-location": "~18.1.6",
+    "expo-notifications": "~0.31.4",
+    "expo-speech": "^13.1.7",
+    "expo-status-bar": "~2.2.3",
+    "expo-task-manager": "^13.1.6",
+    "expo-updates": "^0.28.17",
+    "firebase": "^11.10.0",
+    "firebase-functions": "^6.4.0",
+    "hijri-converter": "^1.1.1",
+    "node-notifier": "^10.0.1",
+    "react": "19.0.0",
+    "react-native": "0.79.6",
+    "react-native-calendars": "^1.1313.0",
+    "react-native-gesture-handler": "~2.24.0",
+    "react-native-purchases": "^8.12.0",
+    "react-native-reanimated": "~3.17.4",
+    "react-native-safe-area-context": "5.4.0",
+    "react-native-screens": "~4.11.1",
+    "react-native-webview": "13.13.5"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.0",
+    "@types/react": "~19.0.10",
+    "@types/react-native": "^0.72.8",
+    "firebase-admin": "^13.6.0",
+    "typescript": "~5.8.3"
+  },
+  "expo": {
+    "install": {
+      "exclude": [
+        "expo-image"
+      ]
+    }
+  },
+  "private": true
+}
