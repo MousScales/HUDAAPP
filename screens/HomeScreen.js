@@ -32,6 +32,7 @@ import widgetService from '../services/widgetService';
 import prayerBlockerService from '../services/prayerBlockerService';
 
 import subscriptionGuard from '../services/subscriptionGuard';
+import revenueCatService from '../services/revenueCatService';
 import SubscriptionModal from '../components/SubscriptionModal';
 import { useFocusEffect } from '@react-navigation/native';
 import { getResponsiveIconSize, getResponsiveSpacing, isTablet, getTabletSpacing, getResponsiveGridColumns } from '../utils/responsiveSizing';
@@ -314,6 +315,13 @@ export default function HomeScreen({ navigation, onSubscriptionExpired }) {
           if (showPromotional === 'true') {
             console.log('🎁 Promotional flag found, checking subscription status...');
             
+            // Wait for RevenueCat before checking
+            let waitCount = 0;
+            while (!revenueCatService.initialized && waitCount < 20) {
+              await new Promise(resolve => setTimeout(resolve, 250));
+              waitCount++;
+            }
+            
             // Check if user is already subscribed
             subscriptionGuard.resetCache();
             const isSubscribed = await subscriptionGuard.forceCheckSubscriptionStatus();
@@ -383,7 +391,14 @@ export default function HomeScreen({ navigation, onSubscriptionExpired }) {
         return;
       }
       
-      // Check subscription status
+      // Wait for RevenueCat to initialize before checking (prevents false negative for subscribed users)
+      let waitCount = 0;
+      while (!revenueCatService.initialized && waitCount < 20) {
+        await new Promise(resolve => setTimeout(resolve, 250));
+        waitCount++;
+      }
+      
+      // Check subscription status (only show modal if user is NOT subscribed)
       subscriptionGuard.resetCache();
       const isSubscribed = await subscriptionGuard.forceCheckSubscriptionStatus();
       

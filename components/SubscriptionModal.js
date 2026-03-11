@@ -48,6 +48,7 @@ export default function SubscriptionModal({ visible, onClose, onSubscribeSuccess
   const [revenueCatPackages, setRevenueCatPackages] = useState([]);
   const [useRevenueCat, setUseRevenueCat] = useState(false);
   const [shouldRender, setShouldRender] = useState(true);
+  const [safeToShow, setSafeToShow] = useState(false); // Only true after verifying user is NOT subscribed
   const carouselRef = useRef(null);
   const autoScrollTimer = useRef(null);
   const isUserScrolling = useRef(false);
@@ -428,52 +429,53 @@ export default function SubscriptionModal({ visible, onClose, onSubscribeSuccess
     }
   };
 
-  // Initialize subscription check when modal becomes visible - PREVENT RENDERING if subscribed
+  // Check subscription BEFORE showing - subscribed users should never see the modal
   useEffect(() => {
     if (!visible) {
-      setShouldRender(true); // Reset when not visible
+      setShouldRender(true);
+      setSafeToShow(false);
       return;
     }
     
+    setSafeToShow(false); // Don't show until we've verified user is NOT subscribed
+    
     const initSubscriptionCheck = async () => {
       try {
-        // Check for existing subscription using RevenueCat FIRST
-        try {
-          const subscriptionGuard = require('../services/subscriptionGuard').default;
-          subscriptionGuard.resetCache();
-          const isSubscribed = await subscriptionGuard.forceCheckSubscriptionStatus();
-          if (isSubscribed) {
-            console.log('✅ SubscriptionModal: User is subscribed - preventing modal from rendering');
-            setIsSubscribed(true);
-            setHasExistingSubscription(true);
-            setShouldRender(false); // Prevent rendering
-            setLoading(false);
-            // Close modal immediately if somehow it was set to visible
-            onClose();
-            return;
-          }
-        } catch (guardError) {
-          // Silent error handling
+        // Check FIRST - only show modal if user is NOT subscribed
+        const subscriptionGuard = require('../services/subscriptionGuard').default;
+        subscriptionGuard.resetCache();
+        const isSubscribed = await subscriptionGuard.forceCheckSubscriptionStatus();
+        
+        if (isSubscribed) {
+          console.log('✅ SubscriptionModal: User is subscribed - never showing modal');
+          setIsSubscribed(true);
+          setHasExistingSubscription(true);
+          setShouldRender(false);
+          setLoading(false);
+          onClose();
+          return;
         }
         
-        // Quick subscription check in background via RevenueCat
-        revenueCatService.hasActiveSubscription().then(isUserSubscribed => {
-          if (isUserSubscribed) {
-            console.log('✅ SubscriptionModal: User is subscribed (RevenueCat check) - preventing modal from rendering');
-            setIsSubscribed(isUserSubscribed);
-            setShouldRender(false); // Prevent rendering
-            onClose();
-          } else {
-            setIsSubscribed(isUserSubscribed);
-          }
-        }).catch(error => {
-          // Silent error handling
-        });
+        // Double-check via RevenueCat
+        const revenueCatSubscribed = await revenueCatService.hasActiveSubscription(true);
+        if (revenueCatSubscribed) {
+          console.log('✅ SubscriptionModal: User is subscribed (RevenueCat) - never showing modal');
+          setIsSubscribed(true);
+          setShouldRender(false);
+          setLoading(false);
+          onClose();
+          return;
+        }
         
+        // User is NOT subscribed - safe to show modal
+        setIsSubscribed(false);
+        setSafeToShow(true);
         setLoading(false);
       } catch (error) {
         console.error('❌ Error checking subscription status:', error);
         setLoading(false);
+        // On error, show modal (fail open - let user try to subscribe)
+        setSafeToShow(true);
       }
     };
     
@@ -880,6 +882,11 @@ export default function SubscriptionModal({ visible, onClose, onSubscribeSuccess
     return null;
   }
 
+  // Don't render anything until we've verified user is NOT subscribed (prevents flash for subscribed users)
+  if (visible && !safeToShow) {
+    return null;
+  }
+
   // Show loading state if still initializing, but with a timeout fallback
   if (loading) {
     // Add a fallback to show the modal content even if loading takes too long
@@ -891,7 +898,7 @@ export default function SubscriptionModal({ visible, onClose, onSubscribeSuccess
     }, 5000); // 5 second fallback
     
     return (
-      <Modal visible={visible} animationType="slide" presentationStyle="pageSheet" onRequestClose={handleClose}>
+      <Modal visible={visible && safeToShow} animationType="slide" presentationStyle="pageSheet" onRequestClose={handleClose}>
         <LinearGradient colors={["#000", "#181818"]} style={styles.gradient}>
           <SafeAreaView style={styles.container}>
             <View style={styles.header}>
@@ -919,7 +926,7 @@ export default function SubscriptionModal({ visible, onClose, onSubscribeSuccess
   }
 
   return (
-    <Modal visible={visible} animationType="slide" presentationStyle="pageSheet" onRequestClose={handleClose}>
+    <Modal visible={visible && safeToShow} animationType="slide" presentationStyle="pageSheet" onRequestClose={handleClose}>
       <LinearGradient colors={["#000", "#181818"]} style={styles.gradient}>
         <SafeAreaView style={styles.container}>
           {/* Night Sky Animation */}

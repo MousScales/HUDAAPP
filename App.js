@@ -275,7 +275,7 @@ function MainTabNavigator({ onLogout, onSubscriptionExpired }) {
           } else if (route.name === 'Prayer') {
             iconName = focused ? 'accessibility' : 'accessibility-outline';
           } else if (route.name === 'Profile') {
-            iconName = focused ? 'settings' : 'settings-outline';
+            iconName = focused ? 'menu' : 'menu-outline';
           }
 
           return (
