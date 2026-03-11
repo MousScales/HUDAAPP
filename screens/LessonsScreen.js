@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { 
   View, 
   Text, 
@@ -10,8 +10,18 @@ import {
   ActivityIndicator,
   Animated,
   Easing,
-  Platform
+  Platform,
+  Dimensions,
+  TextInput,
+  FlatList,
 } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+
+const { width: SCREEN_WIDTH } = Dimensions.get('window');
+const CAROUSEL_PADDING = 16;
+const CARD_GAP = 12;
+const LESSON_BOX_WIDTH = (SCREEN_WIDTH - CAROUSEL_PADDING * 2 - CARD_GAP * 2) / 2.5;
+const LESSON_BOX_HEIGHT = 140;
 import { Ionicons } from '@expo/vector-icons';
 import { useFocusEffect } from '@react-navigation/native';
 import { getResponsiveIconSize, isTablet, getResponsiveGridColumns, getTabletSpacing } from '../utils/responsiveSizing';
@@ -230,6 +240,7 @@ export default function LessonsScreen({ navigation }) {
   const [page, setPage] = useState(1);
   const [displayedLessons, setDisplayedLessons] = useState([]);
   const [viewMode, setViewMode] = useState('list'); // Add missing viewMode state
+  const [searchQuery, setSearchQuery] = useState('');
   const LESSONS_PER_PAGE = 10;
 
   // Subscription modal state
@@ -289,18 +300,14 @@ export default function LessonsScreen({ navigation }) {
       
       // Transform lessons to match the expected format
       const transformedLessons = loadedLessons.map(lesson => {
-        console.log('🔍 Original lesson data:', JSON.stringify(lesson, null, 2));
-        console.log('🌐 Current language in LessonsScreen:', currentLanguage);
-        console.log('🌐 Lesson title from file:', lesson.title);
         const category = getLessonCategory(lesson);
-        console.log('🏷️ Assigned category for lesson', lesson.id, ':', category);
         return {
           id: lesson.id,
-          title: lesson.title, // Use the title from the loaded lesson file (already translated)
+          title: lesson.title,
           description: lesson.introduction || 'Islamic lesson content',
           category: category,
-          icon: 'book-outline', // Default icon
-          color: '#1abc9c', // Default color
+          icon: 'book-outline',
+          color: '#1abc9c',
           difficulty: lesson.difficulty || 'Essential'
         };
       });
@@ -366,99 +373,118 @@ export default function LessonsScreen({ navigation }) {
 
 
 
+  // Authoritative category map for lessons 1-20 (from lessonTopics)
+  const lessonTopicsCategoryMap = {
+    1: 'theology', 2: 'theology', 3: 'theology', 4: 'theology', 5: 'prophets',
+    6: 'quran', 7: 'quran', 8: 'quran', 9: 'seerah', 10: 'seerah',
+    11: 'worship', 12: 'worship', 13: 'worship', 14: 'ethics', 15: 'ethics',
+    16: 'family', 17: 'family', 18: 'modern', 19: 'modern', 20: 'afterlife'
+  };
+
   // Function to determine lesson category based on title and content
   const getLessonCategory = (lesson) => {
+    // Use authoritative map for lessons 1-20
+    if (lessonTopicsCategoryMap[lesson.id]) {
+      return lessonTopicsCategoryMap[lesson.id];
+    }
     const title = lesson.title.toLowerCase();
     const introduction = (lesson.introduction || '').toLowerCase();
+    const text = title + ' ' + introduction;
     
-    // Theology & Core Beliefs
-    if (title.includes('tawheed') || title.includes('allah') || title.includes('belief') || 
-        title.includes('angels') || title.includes('books') || title.includes('prophets') ||
-        introduction.includes('tawheed') || introduction.includes('allah') || introduction.includes('belief')) {
-      return 'theology';
-    }
-    
-    // Quran Studies
-    if (title.includes('quran') || title.includes('miracle') || title.includes('themes') || 
-        title.includes('stories') || introduction.includes('quran')) {
-      return 'quran';
-    }
-    
-    // Seerah (Prophet's Life)
-    if (title.includes('prophet') || title.includes('muhammad') || title.includes('seerah') ||
-        introduction.includes('prophet') || introduction.includes('muhammad')) {
+    // Seerah (Prophet Muhammad only) - check BEFORE generic prophets
+    if (title.includes('muhammad') || title.includes('seerah') || text.includes('prophet muhammad') ||
+        (title.includes('character') && title.includes('prophet'))) {
       return 'seerah';
     }
     
-    // Worship
-    if (title.includes('prayer') || title.includes('worship') || title.includes('salah') ||
-        title.includes('fasting') || title.includes('hajj') || title.includes('zakat') ||
-        introduction.includes('prayer') || introduction.includes('worship')) {
+    // Prophets (other prophets: Ibrahim, Dawud, etc.)
+    if (title.includes('prophet') || title.includes('prophets') || title.includes('messenger') ||
+        title.includes('ibrahim') || title.includes('musa') || title.includes('dawud') ||
+        title.includes('sulaiman') || title.includes('yusuf') || title.includes('nuh') ||
+        introduction.includes('prophet ') || introduction.includes('prophets')) {
+      return 'prophets';
+    }
+    
+    // Theology & Core Beliefs
+    if (title.includes('tawheed') || title.includes('belief') || title.includes('angels') ||
+        title.includes('books') || title.includes('allah') && (title.includes('names') || title.includes('attributes')) ||
+        introduction.includes('tawheed') || introduction.includes('belief')) {
+      return 'theology';
+    }
+    
+    // Quran Studies (surah, verse, quran, miracle, themes, stories)
+    if (title.includes('quran') || title.includes('surah') || title.includes('sura') ||
+        title.includes('miracle') || title.includes('themes') || title.includes('stories') ||
+        title.includes('fatiha') || title.includes('last three surah') || introduction.includes('quran')) {
+      return 'quran';
+    }
+    
+    // Worship (salah, prayer, fasting, hajj, zakat, dhikr as worship)
+    if (title.includes('prayer') || title.includes('salah') || title.includes('fasting') ||
+        title.includes('hajj') || title.includes('zakat') || title.includes('charity') ||
+        title.includes('khushu') || title.includes('ramadan') || introduction.includes('prayer') || introduction.includes('worship')) {
       return 'worship';
+    }
+    
+    // Afterlife (death, grave, paradise, hell, judgment)
+    if (title.includes('afterlife') || title.includes('judgment') || title.includes('paradise') ||
+        title.includes('hell') || title.includes('jannah') || title.includes('grave') ||
+        title.includes('death') || title.includes('hereafter') || introduction.includes('afterlife')) {
+      return 'afterlife';
+    }
+    
+    // Women (check before ethics)
+    if (title.includes('women') || title.includes('woman') || title.includes('female')) {
+      return 'women';
     }
     
     // Ethics & Morality
     if (title.includes('ethics') || title.includes('morality') || title.includes('character') ||
-        title.includes('manners') || title.includes('behavior') || introduction.includes('ethics')) {
+        title.includes('manners') || title.includes('behavior') || title.includes('akhlaq') ||
+        title.includes('honesty') || title.includes('patience') || title.includes('sabr') ||
+        title.includes('anger') || title.includes('rights') || introduction.includes('ethics')) {
       return 'ethics';
+    }
+    
+    // Spirituality (dhikr, tawakkul, repentance, heart, soul)
+    if (title.includes('spirituality') || title.includes('dhikr') || title.includes('tawakkul') ||
+        title.includes('repentance') || title.includes('tawbah') || title.includes('purification') ||
+        title.includes('heart') || title.includes('soul') || title.includes('trust') && title.includes('allah') ||
+        introduction.includes('spirituality')) {
+      return 'spirituality';
+    }
+    
+    // Knowledge & Education (hadith, fiqh, education, wisdom, memorization)
+    if (title.includes('knowledge') || title.includes('learning') || title.includes('education') ||
+        title.includes('wisdom') || title.includes('hadith') || title.includes('fiqh') ||
+        title.includes('jurisprudence') || title.includes('memorization') || title.includes('sciences') ||
+        introduction.includes('knowledge')) {
+      return 'knowledge';
     }
     
     // Family
     if (title.includes('family') || title.includes('marriage') || title.includes('parenting') ||
-        title.includes('children') || introduction.includes('family')) {
+        title.includes('children') || title.includes('parents') || title.includes('neighbor') ||
+        introduction.includes('family')) {
       return 'family';
     }
     
-    // Modern Issues
-    if (title.includes('modern') || title.includes('technology') || title.includes('social') ||
-        title.includes('environment') || title.includes('stewardship') || introduction.includes('modern')) {
-      return 'modern';
-    }
-    
-    // Afterlife
-    if (title.includes('afterlife') || title.includes('judgment') || title.includes('paradise') ||
-        title.includes('hell') || title.includes('death') || introduction.includes('afterlife')) {
-      return 'afterlife';
-    }
-    
-    // Prophets
-    if (title.includes('prophet') || title.includes('messenger') || introduction.includes('prophet')) {
-      return 'prophets';
-    }
-    
-    // Spirituality
-    if (title.includes('spirituality') || title.includes('heart') || title.includes('soul') ||
-        title.includes('purification') || introduction.includes('spirituality')) {
-      return 'spirituality';
-    }
-    
-    // Knowledge & Education
-    if (title.includes('knowledge') || title.includes('learning') || title.includes('education') ||
-        title.includes('wisdom') || introduction.includes('knowledge')) {
-      return 'knowledge';
-    }
-    
-    // History
-    if (title.includes('history') || title.includes('caliphate') || title.includes('empire') ||
-        introduction.includes('history')) {
-      return 'history';
-    }
-    
     // Companions
-    if (title.includes('companion') || title.includes('sahabah') || title.includes('caliph') ||
+    if (title.includes('companion') || title.includes('sahabah') || title.includes('sahabi') ||
+        title.includes('abu bakr') || title.includes('umar') || title.includes('uthman') || title.includes('ali') ||
         introduction.includes('companion')) {
       return 'companions';
     }
     
-    // Women
-    if (title.includes('women') || title.includes('woman') || title.includes('female') ||
-        introduction.includes('women')) {
-      return 'women';
+    // History
+    if (title.includes('history') || title.includes('caliphate') || title.includes('empire') ||
+        title.includes('hijrah') || title.includes('hijra') || introduction.includes('history')) {
+      return 'history';
     }
     
     // Scholars
     if (title.includes('scholar') || title.includes('imam') || title.includes('ulema') ||
-        introduction.includes('scholar')) {
+        title.includes('classical') && title.includes('text') || introduction.includes('scholar')) {
       return 'scholars';
     }
     
@@ -468,7 +494,14 @@ export default function LessonsScreen({ navigation }) {
       return 'leaders';
     }
     
-    // Default to theology for foundational topics
+    // Modern Issues
+    if (title.includes('modern') || title.includes('technology') || title.includes('digital') ||
+        title.includes('social') || title.includes('minority') || title.includes('environment') ||
+        title.includes('stewardship') || title.includes('community') || introduction.includes('modern')) {
+      return 'modern';
+    }
+    
+    // Default to general/theology for uncategorized
     return 'theology';
   };
 
@@ -666,6 +699,35 @@ export default function LessonsScreen({ navigation }) {
       case 'Essential': return '#3498db';
       default: return '#95a5a6';
     }
+  };
+
+  // Filter lessons by search query (title only)
+  const filteredLessons = useMemo(() => {
+    if (!searchQuery.trim()) return lessons;
+    const q = searchQuery.toLowerCase().trim();
+    return lessons.filter((l) => l.title && l.title.toLowerCase().includes(q));
+  }, [lessons, searchQuery]);
+
+  // Group lessons by category for carousel sections (exclude 'all')
+  const getLessonsByCategory = () => {
+    const filtered = categories.filter(c => c.id !== 'all');
+    const result = [];
+    // 1. "All Lessons" carousel first - ensures every lesson is visible
+    if (filteredLessons.length > 0) {
+      result.push({ id: '_all', name: t('all', currentLanguage) + ' (' + filteredLessons.length + ')', lessons: [...filteredLessons] });
+    }
+    // 2. Category carousels - show ALL categories (even empty) so user sees full list
+    filtered.forEach(cat => {
+      const catLessons = filteredLessons.filter(l => l.category === cat.id);
+      result.push({ ...cat, lessons: catLessons });
+    });
+    // 3. "Other" for lessons with unknown categories
+    const knownIds = new Set(filtered.map(c => c.id));
+    const otherLessons = filteredLessons.filter(l => !knownIds.has(l.category));
+    if (otherLessons.length > 0) {
+      result.push({ id: 'other', name: t('other', currentLanguage) || 'Other', lessons: otherLessons });
+    }
+    return result;
   };
 
   // Animation functions
@@ -867,173 +929,148 @@ export default function LessonsScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.safeArea}>
+      <StatusBar barStyle="light-content" backgroundColor="#1A1A1A" />
+      {/* Simple title like Book screen */}
+      <View style={styles.pageHeader}>
+        <Text style={styles.pageTitle}>
+          {t('lessonsOfIslam', currentLanguage) || 'Lessons of Islam'}
+        </Text>
+      </View>
+
       <ScrollView 
         style={styles.scrollView} 
         contentContainerStyle={{ 
           flexGrow: 1,
           paddingBottom: Platform.OS === 'android' ? 180 : 20
         }}
+        showsVerticalScrollIndicator={false}
       >
-        <StatusBar barStyle="dark-content" backgroundColor="#ffffff" />
-        {/* Header */}
-        <Animated.View 
-          style={[
-            styles.header,
-            {
-              opacity: headerAnim,
-              transform: [
-                {
-                  translateY: headerAnim.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: [30, 0],
-                  }),
-                },
-              ],
-            },
-          ]}
-        >
-          <Animated.View style={{ transform: [{ scale: backButtonScale }] }}>
-            <TouchableOpacity 
-              style={styles.backButton}
-              onPress={() => animateButtonPress(backButtonScale, () => navigation.goBack())}
-            >
-                              <Ionicons name="arrow-back" size={getResponsiveIconSize(24)} color="#FFFFFF" />
-            </TouchableOpacity>
-          </Animated.View>
-          <Text style={styles.headerTitle}>{t('islamicLessons', currentLanguage)}</Text>
-          
-          {/* View Mode Toggle */}
-          <View style={styles.viewToggle}>
-            <Animated.View style={{ transform: [{ scale: toggleButtonScale }] }}>
-              <TouchableOpacity
-                style={[
-                  styles.toggleButton,
-                  viewMode === 'list' && styles.activeToggleButton
-                ]}
-                onPress={() => animateButtonPress(toggleButtonScale, () => setViewMode('list'))}
-              >
-                <Ionicons name="list" size={18} color={viewMode === 'list' ? '#121212' : '#FFFFFF'} />
-              </TouchableOpacity>
-            </Animated.View>
-            <Animated.View style={{ transform: [{ scale: toggleButtonScale }] }}>
-              <TouchableOpacity
-                style={[
-                  styles.toggleButton,
-                  viewMode === 'roadmap' && styles.activeToggleButton
-                ]}
-                onPress={() => animateButtonPress(toggleButtonScale, () => setViewMode('roadmap'))}
-              >
-                <Ionicons name="map" size={18} color={viewMode === 'roadmap' ? '#121212' : '#FFFFFF'} />
-              </TouchableOpacity>
-            </Animated.View>
-          </View>
-        </Animated.View>
-
-        {viewMode === 'roadmap' ? (
-          <RoadmapView />
-        ) : (
         <ScrollView 
           showsVerticalScrollIndicator={false}
-          onScroll={handleScroll}
-          scrollEventThrottle={400}
+          contentContainerStyle={{ paddingBottom: 24 }}
         >
-          {/* Category Filter */}
-          <Animated.View 
-            style={[
-              styles.categoriesSection,
-              {
-                opacity: categoriesAnim,
-                transform: [
-                  {
-                    translateY: categoriesAnim.interpolate({
-                      inputRange: [0, 1],
-                      outputRange: [30, 0],
-                    }),
-                  },
-                ],
-              },
-            ]}
-          >
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              <View style={styles.categoriesContainer}>
-                {categories.map((category) => (
-                  <Animated.View key={category.id} style={{ transform: [{ scale: categoryButtonScale }] }}>
+          {loadingLessons ? (
+            <View style={styles.loadingContainer}>
+              <ActivityIndicator size="large" color="#FFFFFF" />
+              <Text style={{ color: '#888', marginTop: 12 }}>{t('loading', currentLanguage)}...</Text>
+            </View>
+          ) : (
+            <>
+          {/* Search bar */}
+          <View style={styles.searchContainer}>
+            <Ionicons name="search" size={20} color="#888" style={styles.searchIcon} />
+            <TextInput
+              style={styles.searchInput}
+              placeholder={t('searchLessons', currentLanguage) || 'Search lessons...'}
+              placeholderTextColor="#666"
+              value={searchQuery}
+              onChangeText={setSearchQuery}
+              returnKeyType="search"
+            />
+            {searchQuery.length > 0 && (
+              <TouchableOpacity onPress={() => setSearchQuery('')} style={styles.searchClear}>
+                <Ionicons name="close-circle" size={20} color="#888" />
+              </TouchableOpacity>
+            )}
+          </View>
+
+          {/* Progress summary at top */}
+          <View style={styles.progressHeader}>
+            <Text style={styles.progressSummary}>
+              {getCompletionPercentage()}% {t('complete', currentLanguage)} · {filteredLessons.length} {t('lessons', currentLanguage)}
+            </Text>
+          </View>
+
+          {/* Search results - full list view when searching */}
+          {searchQuery.trim().length > 0 ? (
+            <View style={styles.searchResultsContainer}>
+              <FlatList
+                data={filteredLessons}
+                keyExtractor={(item) => String(item.id)}
+                renderItem={({ item }) => (
+                  <TouchableOpacity
+                    style={styles.searchResultItem}
+                    onPress={() => handleLessonPress(item)}
+                    activeOpacity={0.7}
+                  >
+                    <Text style={styles.searchResultTitle} numberOfLines={2}>
+                      {item.title}
+                    </Text>
+                    <Ionicons name="chevron-forward" size={18} color="#666" />
+                  </TouchableOpacity>
+                )}
+                contentContainerStyle={styles.searchResultsContent}
+                ListEmptyComponent={
+                  <View style={styles.searchEmptyState}>
+                    <Text style={styles.searchEmptyText}>
+                      {t('noResultsFound', currentLanguage) || 'No results found'}
+                    </Text>
+                  </View>
+                }
+                scrollEnabled={false}
+              />
+            </View>
+          ) : (
+          <>
+          {/* Category Carousels */}
+          {getLessonsByCategory().map((categorySection) => (
+            <View key={categorySection.id} style={styles.carouselSection}>
+              <View style={styles.carouselSectionHeader}>
+                <Text style={styles.carouselSectionTitle}>{categorySection.name}</Text>
+                {categorySection.lessons.length > 0 && (
+                  <TouchableOpacity
+                    style={styles.viewMoreBtn}
+                    onPress={() =>
+                      navigation.navigate('CategoryLessons', {
+                        categoryName: categorySection.name,
+                        lessons: categorySection.lessons,
+                      })
+                    }
+                  >
+                    <Text style={styles.viewMoreText}>{t('viewMore', currentLanguage) || 'View more'}</Text>
+                    <Ionicons name="chevron-forward" size={14} color="#3498db" />
+                  </TouchableOpacity>
+                )}
+              </View>
+              <View style={styles.carouselWrapper}>
+                <ScrollView 
+                  horizontal 
+                  showsHorizontalScrollIndicator={false}
+                  contentContainerStyle={[
+                    styles.carouselContent,
+                    categorySection.lessons.length > 1 && styles.carouselContentOverlap,
+                  ]}
+                >
+                  {categorySection.lessons.map((lesson) => (
                     <TouchableOpacity
-                      style={[
-                        styles.categoryChip,
-                        activeCategory === category.id && styles.activeCategoryChip
-                      ]}
-                      onPress={() => animateButtonPress(categoryButtonScale, () => handleCategoryChange(category.id))}
+                      key={lesson.id}
+                      style={styles.lessonBox}
+                      onPress={() => handleLessonPress(lesson)}
+                      activeOpacity={0.7}
                     >
-                      <Text style={[
-                        styles.categoryChipText,
-                        activeCategory === category.id && styles.activeCategoryChipText
-                      ]}>
-                        {category.name}
+                      <Text style={styles.lessonBoxTitle} numberOfLines={3}>
+                        {lesson.title}
                       </Text>
                     </TouchableOpacity>
-                  </Animated.View>
-                ))}
+                  ))}
+                </ScrollView>
+                {categorySection.lessons.length > 2 && (
+                  <LinearGradient
+                    colors={['transparent', 'rgba(18, 18, 18, 0.95)']}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 0 }}
+                    style={styles.carouselFade}
+                    pointerEvents="none"
+                  />
+                )}
               </View>
-            </ScrollView>
-          </Animated.View>
-
-          {/* Lessons List */}
-          <Animated.View 
-            style={[
-              styles.lessonsSection,
-              {
-                opacity: lessonsAnim,
-                transform: [
-                  {
-                    translateY: lessonsAnim.interpolate({
-                      inputRange: [0, 1],
-                      outputRange: [30, 0],
-                    }),
-                  },
-                ],
-              },
-            ]}
-          >
-            <Text style={styles.sectionTitle}>
-              {t('availableLessons', currentLanguage)} 
-              ({displayedLessons.length})
-            </Text>
-            
-              {/* Lessons List */}
-            {displayedLessons.map((lesson) => (
-              <Animated.View key={lesson.id} style={{ transform: [{ scale: getLessonAnimation(lesson.id) }] }}>
-                <TouchableOpacity 
-                  style={styles.lessonCard}
-                  onPress={() => animateButtonPress(getLessonAnimation(lesson.id), () => handleLessonPress(lesson))}
-                >
-                  <View style={styles.lessonContent}>
-                    <Text style={styles.lessonTitle}>{lesson.title}</Text>
-                    
-                    <View style={styles.lessonMeta}>
-                      <View style={[styles.difficultyBadge, { backgroundColor: getDifficultyColor(lesson.difficulty) + '20' }]}>
-                        <Text style={[styles.difficultyText, { color: getDifficultyColor(lesson.difficulty) }]}>
-                          {t(lesson.category, currentLanguage)}
-                        </Text>
-                      </View>
-                    </View>
-                  </View>
-
-                  <View style={styles.lessonArrow}>
-                    <Ionicons name="chevron-forward" size={20} color="#bdc3c7" />
-                  </View>
-                </TouchableOpacity>
-              </Animated.View>
-            ))}
-
-            {loading && (
-              <View style={styles.loadingContainer}>
-                <ActivityIndicator size="small" color="#FFFFFF" />
-              </View>
-            )}
-          </Animated.View>
-        </ScrollView>
+            </View>
+          ))}
+          </>
+          )}
+          </>
         )}
+        </ScrollView>
       </ScrollView>
 
       {/* Subscription Modal */}
@@ -1059,58 +1096,147 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#121212',
   },
-  header: {
+  pageHeader: {
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    paddingTop: 20,
+    paddingBottom: 16,
+  },
+  pageTitle: {
+    fontSize: 28,
+    fontWeight: '800',
+    color: '#FFFFFF',
+    textShadowColor: 'rgba(0, 0, 0, 0.5)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 4,
+    letterSpacing: 0.5,
+  },
+  searchContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0.08)',
+    borderRadius: 12,
+    marginHorizontal: 20,
+    marginTop: 20,
+    marginBottom: 12,
+    paddingHorizontal: 14,
+  },
+  searchIcon: {
+    marginRight: 10,
+  },
+  searchInput: {
+    flex: 1,
+    height: 44,
+    fontSize: 15,
+    color: '#FFFFFF',
+    paddingVertical: 0,
+  },
+  searchClear: {
+    padding: 4,
+  },
+  searchResultsContainer: {
+    paddingHorizontal: 20,
+    marginTop: 8,
+  },
+  searchResultsContent: {
+    paddingBottom: 24,
+  },
+  searchResultItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: 'rgba(255, 255, 255, 0.06)',
+    borderRadius: 12,
+    padding: 16,
+    marginBottom: 8,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.08)',
+  },
+  searchResultTitle: {
+    flex: 1,
+    fontSize: 15,
+    fontWeight: '500',
+    color: '#FFFFFF',
+    marginRight: 12,
+  },
+  searchEmptyState: {
+    padding: 40,
+    alignItems: 'center',
+  },
+  searchEmptyText: {
+    color: '#888',
+    fontSize: 15,
+  },
+  progressHeader: {
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+  },
+  progressSummary: {
+    fontSize: 14,
+    color: '#888',
+  },
+  carouselSection: {
+    marginBottom: 24,
+  },
+  carouselSectionHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 20,
-    paddingVertical: 15,
-    backgroundColor: '#1E1E1E',
-    borderBottomWidth: 1,
-    borderBottomColor: 'rgba(255, 255, 255, 0.1)',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 6,
-    elevation: 4,
+    marginBottom: 12,
   },
-  backButton: {
-    width: 40,
-    height: 40,
-    borderRadius: 15,
-    backgroundColor: '#2A2A2A',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginLeft: 5,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  refreshButton: {
-    width: 40,
-    height: 40,
-    borderRadius: 15,
-    backgroundColor: '#2A2A2A',
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  backIcon: {
-    color: '#FFFFFF',
-  },
-  headerTitle: {
+  carouselSectionTitle: {
     fontSize: 18,
-    fontWeight: '800',
+    fontWeight: '700',
     color: '#FFFFFF',
-    textShadowColor: 'rgba(0, 0, 0, 0.6)',
-    textShadowOffset: { width: 0, height: 2 },
-    textShadowRadius: 4,
+    flex: 1,
+  },
+  viewMoreBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 4,
+    paddingHorizontal: 8,
+  },
+  viewMoreText: {
+    fontSize: 14,
+    color: '#3498db',
+    fontWeight: '600',
+    marginRight: 2,
+  },
+  carouselWrapper: {
+    position: 'relative',
+  },
+  carouselContent: {
+    paddingHorizontal: 16,
+    paddingRight: 20,
+  },
+  carouselContentOverlap: {
+    paddingRight: SCREEN_WIDTH * 0.15,
+  },
+  carouselFade: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    width: 48,
+  },
+  lessonBox: {
+    width: LESSON_BOX_WIDTH,
+    minHeight: LESSON_BOX_HEIGHT,
+    marginRight: 12,
+    backgroundColor: 'rgba(255, 255, 255, 0.06)',
+    borderRadius: 12,
+    padding: 18,
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.08)',
+  },
+  lessonBoxTitle: {
+    fontSize: 15,
+    fontWeight: '500',
+    color: '#FFFFFF',
+    lineHeight: 22,
+    letterSpacing: 0.2,
   },
   placeholder: {
     width: 32,
@@ -1256,8 +1382,10 @@ const styles = StyleSheet.create({
     color: '#B0B0B0',
   },
   loadingContainer: {
-    padding: 20,
+    flex: 1,
+    padding: 40,
     alignItems: 'center',
+    justifyContent: 'center',
   },
   errorContainer: {
     padding: 40,

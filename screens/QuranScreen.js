@@ -6561,20 +6561,20 @@ const QuranScreen = ({ navigation, route }) => {
             {/* Reciter Selection */}
             <TouchableOpacity
               style={{
-                width: 60,
+                minWidth: 140,
                 height: 40,
                 borderRadius: 20,
                 backgroundColor: '#2A2A2A',
                 justifyContent: 'center',
                 alignItems: 'center',
-                paddingHorizontal: 8,
+                paddingHorizontal: 16,
               }}
               onPress={() => {
                 // Toggle reciter selection dropdown
                 setShowInlineReciterSelection(!showInlineReciterSelection);
               }}
             >
-              <Text style={{ color: '#FFFFFF', fontSize: 10, fontWeight: 'bold' }}>
+              <Text style={{ color: '#FFFFFF', fontSize: 12, fontWeight: 'bold' }} numberOfLines={1}>
                 {availableReciters.find(r => r.id === selectedReciter)?.name?.split(' ').pop() || 'R'}
               </Text>
             </TouchableOpacity>
@@ -6896,19 +6896,19 @@ const QuranScreen = ({ navigation, route }) => {
               <View style={{ position: 'relative' }}>
                 <TouchableOpacity
                   style={{
-                    width: 36,
+                    minWidth: 100,
                     height: 32,
                     borderRadius: 16,
                     backgroundColor: '#2A2A2A',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    paddingHorizontal: 6,
+                    paddingHorizontal: 12,
                   }}
                   onPress={() => {
                     setShowInlineReciterSelection(!showInlineReciterSelection);
                   }}
                 >
-                  <Text style={{ color: '#FFFFFF', fontSize: 9, fontWeight: 'bold' }}>
+                  <Text style={{ color: '#FFFFFF', fontSize: 10, fontWeight: 'bold' }} numberOfLines={1}>
                     {availableReciters.find(r => r.id === selectedReciter)?.name?.split(' ').pop() || 'R'}
                   </Text>
                 </TouchableOpacity>
@@ -6967,26 +6967,6 @@ const QuranScreen = ({ navigation, route }) => {
                   </View>
                 )}
               </View>
-
-              {/* Switch Mode Button */}
-              <TouchableOpacity
-                style={{
-                  paddingHorizontal: 8,
-                  paddingVertical: 4,
-                }}
-                onPress={() => {
-                  setIsReciteMode(!isReciteMode);
-                }}
-                activeOpacity={0.7}
-              >
-                <Text style={{ 
-                  color: '#666', 
-                  fontSize: 10, 
-                  fontWeight: '500',
-                }}>
-                  Switch Mode
-                </Text>
-              </TouchableOpacity>
             </View>
           )}
 
@@ -7034,29 +7014,6 @@ const QuranScreen = ({ navigation, route }) => {
                   Listening...
                 </Text>
               )}
-              
-              {/* Switch Mode Button */}
-              <TouchableOpacity
-                style={{
-                  paddingHorizontal: 8,
-                  paddingVertical: 4,
-                }}
-                onPress={() => {
-                  if (isListening) {
-                    stopContinuousDetection();
-                  }
-                  setIsReciteMode(false);
-                }}
-                activeOpacity={0.7}
-              >
-                <Text style={{ 
-                  color: '#666', 
-                  fontSize: 10, 
-                  fontWeight: '500',
-                }}>
-                  Switch Mode
-                </Text>
-              </TouchableOpacity>
             </View>
           )}
         </View>

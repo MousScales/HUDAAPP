@@ -80,6 +80,7 @@ TaskManager.defineTask(PRAYER_BLOCKER_TASK, async ({ data, error, executionInfo 
 import HomeScreen from './screens/HomeScreen';
 import LessonsScreen from './screens/LessonsScreen';
 import LessonDetailScreen from './screens/LessonDetailScreen';
+import CategoryLessonsScreen from './screens/CategoryLessonsScreen';
 import BookScreen from './screens/BookScreen';
 import GuidedPrayerScreen from './screens/GuidedPrayerScreen';
 import QuranScreen from './screens/QuranScreen';
@@ -95,7 +96,6 @@ import WuduScreen from './screens/WuduScreen';
 import CleanSpotScreen from './screens/CleanSpotScreen';
 import DressingScreen from './screens/DressingScreen';
 import QiblaScreen from './screens/QiblaScreen';
-import ProfileScreen from './screens/ProfileScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import TestNotificationsScreen from './screens/TestNotificationsScreen';
 import PromotionalSubscriptionScreen from './screens/PromotionalSubscriptionScreen';
@@ -125,8 +125,19 @@ const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 const HomeStack = createStackNavigator();
 const BookStack = createStackNavigator();
+const LessonsStack = createStackNavigator();
 const PrayerStack = createStackNavigator();
 const ProfileStack = createStackNavigator();
+
+function LessonsStackNavigator() {
+  return (
+    <LessonsStack.Navigator screenOptions={{ headerShown: false }}>
+      <LessonsStack.Screen name="LessonsMain" component={LessonsScreen} />
+      <LessonsStack.Screen name="LessonDetail" component={LessonDetailScreen} />
+      <LessonsStack.Screen name="CategoryLessons" component={CategoryLessonsScreen} />
+    </LessonsStack.Navigator>
+  );
+}
 
 function HomeStackNavigator({ onSubscriptionExpired }) {
   return (
@@ -134,8 +145,6 @@ function HomeStackNavigator({ onSubscriptionExpired }) {
       <HomeStack.Screen name="HomeMain">
         {(props) => <HomeScreen {...props} onSubscriptionExpired={onSubscriptionExpired} />}
       </HomeStack.Screen>
-      <HomeStack.Screen name="LessonsScreen" component={LessonsScreen} />
-      <HomeStack.Screen name="LessonDetail" component={LessonDetailScreen} />
       <HomeStack.Screen name="TasbihScreen" component={TasbihScreen} />
       <HomeStack.Screen name="QiblaScreen" component={QiblaScreen} />
       <HomeStack.Screen name="DuaBoardScreen" component={DuaBoardScreen} />
@@ -186,8 +195,7 @@ function PrayerStackNavigator() {
 
 function ProfileStackNavigator({ onLogout }) {
   return (
-    <ProfileStack.Navigator screenOptions={{ headerShown: false }}>
-      <ProfileStack.Screen name="ProfileMain" component={ProfileScreen} />
+    <ProfileStack.Navigator screenOptions={{ headerShown: false }} initialRouteName="SettingsScreen">
       <ProfileStack.Screen name="SettingsScreen">
         {(props) => <SettingsScreen {...props} onLogout={onLogout} />}
       </ProfileStack.Screen>
@@ -202,15 +210,15 @@ const getMainScreens = (route) => {
   switch (routeName) {
     case 'HomeMain':
     case 'BookMain':
+    case 'LessonsMain':
     case 'PrayerMain':
-    case 'ProfileMain':
+    case 'SettingsScreen':
       return 'flex';
     case 'TasbihScreen':
     case 'QiblaScreen':
-    case 'LessonsScreen':
     case 'LessonDetail':
+    case 'CategoryLessons':
     case 'DuaBoardScreen':
-    case 'SettingsScreen':
     case 'Bookmarks':
       return 'none';
     default:
@@ -262,10 +270,12 @@ function MainTabNavigator({ onLogout, onSubscriptionExpired }) {
             iconName = focused ? 'home' : 'home-outline';
           } else if (route.name === 'Book') {
             iconName = focused ? 'book' : 'book-outline';
+          } else if (route.name === 'Lessons') {
+            iconName = focused ? 'school' : 'school-outline';
           } else if (route.name === 'Prayer') {
             iconName = focused ? 'accessibility' : 'accessibility-outline';
           } else if (route.name === 'Profile') {
-            iconName = focused ? 'person' : 'person-outline';
+            iconName = focused ? 'settings' : 'settings-outline';
           }
 
           return (
@@ -300,6 +310,7 @@ function MainTabNavigator({ onLogout, onSubscriptionExpired }) {
         {(props) => <HomeStackNavigator {...props} onSubscriptionExpired={onSubscriptionExpired} />}
       </Tab.Screen>
       <Tab.Screen name="Book" component={BookStackNavigator} />
+      <Tab.Screen name="Lessons" component={LessonsStackNavigator} />
       <Tab.Screen name="Prayer" component={PrayerStackNavigator} />
       <Tab.Screen name="Profile">
         {(props) => <ProfileStackNavigator {...props} onLogout={onLogout} />}

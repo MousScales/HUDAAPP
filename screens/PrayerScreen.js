@@ -1690,7 +1690,11 @@ export default function PrayerScreen({ navigation }) {
       const userMethod = method || getMadhabMethod(userMadhab);
       const userSchool = madhab || getMadhabNumber(userMadhab);
       
-      const url = `https://api.aladhan.com/v1/timings/${year}-${month}-${day}?latitude=${coords.latitude}&longitude=${coords.longitude}&method=${userMethod}&school=${userSchool}`;
+      // Use IANA timezone for accurate DST handling (e.g. America/New_York)
+      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
+      
+      // Aladhan API requires DD-MM-YYYY format (not YYYY-MM-DD) - wrong format returns wrong year and incorrect DST times
+      const url = `https://api.aladhan.com/v1/timings/${day}-${month}-${year}?latitude=${coords.latitude}&longitude=${coords.longitude}&method=${userMethod}&school=${userSchool}&timezonestring=${encodeURIComponent(timezone)}`;
       const response = await fetch(url);
       const json = await response.json();
       if (json.code === 200 && json.data && json.data.timings) {

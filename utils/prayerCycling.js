@@ -47,9 +47,15 @@ const getTomorrowPrayerTimes = async (location, currentLanguage = 'english') => 
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
     
-    // Use the prayer service to get tomorrow's times
+    // Use IANA timezone for accurate DST handling (e.g. America/New_York)
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
+    const year = tomorrow.getFullYear();
+    const month = (tomorrow.getMonth() + 1).toString().padStart(2, '0');
+    const day = tomorrow.getDate().toString().padStart(2, '0');
+    
+    // Aladhan API requires DD-MM-YYYY format (not YYYY-MM-DD) - wrong format returns wrong year and incorrect DST times
     const response = await fetch(
-      `https://api.aladhan.com/v1/timings/${tomorrow.getTime() / 1000}?latitude=${location.coords.latitude}&longitude=${location.coords.longitude}&method=2`
+      `https://api.aladhan.com/v1/timings/${day}-${month}-${year}?latitude=${location.coords.latitude}&longitude=${location.coords.longitude}&method=2&timezonestring=${encodeURIComponent(timezone)}`
     );
     
     if (!response.ok) return null;

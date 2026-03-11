@@ -651,7 +651,11 @@ export const translations = {
     
     // Lessons
     lessons: 'Lessons',
+    searchLessons: 'Search lessons...',
+    viewMore: 'View more',
+    noLessons: 'No lessons in this category',
     islamicLessons: 'Islamic Lessons',
+    lessonsOfIslam: 'Lessons of Islam',
     availableLessons: 'Available Lessons',
     introLessons: 'Intro lessons:',
     viewMoreLessons: 'View More Lessons',

@@ -19,9 +19,12 @@ target 'Hud' do
   if ENV['EXPO_USE_COMMUNITY_AUTOLINKING'] == '1'
     config_command = ['node', '-e', "process.argv=['', '', 'config'];require('@react-native-community/cli').run()"];
   else
+    # Use node/require to resolve expo-modules-autolinking from expo's path (fixes React header import issues)
     config_command = [
-      'npx',
-      'expo-modules-autolinking',
+      'node',
+      '--no-warnings',
+      '--eval',
+      'require(require.resolve(\'expo-modules-autolinking\', { paths: [require.resolve(\'expo/package.json\')] }))(process.argv.slice(1))',
       'react-native-config',
       '--json',
       '--platform',
@@ -58,6 +61,58 @@ target 'Hud' do
         resource_bundle_target.build_configurations.each do |config|
           config.build_settings['CODE_SIGNING_ALLOWED'] = 'NO'
         end
+      end
+    end
+
+    # Fix React-Core umbrella: remove headers that don't exist or break Swift/ObjC module build.
+    # CoreModulesPlugins.h is internal to React-CoreModules. *+Internal.h are private and not shipped.
+    # Without this, Swift "import React" and ExpoModulesCore fail with "file not found".
+    umbrella_paths = [
+      File.join(installer.sandbox.root, 'Target Support Files', 'React-Core', 'React-Core-umbrella.h'),
+      File.join(installer.sandbox.root, 'Headers', 'Public', 'React', 'React-Core-umbrella.h'),
+      File.join(installer.sandbox.root, 'Headers', 'Public', 'React-Core', 'React-Core-umbrella.h'),
+    ]
+    # Headers from React-Core header_subspecs (CoreModules, Libraries/*) - they live in
+    # separate pods (React-CoreModules, React-RCTActionSheet, etc.) and break Swift module build.
+    problematic_patterns = [
+      'CoreModulesPlugins.h',
+      '+Internal.h',
+      'RCTAccessibilityManager.h',
+      'RCTActionSheetManager.h',
+      'RCTAlertController.h',
+      'RCTAlertManager.h',
+      'RCTAppState.h',
+      'RCTClipboard.h',
+      'RCTDevLoadingView.h',
+      'RCTDevMenu.h',
+      'RCTDevSettings.h',
+      'RCTEventDispatcher.h',
+      'RCTExceptionsManager.h',
+      'RCTKeyboardObserver.h',
+      'RCTLogBox',
+      'RCTPlatform.h',
+      'RCTSourceCode.h',
+      'RCTStatusBarManager.h',
+      'RCTTiming.h',
+      'RCTWebSocketModule.h',
+      'RCTBlobManager.h',
+      'RCTFileReaderModule.h',
+      'RCTLinkingManager.h',
+      'RCTNetworking.h',
+      'RCTSettingsManager.h',
+      'RCTVibration.h',
+      'RCTPushNotification',
+    ]
+    umbrella_paths.each do |react_core_umbrella|
+      next unless File.exist?(react_core_umbrella)
+      umbrella_content = File.read(react_core_umbrella)
+      original = umbrella_content.dup
+      umbrella_content = umbrella_content.lines.reject do |line|
+        problematic_patterns.any? { |p| line.include?(p) }
+      end.join
+      if umbrella_content != original
+        File.write(react_core_umbrella, umbrella_content)
+        Pod::UI.puts "Patched React-Core umbrella: removed problematic header imports".green
       end
     end
   end

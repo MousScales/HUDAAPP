@@ -217,7 +217,6 @@ export default function HomeScreen({ navigation, onSubscriptionExpired }) {
     
     return () => clearTimeout(timer);
   }, [userName, profileLoaded]);
-  const [dailyLessons, setDailyLessons] = useState([]);
   const [userMadhab, setUserMadhab] = useState('hanafi'); // Add user madhab state
   const [excuseMode, setExcuseMode] = useState(false); // Add excuse mode state
   const [prayerStatus, setPrayerStatus] = useState({}); // Track prayer completion status
@@ -237,7 +236,6 @@ export default function HomeScreen({ navigation, onSubscriptionExpired }) {
   const [prayerCardAnim] = useState(new Animated.Value(0));
   const [upcomingAnim] = useState(new Animated.Value(0));
   const [quickActionsAnim] = useState(new Animated.Value(0));
-  const [lessonsAnim] = useState(new Animated.Value(0));
   const [madhabAnim] = useState(new Animated.Value(0));
   const [bellButtonScale] = useState(new Animated.Value(1));
   
@@ -250,11 +248,9 @@ export default function HomeScreen({ navigation, onSubscriptionExpired }) {
   const [mosqueFinderButtonScale] = useState(new Animated.Value(1));
   const [halalFoodFinderButtonScale] = useState(new Animated.Value(1));
   const [hifdhHelperButtonScale] = useState(new Animated.Value(1));
-  const [viewMoreButtonScale] = useState(new Animated.Value(1));
 
   
   // Individual lesson button animations
-  const [lessonButtonScales, setLessonButtonScales] = useState({});
 
   // Confetti animation state
   const [showConfetti, setShowConfetti] = useState(false);
@@ -501,7 +497,6 @@ export default function HomeScreen({ navigation, onSubscriptionExpired }) {
     prayerCardAnim.setValue(0);
     upcomingAnim.setValue(0);
     quickActionsAnim.setValue(0);
-    lessonsAnim.setValue(0);
     madhabAnim.setValue(0);
 
     // Staggered entrance animations
@@ -531,12 +526,6 @@ export default function HomeScreen({ navigation, onSubscriptionExpired }) {
         easing: Easing.out(Easing.cubic),
       }),
       Animated.timing(quickActionsAnim, {
-        toValue: 1,
-        duration: 400,
-        useNativeDriver: true,
-        easing: Easing.out(Easing.cubic),
-      }),
-      Animated.timing(lessonsAnim, {
         toValue: 1,
         duration: 400,
         useNativeDriver: true,
@@ -630,19 +619,6 @@ export default function HomeScreen({ navigation, onSubscriptionExpired }) {
     }, 3000);
   };
 
-  // Create individual animation for a specific lesson
-  const getLessonAnimation = (lessonId) => {
-    if (!lessonButtonScales[lessonId]) {
-      const newScale = new Animated.Value(1);
-      setLessonButtonScales(prev => ({
-        ...prev,
-        [lessonId]: newScale
-      }));
-      return newScale;
-    }
-    return lessonButtonScales[lessonId];
-  };
-
   const featuredLessons = [
     {
       id: 1,
@@ -662,101 +638,6 @@ export default function HomeScreen({ navigation, onSubscriptionExpired }) {
     }
   ];
 
-  const loadDailyLessons = async () => {
-    try {
-      const lessons = await lessonService.getRandomLessons(2);
-      setDailyLessons(lessons);
-    } catch (error) {
-      console.error('Error loading daily lessons:', error);
-      // Set fallback lessons if Firebase fails
-      setDailyLessons([
-        {
-          id: 1,
-          title: 'Tawheed (Oneness of Allah)',
-          description: 'Understanding the fundamental concept of Islamic monotheism',
-          icon: 'infinite-outline',
-          color: '#1abc9c'
-        },
-        {
-          id: 2,
-          title: 'Names and Attributes of Allah',
-          description: 'Learning the 99 beautiful names of Allah and their meanings',
-          icon: 'text-outline',
-          color: '#2ecc71'
-        }
-      ]);
-    }
-  };
-
-  // Handle lesson access with subscription check
-  const handleLessonPress = async (lesson) => {
-    console.log('🎯 handleLessonPress called for lesson:', lesson.title);
-    
-    try {
-      // Reset cache to ensure fresh check
-      subscriptionGuard.resetCache();
-      // Force a fresh subscription check by bypassing cache
-      const isSubscribed = await subscriptionGuard.forceCheckSubscriptionStatus();
-      
-      if (isSubscribed) {
-        console.log('✅ User is subscribed - allowing access to lesson');
-        navigation.navigate('LessonDetail', { lesson });
-      } else {
-        console.log('❌ User not subscribed - showing subscription modal');
-        setSelectedLessonForSubscription(lesson);
-        
-        // Check if we should show promotional modal
-        const showPromotional = await AsyncStorage.getItem('showPromotionalNext');
-        if (showPromotional === 'true') {
-          setShowPromotionalModal(true);
-        } else {
-          setShowSubscriptionModal(true);
-        }
-      }
-    } catch (error) {
-      console.error('❌ Error checking subscription:', error);
-      // Re-check subscription before showing modal in case of error
-      try {
-        console.log('🔄 Re-checking subscription status after error...');
-        const isSubscribedAfterError = await subscriptionGuard.forceCheckSubscriptionStatus();
-        if (isSubscribedAfterError) {
-          console.log('✅ User is subscribed (after error check) - allowing access');
-          navigation.navigate('LessonDetail', { lesson });
-        } else {
-          console.log('❌ User not subscribed (after error check) - showing subscription modal');
-          setSelectedLessonForSubscription(lesson);
-          
-          // Check if we should show promotional modal
-          const showPromotional = await AsyncStorage.getItem('showPromotionalNext');
-          if (showPromotional === 'true') {
-            setShowPromotionalModal(true);
-          } else {
-            setShowSubscriptionModal(true);
-          }
-        }
-      } catch (recheckError) {
-        console.error('❌ Error in re-check:', recheckError);
-        // Only show modal if we can't verify subscription
-        setSelectedLessonForSubscription(lesson);
-        
-        // Check if we should show promotional modal
-        const showPromotional = await AsyncStorage.getItem('showPromotionalNext');
-        if (showPromotional === 'true') {
-          setShowPromotionalModal(true);
-        } else {
-          setShowSubscriptionModal(true);
-        }
-      }
-    }
-  };
-
-  // Handle "View More Lessons" - allow browsing without subscription
-  const handleViewMoreLessons = () => {
-    console.log('🎯 handleViewMoreLessons called - allowing browse access');
-    console.log('✅ Navigating to lessons screen for browsing');
-    navigation.navigate('LessonsScreen');
-  };
-
   // Handle subscription success
   const handleSubscriptionSuccess = async () => {
     console.log('🎉 handleSubscriptionSuccess called');
@@ -771,11 +652,11 @@ export default function HomeScreen({ navigation, onSubscriptionExpired }) {
     
     if (selectedLessonForSubscription) {
       console.log('🧭 Navigating to lesson detail after successful subscription');
-      navigation.navigate('LessonDetail', { lesson: selectedLessonForSubscription });
+      navigation.navigate('Lessons', { screen: 'LessonDetail', params: { lesson: selectedLessonForSubscription } });
       setSelectedLessonForSubscription(null);
     } else {
       console.log('🧭 Navigating to lessons screen after successful subscription');
-      navigation.navigate('LessonsScreen');
+      navigation.navigate('Lessons');
     }
   };
 
@@ -824,7 +705,6 @@ export default function HomeScreen({ navigation, onSubscriptionExpired }) {
     loadUserData();
     loadPrayerData();
     loadNotificationSettings();
-    loadDailyLessons();
     loadGlobalNotificationSettings();
     checkLocationPermission();
     
@@ -842,6 +722,7 @@ export default function HomeScreen({ navigation, onSubscriptionExpired }) {
       // Force refresh notifications after prayer times are loaded
       if (calculatedPrayerTimes && calculatedPrayerTimes.length > 0) {
         await newNotificationService.forceRefreshNotifications(calculatedPrayerTimes);
+        await AsyncStorage.setItem('lastPrayerTimesFetchDate', new Date().toISOString().split('T')[0]);
         
         // Check if prayer blocker is enabled and check for past prayers that need blocking
         try {
@@ -993,10 +874,29 @@ export default function HomeScreen({ navigation, onSubscriptionExpired }) {
       loadUserMadhab(); // Reload madhab when screen comes into focus
       loadUserData(); // Reload user data when screen comes into focus
       loadExcuseMode(); // Load excuse mode when screen comes into focus
+
+      // Refresh prayer times if date changed (new day or DST transition) - ensures accurate times after midnight or DST
+      const refreshPrayerTimesIfDateChanged = async () => {
+        try {
+          const today = new Date().toISOString().split('T')[0];
+          const lastFetchDate = await AsyncStorage.getItem('lastPrayerTimesFetchDate');
+          if (location?.coords && lastFetchDate !== today) {
+            console.log('📅 Date changed since last fetch (or first open) - refreshing prayer times for DST/new day');
+            const prayers = await calculatePrayerTimes(location.coords);
+            if (prayers?.length > 0) {
+              await newNotificationService.forceRefreshNotifications(prayers);
+              await AsyncStorage.setItem('lastPrayerTimesFetchDate', today);
+            }
+          }
+        } catch (error) {
+          console.error('Error refreshing prayer times on date change:', error);
+        }
+      };
+      refreshPrayerTimesIfDateChanged();
       
       // Check for streak warning when screen comes into focus
       // prayerService.checkStreakWarning(); // Temporarily disabled for new notification system
-    }, [])
+    }, [location?.coords])
   );
 
   // Check for new dua requests
@@ -1973,15 +1873,20 @@ export default function HomeScreen({ navigation, onSubscriptionExpired }) {
       const userMethod = method || getMadhabMethod(userMadhab);
       const userSchool = madhab || getMadhabNumber(userMadhab);
       
+      // Use IANA timezone for accurate DST handling (e.g. America/New_York)
+      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
+      
       console.log('🕌 Fetching prayer times with:', {
         madhab: userMadhab,
         method: userMethod,
         school: userSchool,
         date: `${year}-${month}-${day}`,
+        timezone,
         coords: coords
       });
       
-      const url = `https://api.aladhan.com/v1/timings/${year}-${month}-${day}?latitude=${coords.latitude}&longitude=${coords.longitude}&method=${userMethod}&school=${userSchool}`;
+      // Aladhan API requires DD-MM-YYYY format (not YYYY-MM-DD) - wrong format returns wrong year and incorrect DST times
+      const url = `https://api.aladhan.com/v1/timings/${day}-${month}-${year}?latitude=${coords.latitude}&longitude=${coords.longitude}&method=${userMethod}&school=${userSchool}&timezonestring=${encodeURIComponent(timezone)}`;
       const response = await fetch(url);
       const json = await response.json();
       if (json.code === 200 && json.data && json.data.timings) {
@@ -2533,83 +2438,6 @@ export default function HomeScreen({ navigation, onSubscriptionExpired }) {
             </View>
           </Animated.View>
 
-          {/* Daily Challenges */}
-          <Animated.View 
-            style={[
-              styles.lessonsSection,
-              {
-                opacity: lessonsAnim,
-                transform: [
-                  {
-                    translateY: lessonsAnim.interpolate({
-                      inputRange: [0, 1],
-                      outputRange: [30, 0],
-                    }),
-                  },
-                ],
-              },
-            ]}
-          >
-            <Text style={[
-              styles.sectionTitle,
-              getResponsiveTextStyle(t('lessons', currentLanguage), 20, currentLanguage, Dimensions.get('window').width - 40)
-            ]}>
-              {t('lessons', currentLanguage)}
-            </Text>
-            
-            <View style={styles.introLessonsContainer}>
-              {dailyLessons.map((lesson, index) => (
-                <Animated.View 
-                  key={lesson.id}
-                  style={{ 
-                    transform: [{ scale: getLessonAnimation(lesson.id) }],
-                    opacity: lessonsAnim 
-                  }}
-                >
-                  <TouchableOpacity
-                    style={styles.lessonCard}
-                    onPress={() => animateButtonPress(getLessonAnimation(lesson.id), () => handleLessonPress(lesson))}
-                  >
-                    <View style={styles.lessonHeader}>
-                      <Text style={[
-                        styles.lessonType,
-                        getResponsiveTextStyle(
-                          lesson.category ? t(lesson.category, currentLanguage) : t('introLessons', currentLanguage), 
-                          14, 
-                          currentLanguage, 
-                          Dimensions.get('window').width - 80
-                        )
-                      ]}>
-                        {lesson.category ? t(lesson.category, currentLanguage) : t('introLessons', currentLanguage)}
-                      </Text>
-                      <Text style={[
-                        styles.lessonTitle,
-                        getResponsiveTextStyle(lesson.title, 18, currentLanguage, Dimensions.get('window').width - 60)
-                      ]}>
-                        {lesson.title}
-                      </Text>
-                    </View>
-                  </TouchableOpacity>
-                </Animated.View>
-              ))}
-            </View>
-
-            {/* View More Button */}
-            <Animated.View style={{ transform: [{ scale: viewMoreButtonScale }] }}>
-              <TouchableOpacity
-                style={styles.viewMoreButton}
-                onPress={() => animateButtonPress(viewMoreButtonScale, () => handleViewMoreLessons())}
-              >
-                <Text style={[
-                  styles.viewMoreText,
-                  getResponsiveTextStyle(t('viewMoreLessons', currentLanguage), 16, currentLanguage, Dimensions.get('window').width - 100)
-                ]}>
-                  {t('viewMoreLessons', currentLanguage)}
-                </Text>
-                <Ionicons name="arrow-forward" size={getResponsiveIconSize(20)} color="#FFFFFF" />
-              </TouchableOpacity>
-            </Animated.View>
-          </Animated.View>
         </ScrollView>
       </SafeAreaView>
 
@@ -2760,9 +2588,6 @@ const styles = StyleSheet.create({
   upcomingSection: {
     marginBottom: 20,
   },
-  lessonsSection: {
-    marginBottom: 30,
-  },
   prayerCard: {
     borderRadius: 16,
     minHeight: 140,
@@ -2870,36 +2695,6 @@ const styles = StyleSheet.create({
     shadowColor: '#4CAF50',
     shadowOpacity: 0.4,
   },
-  lessonCard: {
-    backgroundColor: '#1E1E1E',
-    borderRadius: 16,
-    padding: 16,
-    marginBottom: 12,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#2A2A2A',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 6,
-    elevation: 6,
-  },
-  lessonHeader: {
-    flex: 1,
-  },
-  lessonType: {
-    fontSize: 14,
-    color: '#FFFFFF',
-    opacity: 0.6,
-    marginBottom: 5,
-  },
-  lessonTitle: {
-    fontSize: 18,
-    color: '#FFFFFF',
-    fontWeight: '600',
-  },
   iconContainer: {
     width: 45,
     height: 45,
@@ -2914,36 +2709,11 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 3,
   },
-  introLessonsContainer: {
-    padding: 16,
-  },
   introTitle: {
     fontSize: 16,
     color: '#FFFFFF',
     marginBottom: 12,
     opacity: 0.8,
-  },
-  viewMoreButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 12,
-    marginHorizontal: 16,
-    marginBottom: 16,
-    backgroundColor: '#1E1E1E',
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: '#FFFFFF',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.3,
-    shadowRadius: 5,
-    elevation: 5,
-  },
-  viewMoreText: {
-    color: '#FFFFFF',
-    fontSize: 14,
-    marginRight: 8,
   },
   sceneBadge: {
     backgroundColor: 'rgba(255, 255, 255, 0.25)',

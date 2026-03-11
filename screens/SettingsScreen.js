@@ -1215,15 +1215,9 @@ export default function SettingsScreen({ navigation, onLogout }) {
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" />
       
-      {/* Header */}
-      <View style={styles.header}>
-        <TouchableOpacity 
-          style={styles.backButton}
-          onPress={() => navigation.goBack()}
-        >
-          <Ionicons name="arrow-back" size={24} color="#FFFFFF" />
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>{t('settings', currentLanguage)}</Text>
+      {/* Simple title */}
+      <View style={styles.pageHeader}>
+        <Text style={styles.pageTitle}>{t('settings', currentLanguage)}</Text>
       </View>
 
       <ScrollView 
@@ -1947,26 +1941,20 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginTop: 10,
   },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'center',
+  pageHeader: {
     alignItems: 'center',
-    padding: 20,
-    backgroundColor: '#1E1E1E',
-    borderBottomWidth: 1,
-    borderBottomColor: '#2A2A2A',
-    position: 'relative',
+    paddingHorizontal: 20,
+    paddingTop: 20,
+    paddingBottom: 16,
   },
-  backButton: {
-    padding: 5,
-    position: 'absolute',
-    left: 20,
-    zIndex: 1,
-  },
-  headerTitle: {
-    fontSize: 20,
-    fontWeight: '600',
+  pageTitle: {
+    fontSize: 28,
+    fontWeight: '800',
     color: '#FFFFFF',
+    textShadowColor: 'rgba(0, 0, 0, 0.5)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 4,
+    letterSpacing: 0.5,
   },
   refreshButton: {
     padding: 5,

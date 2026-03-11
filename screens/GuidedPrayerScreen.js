@@ -10,7 +10,8 @@ import {
   Alert,
   Switch,
   Modal,
-  ActivityIndicator
+  ActivityIndicator,
+  Image
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Audio } from 'expo-av';
@@ -1799,6 +1800,16 @@ export default function GuidedPrayerScreen({ route, navigation }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [autoPlay]);
 
+  const getPostureImage = (posture) => {
+    switch (posture) {
+      case 'standing': return require('../assets/standing.png');
+      case 'bowing': return require('../assets/bow.png');
+      case 'prostrating': return require('../assets/sujud.png');
+      case 'sitting': return require('../assets/kneeling.png');
+      default: return null;
+    }
+  };
+
   const getPostureIcon = (posture) => {
     switch (posture) {
       case 'standing': return 'man-outline';
@@ -2134,19 +2145,20 @@ export default function GuidedPrayerScreen({ route, navigation }) {
               ) : (
                 // Regular prayer step
                 <>
-                  <View style={styles.postureSection}>
-                    <View style={[styles.postureIcon, { backgroundColor: getPostureColor(currentStepData.posture) + '20' }]}>
-                      <Ionicons 
-                        name={getPostureIcon(currentStepData.posture)} 
-                        size={32} 
-                        color={getPostureColor(currentStepData.posture)} 
+                  <Text style={styles.stepTitle}>{currentStepData.title}</Text>
+                  {currentStepData.instruction ? (
+                    <Text style={styles.stepInstruction}>{currentStepData.instruction}</Text>
+                  ) : null}
+
+                  {getPostureImage(currentStepData.posture) ? (
+                    <View style={styles.postureImageContainer}>
+                      <Image
+                        source={getPostureImage(currentStepData.posture)}
+                        style={styles.postureImageLarge}
+                        resizeMode="contain"
                       />
                     </View>
-                    <View style={styles.postureInfo}>
-                      <Text style={styles.stepTitle}>{currentStepData.title}</Text>
-                      <Text style={styles.stepInstruction}>{currentStepData.instruction}</Text>
-                    </View>
-                  </View>
+                  ) : null}
 
                   <View style={styles.textSection}>
                     <View style={styles.arabicContainer}>
@@ -2613,21 +2625,14 @@ const styles = StyleSheet.create({
     padding: 20,
     marginBottom: 15,
   },
-  postureSection: {
-    flexDirection: 'row',
+  postureImageContainer: {
     alignItems: 'center',
-    marginBottom: 20,
-  },
-  postureIcon: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
     justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 15,
+    marginVertical: 24,
   },
-  postureInfo: {
-    flex: 1,
+  postureImageLarge: {
+    width: 200,
+    height: 200,
   },
   stepTitle: {
     fontSize: 18,
@@ -2639,6 +2644,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#A9A9A9',
     lineHeight: 20,
+    marginBottom: 8,
   },
   textSection: {
     marginTop: 10,
