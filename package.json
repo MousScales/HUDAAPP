@@ -1,6 +1,6 @@
 {
   "name": "revertapp",
-  "version": "1.9.0",
+  "version": "1.12.0",
   "main": "index.js",
   "scripts": {
     "start": "expo start",
@@ -48,11 +48,13 @@
     "react-native": "0.79.6",
     "react-native-calendars": "^1.1313.0",
     "react-native-gesture-handler": "~2.24.0",
+    "react-native-google-mobile-ads": "^14.8.1",
     "react-native-purchases": "^8.12.0",
     "react-native-reanimated": "~3.17.4",
     "react-native-safe-area-context": "5.4.0",
     "react-native-screens": "~4.11.1",
-    "react-native-webview": "13.13.5"
+    "react-native-webview": "13.13.5",
+    "use-deep-compare-effect": "^1.8.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
