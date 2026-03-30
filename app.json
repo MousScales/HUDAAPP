@@ -3,7 +3,7 @@
     "newArchEnabled": false,
     "name": "Hudā",
     "slug": "huda-app",
-    "version": "1.12.0",
+    "version": "1.13.0",
     "orientation": "portrait",
     "icon": "./assets/logo.png",
     "userInterfaceStyle": "automatic",
