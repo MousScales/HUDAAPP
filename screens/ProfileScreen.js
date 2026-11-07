@@ -20,6 +20,8 @@ import { Calendar, LocaleConfig } from 'react-native-calendars';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
+import { promptSignInForPremium } from '../services/paywallHelper';
+import { useLanguage } from '../utils/useLanguage';
 import { auth, firestore } from '../firebase';
 import { 
   doc, 
@@ -36,7 +38,6 @@ import {
 } from 'firebase/firestore';
 import prayerService from '../services/prayerService';
 import prayerBlockerService from '../services/prayerBlockerService';
-import { useLanguage } from '../utils/useLanguage';
 import { t } from '../utils/translations';
 import { getDynamicFontSize, getDynamicLineHeight, getDynamicPadding } from '../utils/responsiveText';
 
@@ -213,6 +214,16 @@ const RECOMMENDED_FASTING_DAYS = {
 export default function ProfileScreen() {
   // Language support
   const { currentLanguage } = useLanguage();
+  const navigation = useNavigation();
+
+  useFocusEffect(
+    React.useCallback(() => {
+      if (!auth.currentUser) {
+        promptSignInForPremium(navigation, currentLanguage);
+        navigation.goBack();
+      }
+    }, [navigation, currentLanguage])
+  );
   
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedDateForDetail, setSelectedDateForDetail] = useState(null);
@@ -245,7 +256,6 @@ export default function ProfileScreen() {
   const [syncing, setSyncing] = useState(false);
   const [showCancelFastOption, setShowCancelFastOption] = useState(false);
   const [calendarKey, setCalendarKey] = useState(0);
-  const navigation = useNavigation();
 
   // Animation state variables
   const [headerAnim] = useState(new Animated.Value(0));
@@ -797,6 +807,11 @@ export default function ProfileScreen() {
 
   // Toggle prayer completion using Firebase prayer service
   const togglePrayer = async (prayerId) => {
+    if (!auth.currentUser) {
+      promptSignInForPremium(navigation, currentLanguage);
+      return;
+    }
+
     try {
       let newStatus;
       

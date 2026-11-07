@@ -1,7 +1,7 @@
 /** @type {import('@bacons/apple-targets/app.plugin').ConfigFunction} */
 module.exports = (config) => ({
   type: "widget",
-  name: "Prayer Times Widget",
+  name: "PrayerTimesWidget", // No spaces - must match EAS target resolution
   displayName: "Prayer Times",
   icon: "../assets/logo.png",
   images: {

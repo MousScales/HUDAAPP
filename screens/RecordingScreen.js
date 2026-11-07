@@ -21,6 +21,8 @@ import { useLanguage } from '../utils/useLanguage';
 import { t } from '../utils/translations';
 import { getTranslationEdition } from '../utils/quranTranslations';
 import { availableReciters, getAyahAudioUrl, getReciterById } from '../services/reciterService';
+import { useFocusEffect } from '@react-navigation/native';
+import { requireSignedIn, promptSignInForPremium } from '../services/paywallHelper';
 
 // First verse map for all surahs
 const FIRST_VERSE_MAP = {
@@ -393,8 +395,14 @@ const RecordingScreen = ({
     setUserRecordings,
   } = route.params;
 
-  // Recording is now open to all users - no subscription check needed
-  const [subscriptionChecked, setSubscriptionChecked] = useState(true);
+  useFocusEffect(
+    useCallback(() => {
+      if (!auth.currentUser) {
+        promptSignInForPremium(navigation, currentLanguage);
+        navigation.goBack();
+      }
+    }, [navigation, currentLanguage])
+  );
 
   // State variables
   const [isRecording, setIsRecording] = useState(false);
@@ -759,6 +767,10 @@ const RecordingScreen = ({
 
   // Start recording
   const startRecording = async () => {
+    if (!requireSignedIn(navigation, currentLanguage)) {
+      return;
+    }
+
     try {
       console.log('🎤 Starting recording for verse:', currentVerse);
       
@@ -1171,12 +1183,12 @@ const RecordingScreen = ({
 
   // Save recording (kept for backward compatibility, but not used in UI)
   const saveRecording = async () => {
+    if (!requireSignedIn(navigation, currentLanguage)) {
+      return;
+    }
+
     try {
       const user = auth.currentUser;
-      if (!user) {
-        Alert.alert('Authentication Required', 'Please sign in to save your recitation.');
-        return;
-      }
 
       if (!recordingUri || !currentVerse) {
         Alert.alert(t('error', currentLanguage), t('noRecordingToSave', currentLanguage));

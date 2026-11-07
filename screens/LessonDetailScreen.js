@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   View, 
   Text, 
@@ -16,7 +16,9 @@ import lessonService from '../services/lessonService';
 import { useLanguage } from '../utils/useLanguage';
 import { t } from '../utils/translations';
 import subscriptionGuard from '../services/subscriptionGuard';
-import SubscriptionModal from '../components/SubscriptionModal';
+import { navigateToPaywall, promptSignInForPremium } from '../services/paywallHelper';
+import { auth } from '../firebase';
+import { useFocusEffect } from '@react-navigation/native';
 
 export default function LessonDetailScreen({ route, navigation }) {
   // Language support
@@ -29,47 +31,66 @@ export default function LessonDetailScreen({ route, navigation }) {
   const [error, setError] = useState(null);
   const [lessonProgress, setLessonProgress] = useState(null);
   const [startTime, setStartTime] = useState(Date.now());
-  const [showSubscriptionModal, setShowSubscriptionModal] = useState(false);
   const [subscriptionChecked, setSubscriptionChecked] = useState(false);
+  const paywallShownRef = useRef(false);
 
-  // Check subscription on screen mount
-  useEffect(() => {
-    const checkSubscription = async () => {
-      try {
-        console.log('🔒 LessonDetailScreen: Checking subscription on mount...');
-        subscriptionGuard.resetCache();
-        const isSubscribed = await subscriptionGuard.forceCheckSubscriptionStatus();
-        
-        if (!isSubscribed) {
-          console.log('❌ LessonDetailScreen: User not subscribed, showing modal and blocking access');
-          setShowSubscriptionModal(true);
-          setLoading(false);
-          // Don't load lesson content if not subscribed
-          return;
-        }
-        
-        console.log('✅ LessonDetailScreen: User is subscribed, allowing access');
+  // Check subscription on mount and when returning from paywall
+  const checkAndNavigateIfNeeded = async () => {
+    if (!auth.currentUser) {
+      setLoading(false);
+      promptSignInForPremium(navigation, currentLanguage);
+      navigation.goBack();
+      return;
+    }
+
+    try {
+      subscriptionGuard.resetCache();
+      const isSubscribed = await subscriptionGuard.forceCheckSubscriptionStatus();
+      if (isSubscribed) {
         setSubscriptionChecked(true);
-      } catch (error) {
-        console.error('❌ LessonDetailScreen: Error checking subscription:', error);
-        // On error, re-check subscription before showing modal
-        try {
-          const isSubscribed = await subscriptionGuard.forceCheckSubscriptionStatus();
-          if (!isSubscribed) {
-            setShowSubscriptionModal(true);
-          } else {
-            setSubscriptionChecked(true);
-          }
-        } catch (recheckError) {
-          // Only show modal if we can't verify subscription
-          setShowSubscriptionModal(true);
-        }
-        setLoading(false);
+        paywallShownRef.current = false;
+        return;
       }
-    };
-    
-    checkSubscription();
+      if (paywallShownRef.current) {
+        navigation.goBack();
+        return;
+      }
+      paywallShownRef.current = true;
+      await navigateToPaywall(navigation);
+    } catch (error) {
+      try {
+        const isSubscribed = await subscriptionGuard.forceCheckSubscriptionStatus();
+        if (isSubscribed) {
+          setSubscriptionChecked(true);
+          paywallShownRef.current = false;
+        } else if (paywallShownRef.current) {
+          navigation.goBack();
+        } else {
+          paywallShownRef.current = true;
+          await navigateToPaywall(navigation);
+        }
+      } catch (e) {
+        if (paywallShownRef.current) {
+          navigation.goBack();
+        } else {
+          paywallShownRef.current = true;
+          await navigateToPaywall(navigation);
+        }
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    checkAndNavigateIfNeeded();
   }, []);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      if (!subscriptionChecked) checkAndNavigateIfNeeded();
+    }, [subscriptionChecked])
+  );
 
   // Load lesson content and progress (only if subscribed)
   useEffect(() => {
@@ -231,6 +252,7 @@ export default function LessonDetailScreen({ route, navigation }) {
     : 0;
 
   return (
+    <>
     <SafeAreaView style={styles.safeArea}>
       <ScrollView 
         style={styles.scrollView} 
@@ -449,26 +471,10 @@ export default function LessonDetailScreen({ route, navigation }) {
           </ScrollView>
           )}
       </ScrollView>
-      
-      {/* Subscription Modal */}
-      <SubscriptionModal
-        visible={showSubscriptionModal}
-        onClose={() => {
-          setShowSubscriptionModal(false);
-          navigation.goBack(); // Go back if user closes modal
-        }}
-        onSubscribeSuccess={async () => {
-          setShowSubscriptionModal(false);
-          // Re-check subscription and allow access
-          subscriptionGuard.resetCache();
-          const isSubscribed = await subscriptionGuard.forceCheckSubscriptionStatus();
-          if (isSubscribed) {
-            setSubscriptionChecked(true);
-          }
-        }}
-        feature="lessons"
-      />
+
     </SafeAreaView>
+
+    </>
   );
 }
 

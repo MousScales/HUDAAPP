@@ -16,12 +16,24 @@ import { Ionicons } from '@expo/vector-icons';
 import bookmarkService from '../services/bookmarkService';
 import { useLanguage } from '../utils/useLanguage';
 import { t } from '../utils/translations';
+import { useFocusEffect } from '@react-navigation/native';
+import { auth } from '../firebase';
+import { promptSignInForPremium } from '../services/paywallHelper';
 
 export default function BookmarksScreen({ navigation }) {
   const { currentLanguage } = useLanguage();
   const [bookmarks, setBookmarks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      if (!auth.currentUser) {
+        promptSignInForPremium(navigation, currentLanguage);
+        navigation.goBack();
+      }
+    }, [navigation, currentLanguage])
+  );
 
   useEffect(() => {
     loadBookmarks();
@@ -47,6 +59,11 @@ export default function BookmarksScreen({ navigation }) {
   };
 
   const removeBookmark = async (bookmarkId) => {
+    if (!auth.currentUser) {
+      promptSignInForPremium(navigation, currentLanguage);
+      return;
+    }
+
     Alert.alert(
       t('removeBookmark', currentLanguage),
       t('removeBookmarkMessage', currentLanguage),
@@ -80,6 +97,11 @@ export default function BookmarksScreen({ navigation }) {
   };
 
   const clearAllBookmarks = () => {
+    if (!auth.currentUser) {
+      promptSignInForPremium(navigation, currentLanguage);
+      return;
+    }
+
     Alert.alert(
       t('clearAllBookmarks', currentLanguage),
       t('clearAllBookmarksMessage', currentLanguage),

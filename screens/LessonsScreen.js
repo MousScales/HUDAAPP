@@ -28,10 +28,12 @@ import { getResponsiveIconSize, isTablet, getResponsiveGridColumns, getTabletSpa
 // Removed Firebase progress import
 import lessonService from '../services/lessonService';
 import subscriptionGuard from '../services/subscriptionGuard';
-import SubscriptionModal from '../components/SubscriptionModal';
+import { requirePremiumAccess } from '../services/paywallHelper';
+import { auth } from '../firebase';
 import { useLanguage } from '../utils/useLanguage';
 import { t } from '../utils/translations';
 import multilingualLessonService from '../services/multilingualLessonService';
+import AdBanner from '../components/AdBanner';
 
 // Keep this export for backward compatibility (will be removed after migration)
 export const lessonTopics = [
@@ -243,8 +245,6 @@ export default function LessonsScreen({ navigation }) {
   const [searchQuery, setSearchQuery] = useState('');
   const LESSONS_PER_PAGE = 10;
 
-  // Subscription modal state
-  const [showSubscriptionModal, setShowSubscriptionModal] = useState(false);
   const [selectedLessonForSubscription, setSelectedLessonForSubscription] = useState(null);
 
   // Animation values for staggered entrance
@@ -547,11 +547,9 @@ export default function LessonsScreen({ navigation }) {
     setLoading(false);
   };
 
-  // Handle lesson access with subscription check
+  // Handle lesson access with subscription or rewarded ad check
   const handleLessonPress = async (lesson) => {
     console.log('🎯 handleLessonPress called for lesson:', lesson.title);
-    console.log('🔍 Lesson data being passed:', JSON.stringify(lesson, null, 2));
-    console.log('🔍 Current showSubscriptionModal state:', showSubscriptionModal);
     
     // Validate lesson data
     if (!lesson || !lesson.id || !lesson.title) {
@@ -571,71 +569,31 @@ export default function LessonsScreen({ navigation }) {
     };
     
     console.log('✅ Validated lesson data:', JSON.stringify(validatedLesson, null, 2));
-    console.log('🔍 Lesson ID type:', typeof validatedLesson.id, 'Value:', validatedLesson.id);
     
-    try {
-      // Reset cache to ensure fresh check
-      subscriptionGuard.resetCache();
-      // Force a fresh subscription check by bypassing cache
-      const isSubscribed = await subscriptionGuard.forceCheckSubscriptionStatus();
-      
-      if (isSubscribed) {
-        console.log('✅ User is subscribed - allowing access to lesson');
-        try {
-          navigation.navigate('LessonDetail', { lesson: validatedLesson });
-        } catch (navError) {
-          console.error('❌ Navigation error:', navError);
-        }
-      } else {
-        console.log('❌ User not subscribed - showing subscription modal');
-        setSelectedLessonForSubscription(lesson);
-        setShowSubscriptionModal(true);
-      }
-    } catch (error) {
-      console.error('❌ Error checking subscription:', error);
-      // Re-check subscription before showing modal in case of error
-      try {
-        console.log('🔄 Re-checking subscription status after error...');
-        const isSubscribedAfterError = await subscriptionGuard.forceCheckSubscriptionStatus();
-        if (isSubscribedAfterError) {
-          console.log('✅ User is subscribed (after error check) - allowing access');
-          navigation.navigate('LessonDetail', { lesson: validatedLesson });
-        } else {
-          console.log('❌ User not subscribed (after error check) - showing subscription modal');
-          setSelectedLessonForSubscription(lesson);
-          setShowSubscriptionModal(true);
-        }
-      } catch (recheckError) {
-        console.error('❌ Error in re-check:', recheckError);
-        // Only show modal if we can't verify subscription
-        setSelectedLessonForSubscription(lesson);
-        setShowSubscriptionModal(true);
-      }
+    const hasAccess = await requirePremiumAccess(navigation, currentLanguage);
+    if (hasAccess) {
+      console.log('✅ User has access - allowing lesson');
+      navigation.navigate('LessonDetail', { lesson: validatedLesson });
+    } else if (auth.currentUser) {
+      setSelectedLessonForSubscription(validatedLesson);
     }
   };
 
-  // Handle subscription success
-  const handleSubscriptionSuccess = () => {
-    console.log('🎉 handleSubscriptionSuccess called');
-    console.log('📱 Closing subscription modal');
-    setShowSubscriptionModal(false);
-    
-    if (selectedLessonForSubscription) {
-      console.log('🧭 Navigating to lesson detail after successful subscription');
-      // Validate lesson data for subscription success too
-      const validatedLesson = {
-        id: selectedLessonForSubscription.id,
-        title: selectedLessonForSubscription.title,
-        description: selectedLessonForSubscription.description || selectedLessonForSubscription.introduction || 'Islamic lesson content',
-        category: selectedLessonForSubscription.category || 'general',
-        icon: selectedLessonForSubscription.icon || 'book-outline',
-        color: selectedLessonForSubscription.color || '#1abc9c',
-        difficulty: selectedLessonForSubscription.difficulty || 'Essential'
+  // When returning from paywall after subscribing, navigate to selected lesson
+  useFocusEffect(
+    React.useCallback(() => {
+      const checkAndNavigate = async () => {
+        if (!selectedLessonForSubscription) return;
+        subscriptionGuard.resetCache();
+        const isSubscribed = await subscriptionGuard.forceCheckSubscriptionStatus();
+        if (isSubscribed) {
+          navigation.navigate('LessonDetail', { lesson: selectedLessonForSubscription });
+          setSelectedLessonForSubscription(null);
+        }
       };
-      navigation.navigate('LessonDetail', { lesson: validatedLesson });
-      setSelectedLessonForSubscription(null);
-    }
-  };
+      checkAndNavigate();
+    }, [selectedLessonForSubscription])
+  );
 
   // Load lessons when screen is focused or language changes
   useFocusEffect(
@@ -677,10 +635,6 @@ export default function LessonsScreen({ navigation }) {
   };
 
   // Debug: Monitor subscription modal state changes
-  useEffect(() => {
-    console.log('🔍 showSubscriptionModal state changed to:', showSubscriptionModal);
-  }, [showSubscriptionModal]);
-
   const handleScroll = (event) => {
     const { layoutMeasurement, contentOffset, contentSize } = event.nativeEvent;
     const paddingToBottom = 50;
@@ -928,7 +882,11 @@ export default function LessonsScreen({ navigation }) {
   };
 
   return (
+    <View style={{ flex: 1, backgroundColor: '#121212' }}>
     <SafeAreaView style={styles.safeArea}>
+      <View style={styles.bannerWrapper}>
+        <AdBanner />
+      </View>
       <StatusBar barStyle="light-content" backgroundColor="#1A1A1A" />
       {/* Simple title like Book screen */}
       <View style={styles.pageHeader}>
@@ -1073,21 +1031,20 @@ export default function LessonsScreen({ navigation }) {
         </ScrollView>
       </ScrollView>
 
-      {/* Subscription Modal */}
-      {console.log('🔍 LessonsScreen: Rendering SubscriptionModal with feature="lessons"')}
-      {console.log('🔍 LessonsScreen: showSubscriptionModal state:', showSubscriptionModal)}
-      <SubscriptionModal
-        visible={showSubscriptionModal}
-        onClose={() => setShowSubscriptionModal(false)}
-        onSubscribeSuccess={handleSubscriptionSuccess}
-        feature="lessons"
-        key={`lessons-modal-${Date.now()}`}
-      />
     </SafeAreaView>
+
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  bannerWrapper: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 12,
+    paddingTop: 8,
+    paddingBottom: 8,
+  },
   container: {
     flex: 1,
     backgroundColor: '#121212',

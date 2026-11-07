@@ -26,6 +26,8 @@ import {
   getAyahMemorization,
   getUserSettings
 } from '../services/memorizationService';
+import { useFocusEffect } from '@react-navigation/native';
+import { promptSignInForPremium } from '../services/paywallHelper';
 
 export default function MemorizeAyahScreen({ route, navigation }) {
   const { currentLanguage } = useLanguage();
@@ -43,6 +45,15 @@ export default function MemorizeAyahScreen({ route, navigation }) {
   const audioRef = useRef(null);
   const [readTarget, setReadTarget] = useState(10);
   const [listenTarget, setListenTarget] = useState(10);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      if (!auth.currentUser) {
+        promptSignInForPremium(navigation, currentLanguage);
+        navigation.goBack();
+      }
+    }, [navigation, currentLanguage])
+  );
 
   useEffect(() => {
     if (surah && ayah) {

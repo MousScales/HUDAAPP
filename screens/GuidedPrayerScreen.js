@@ -23,7 +23,8 @@ import { t, translations } from '../utils/translations';
 import { getTranslationEdition } from '../utils/quranTranslations';
 import { availableReciters, getAyahAudioUrl } from '../services/reciterService';
 import subscriptionGuard from '../services/subscriptionGuard';
-import SubscriptionModal from '../components/SubscriptionModal';
+import { navigateToPaywall, promptSignInForPremium } from '../services/paywallHelper';
+import { auth } from '../firebase';
 
 const ALQURAN_API_BASE = 'https://api.alquran.cloud/v1';
 const QURAN_COM_AUDIO_CDN = 'https://verses.quran.com';
@@ -214,44 +215,62 @@ export default function GuidedPrayerScreen({ route, navigation }) {
   // Language support
   const { currentLanguage } = useLanguage();
   
-  const [showSubscriptionModal, setShowSubscriptionModal] = useState(false);
   const [subscriptionChecked, setSubscriptionChecked] = useState(false);
+  const paywallShownRef = useRef(false);
   
-  // Check subscription on screen mount
-  useEffect(() => {
-    const checkSubscription = async () => {
-      try {
-        console.log('🔒 GuidedPrayerScreen: Checking subscription on mount...');
-        subscriptionGuard.resetCache();
-        const isSubscribed = await subscriptionGuard.forceCheckSubscriptionStatus();
-        
-        if (!isSubscribed) {
-          console.log('❌ GuidedPrayerScreen: User not subscribed, showing modal and blocking access');
-          setShowSubscriptionModal(true);
-          return;
-        }
-        
-        console.log('✅ GuidedPrayerScreen: User is subscribed, allowing access');
+  const checkAndNavigateIfNeeded = async () => {
+    if (!auth.currentUser) {
+      promptSignInForPremium(navigation, currentLanguage);
+      navigation.goBack();
+      return;
+    }
+
+    try {
+      subscriptionGuard.resetCache();
+      const isSubscribed = await subscriptionGuard.forceCheckSubscriptionStatus();
+      if (isSubscribed) {
         setSubscriptionChecked(true);
-      } catch (error) {
-        console.error('❌ GuidedPrayerScreen: Error checking subscription:', error);
-        // On error, re-check subscription before showing modal
-        try {
-          const isSubscribed = await subscriptionGuard.forceCheckSubscriptionStatus();
-          if (!isSubscribed) {
-            setShowSubscriptionModal(true);
-          } else {
-            setSubscriptionChecked(true);
-          }
-        } catch (recheckError) {
-          // Only show modal if we can't verify subscription
-          setShowSubscriptionModal(true);
+        paywallShownRef.current = false;
+        return;
+      }
+      if (paywallShownRef.current) {
+        navigation.goBack();
+        return;
+      }
+      paywallShownRef.current = true;
+      await navigateToPaywall(navigation);
+    } catch (error) {
+      try {
+        const isSubscribed = await subscriptionGuard.forceCheckSubscriptionStatus();
+        if (isSubscribed) {
+          setSubscriptionChecked(true);
+          paywallShownRef.current = false;
+        } else if (paywallShownRef.current) {
+          navigation.goBack();
+        } else {
+          paywallShownRef.current = true;
+          await navigateToPaywall(navigation);
+        }
+      } catch (e) {
+        if (paywallShownRef.current) {
+          navigation.goBack();
+        } else {
+          paywallShownRef.current = true;
+          await navigateToPaywall(navigation);
         }
       }
-    };
-    
-    checkSubscription();
+    }
+  };
+
+  useEffect(() => {
+    checkAndNavigateIfNeeded();
   }, []);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      if (!subscriptionChecked) checkAndNavigateIfNeeded();
+    }, [subscriptionChecked])
+  );
   
   // Debug: Log the current language and test translation
   useEffect(() => {
@@ -2242,25 +2261,6 @@ export default function GuidedPrayerScreen({ route, navigation }) {
       {/* Quran Options Modal - outside subscription check so it can be used */}
       {subscriptionChecked && renderQuranOptionsModal()}
       
-      {/* Subscription Modal */}
-      <SubscriptionModal
-        visible={showSubscriptionModal}
-        onClose={() => {
-          setShowSubscriptionModal(false);
-          navigation.goBack(); // Go back if user closes modal
-        }}
-        onSubscribeSuccess={async () => {
-          setShowSubscriptionModal(false);
-          // Re-check subscription and allow access
-          subscriptionGuard.resetCache();
-          const isSubscribed = await subscriptionGuard.forceCheckSubscriptionStatus();
-          if (isSubscribed) {
-            setSubscriptionChecked(true);
-          }
-        }}
-        feature="guidedPrayer"
-      />
-      
       {/* Custom Selection UI - moved to top level */}
       {quranRecitationMode === 'custom' && showCustomSelectionUI && (
         <View style={{ 
@@ -2509,25 +2509,7 @@ export default function GuidedPrayerScreen({ route, navigation }) {
           </View>
         </Modal>
       )}
-      
-      {/* Subscription Modal */}
-      <SubscriptionModal
-        visible={showSubscriptionModal}
-        onClose={() => {
-          setShowSubscriptionModal(false);
-          navigation.goBack(); // Go back if user closes modal
-        }}
-        onSubscribeSuccess={async () => {
-          setShowSubscriptionModal(false);
-          // Re-check subscription and allow access
-          subscriptionGuard.resetCache();
-          const isSubscribed = await subscriptionGuard.forceCheckSubscriptionStatus();
-          if (isSubscribed) {
-            setSubscriptionChecked(true);
-          }
-        }}
-        feature="guidedPrayer"
-      />
+
     </>
   );
 }

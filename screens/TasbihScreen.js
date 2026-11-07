@@ -22,6 +22,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useLanguage } from '../utils/useLanguage';
 import { t } from '../utils/translations';
 import widgetService from '../services/widgetService';
+import { requireSignedIn } from '../services/paywallHelper';
 
 const { width, height } = Dimensions.get('window');
 
@@ -144,6 +145,10 @@ const TasbihScreen = ({ navigation }) => {
 
   // Add new dhikr function
   const handleAddDhikr = async () => {
+    if (!requireSignedIn(navigation, currentLanguage)) {
+      return;
+    }
+
     if (!newDhikr.transliteration || !newDhikr.target) {
       Alert.alert(t('missingInformation', currentLanguage), t('fillTransliterationAndTarget', currentLanguage));
       return;
@@ -222,6 +227,10 @@ const TasbihScreen = ({ navigation }) => {
 
   // Delete custom dhikr
   const deleteDhikr = async (dhikr) => {
+    if (!requireSignedIn(navigation, currentLanguage)) {
+      return;
+    }
+
     if (dhikr.isDefault) {
               Alert.alert(t('cannotDelete', currentLanguage), t('defaultDhikrsCannotDelete', currentLanguage));
       return;

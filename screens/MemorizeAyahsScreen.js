@@ -23,6 +23,8 @@ import {
   saveQuizPassed,
   getUserSettings
 } from '../services/memorizationService';
+import { useFocusEffect } from '@react-navigation/native';
+import { promptSignInForPremium } from '../services/paywallHelper';
 
 export default function MemorizeAyahsScreen({ route, navigation }) {
   const { currentLanguage } = useLanguage();
@@ -33,6 +35,15 @@ export default function MemorizeAyahsScreen({ route, navigation }) {
   const [completedAyahs, setCompletedAyahs] = useState(new Set());
   const [quizPassedAyahs, setQuizPassedAyahs] = useState(new Set());
   const [activeAyah, setActiveAyah] = useState(null);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      if (!auth.currentUser) {
+        promptSignInForPremium(navigation, currentLanguage);
+        navigation.goBack();
+      }
+    }, [navigation, currentLanguage])
+  );
 
   useEffect(() => {
     if (surah) {

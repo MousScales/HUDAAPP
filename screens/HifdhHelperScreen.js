@@ -26,6 +26,8 @@ import { auth, firestore } from '../firebase';
 import { getResponsiveFontSize, getResponsiveSpacing, isTablet, getTabletPadding, getResponsiveBorderRadius, getResponsiveContainerSize } from '../utils/responsiveSizing';
 import { collection, getDocs, query, where, onSnapshot } from 'firebase/firestore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFocusEffect } from '@react-navigation/native';
+import { promptSignInForPremium } from '../services/paywallHelper';
 import {
   getAllMemorization,
   getMemorizedSurahs as getMemorizedSurahsFirebase,
@@ -80,6 +82,15 @@ export default function HifdhHelperScreen({ navigation }) {
   const progressAnim2 = useRef(new Animated.Value(0)).current;
   const reminderOpacity = useRef(new Animated.Value(0)).current;
   const buttonScale = useRef(new Animated.Value(1)).current;
+
+  useFocusEffect(
+    useCallback(() => {
+      if (!auth.currentUser) {
+        promptSignInForPremium(navigation, currentLanguage);
+        navigation.goBack();
+      }
+    }, [navigation, currentLanguage])
+  );
 
   // Load surahs and recordings when component mounts
   useEffect(() => {

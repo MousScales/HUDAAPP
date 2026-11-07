@@ -73,6 +73,7 @@ class PrayerBlockerService {
 
   // Check if authorized
   async checkAuthorization() {
+    if (!PrayerBlockerModule) return false;
     try {
       this.isAuthorized = await PrayerBlockerModule.isAuthorized();
       return this.isAuthorized;
@@ -84,6 +85,7 @@ class PrayerBlockerService {
 
   // Select apps to block (opens Family Controls picker)
   async selectAppsToBlock() {
+    if (!PrayerBlockerModule) return false;
     if (!this.isAuthorized) {
       const authorized = await this.requestAuthorization();
       if (!authorized) {
@@ -103,6 +105,7 @@ class PrayerBlockerService {
 
   // Schedule blocking for a specific prayer time - stays active until prayer is checked off
   async schedulePrayerBlocking(prayerTime, prayerId) {
+    if (!PrayerBlockerModule) return false;
     // Check subscription with RevenueCat first
     subscriptionGuard.resetCache();
     const isSubscribed = await subscriptionGuard.forceCheckSubscriptionStatus();
@@ -177,6 +180,7 @@ class PrayerBlockerService {
 
   // Stop blocking immediately
   async stopPrayerBlocking() {
+    if (!PrayerBlockerModule) return true; // No-op when module excluded
     try {
       await PrayerBlockerModule.stopPrayerBlocking();
       
@@ -194,6 +198,7 @@ class PrayerBlockerService {
 
   // Check if prayer is completed and unlock apps
   async checkPrayerAndUnlock(prayerId) {
+    if (!PrayerBlockerModule) return false;
     try {
       const isCompleted = await PrayerBlockerModule.checkPrayerAndUnlock(prayerId);
       
@@ -211,6 +216,7 @@ class PrayerBlockerService {
 
   // Check if any prayer time has passed and isn't completed - activate blocking if needed
   async checkAndActivateBlockingForPastPrayers(prayerTimes) {
+    if (!PrayerBlockerModule) return false;
     console.log('🔍 checkAndActivateBlockingForPastPrayers: Starting check...');
     console.log('🔍 Prayer times received:', prayerTimes.length);
     
@@ -365,6 +371,7 @@ class PrayerBlockerService {
 
   // Schedule a continuous monitoring schedule that runs automatically all day
   async scheduleContinuousMonitoring() {
+    if (!PrayerBlockerModule) return false;
     // Check subscription with RevenueCat first
     subscriptionGuard.resetCache();
     const isSubscribed = await subscriptionGuard.forceCheckSubscriptionStatus();
@@ -442,6 +449,7 @@ class PrayerBlockerService {
 
   // Schedule blocking for all prayer times - each prayer stays locked until checked off
   async scheduleAllPrayerTimes(prayerTimes) {
+    if (!PrayerBlockerModule) return false;
     // Check subscription with RevenueCat first
     subscriptionGuard.resetCache();
     const isSubscribed = await subscriptionGuard.forceCheckSubscriptionStatus();
@@ -505,6 +513,7 @@ class PrayerBlockerService {
 
   // Update prayer completion status in shared storage and unlock if completed, or reblock if unchecked
   async updatePrayerCompletion(prayerId, isCompleted) {
+    if (!PrayerBlockerModule) return false;
     try {
       const storage = new ExtensionStorage(APP_GROUP_ID);
       // Use local date to match prayerService format

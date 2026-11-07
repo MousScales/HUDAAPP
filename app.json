@@ -3,7 +3,8 @@
     "newArchEnabled": false,
     "name": "Hudā",
     "slug": "huda-app",
-    "version": "1.13.0",
+    "scheme": "huda",
+    "version": "1.16.0",
     "orientation": "portrait",
     "icon": "./assets/logo.png",
     "userInterfaceStyle": "automatic",
@@ -17,6 +18,7 @@
     ],
     "ios": {
       "appleTeamId": "6TNGS7897R",
+      "buildNumber": "14",
       "supportsTablet": false,
       "bundleIdentifier": "com.digaifounder.huda",
       "entitlements": {
@@ -51,7 +53,7 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.digaifounder.huda",
-      "versionCode": 12,
+      "versionCode": 14,
       "permissions": [
         "ACCESS_FINE_LOCATION",
         "ACCESS_COARSE_LOCATION",
@@ -102,7 +104,7 @@
           "icon": "./assets/icon.png",
           "color": "#0F172A",
           "sounds": [],
-          "mode": "development",
+          "mode": "production",
           "categories": [
             {
               "identifier": "prayer",
@@ -142,15 +144,22 @@
         }
       ],
       "expo-av",
-      "expo-audio"
+      "expo-audio",
+      [
+        "@stripe/stripe-react-native",
+        {
+          "merchantIdentifier": "merchant.com.digaifounder.huda",
+          "enableGooglePay": true
+        }
+      ]
     ],
     "extra": {
       "eas": {
         "projectId": "06fc807b-d01f-45d3-92e3-965e851cbb48"
       }
     },
-    "owner": "digaifounder",
-    "runtimeVersion": "1.12.0",
+    "owner": "mousappsllc",
+    "runtimeVersion": "1.16.0",
     "updates": {
       "url": "https://u.expo.dev/06fc807b-d01f-45d3-92e3-965e851cbb48"
     }

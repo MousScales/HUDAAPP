@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect, CommonActions } from '@react-navigation/native';
 import {
   View,
   Text,
@@ -15,11 +15,12 @@ import {
   Linking,
   Platform,
   Modal,
-  TextInput
+  TextInput,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { auth, firestore } from '../firebase';
+import { onAuthStateChanged } from 'firebase/auth';
 // Subscription service removed - will be implemented by user
 import newNotificationService from '../services/newNotificationService';
 import directNotificationService from '../services/directNotificationService';
@@ -28,9 +29,12 @@ import userStateService from '../services/userStateService';
 import prayerBlockerService from '../services/prayerBlockerService';
 import { useLanguage } from '../utils/useLanguage';
 import { t } from '../utils/translations';
-import SubscriptionModal from '../components/SubscriptionModal';
-// import * as InAppPurchases from 'expo-in-app-purchases'; // Removed - incompatible with current Expo SDK, using RevenueCat instead
+import { getPaywallScreenName, navigateToPaywall, requireSignedIn } from '../services/paywallHelper';
 import subscriptionGuard from '../services/subscriptionGuard';
+import AdBanner from '../components/AdBanner';
+import DonateAmountModal from '../components/DonateAmountModal';
+import JoinTheUmmahSignInModal from '../components/JoinTheUmmahSignInModal';
+import { isStripeConfigured } from '../config/stripeConfig';
 import { ExtensionStorage } from '@bacons/apple-targets';
 
 // Subscription product IDs
@@ -87,7 +91,7 @@ export default function SettingsScreen({ navigation, onLogout }) {
   const { currentLanguage } = useLanguage();
   
   const [userProfile, setUserProfile] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!!auth.currentUser);
   const [selectedMadhab, setSelectedMadhab] = useState('shafi');
   const [selectedLanguage, setSelectedLanguage] = useState('english');
   const [aboutMeExpanded, setAboutMeExpanded] = useState(false);
@@ -97,14 +101,24 @@ export default function SettingsScreen({ navigation, onLogout }) {
   const [adhanSettings, setAdhanSettings] = useState({});
   const [subscriptionInfo, setSubscriptionInfo] = useState(null);
   const [debugInfo, setDebugInfo] = useState(null);
-  const [showSubscriptionModal, setShowSubscriptionModal] = useState(false);
-  const [isPromotionalModal, setIsPromotionalModal] = useState(false);
   const [prayerBlockerEnabled, setPrayerBlockerEnabled] = useState(false);
   const [prayerBlockerAuthorized, setPrayerBlockerAuthorized] = useState(false);
   const [prayerBlockerLoading, setPrayerBlockerLoading] = useState(false);
   const [hasSelectedApps, setHasSelectedApps] = useState(false);
   const [showNameEditModal, setShowNameEditModal] = useState(false);
   const [editingName, setEditingName] = useState('');
+  const [showDonateAmountModal, setShowDonateAmountModal] = useState(false);
+  const [isSignedIn, setIsSignedIn] = useState(!!auth.currentUser);
+  const [showSignInModal, setShowSignInModal] = useState(false);
+
+  const handleSignInComplete = async () => {
+    setShowSignInModal(false);
+    setIsSignedIn(!!auth.currentUser);
+    if (auth.currentUser) {
+      await loadUserProfile();
+      await loadSubscriptionInfo();
+    }
+  };
 
   const getMadhabs = () => [
     { 
@@ -171,45 +185,44 @@ export default function SettingsScreen({ navigation, onLogout }) {
     loadNotificationSettings();
     loadSubscriptionInfo();
     loadDebugInfo();
+
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setIsSignedIn(!!user);
+      if (user) {
+        loadUserProfile();
+        loadSubscriptionInfo();
+      } else {
+        setUserProfile(null);
+        setLoading(false);
+      }
+    });
+
+    return unsubscribe;
   }, []);
 
-  // Refresh subscription info from RevenueCat and check promotional flag when screen is focused
+  // Refresh subscription info from RevenueCat and check promotional/deep link when screen is focused
   useFocusEffect(
     React.useCallback(() => {
-      const refreshSubscriptionAndCheckPromo = async () => {
+      const refreshAndCheckPromo = async () => {
         try {
-          // Always refresh subscription info from RevenueCat when screen is focused (no cache)
-          console.log('🔄 SettingsScreen: Refreshing subscription info from RevenueCat on focus (no cache)...');
           await loadSubscriptionInfo();
-          
-          // Check promotional flag
           const showPromotional = await AsyncStorage.getItem('showPromotionalNext');
           if (showPromotional === 'true') {
-            console.log('🎁 Promotional flag found in Settings, showing promotional modal');
-            
-            // Check if user is already subscribed (fresh check from RevenueCat, no cache)
             subscriptionGuard.resetCache();
             const isSubscribed = await subscriptionGuard.forceCheckSubscriptionStatus();
-            
             if (!isSubscribed) {
-              // Small delay to let screen render
-              setTimeout(() => {
-                setIsPromotionalModal(true);
-                setShowSubscriptionModal(true);
-                // Clear the flag after showing
-                AsyncStorage.removeItem('showPromotionalNext');
-              }, 500);
+              AsyncStorage.removeItem('showPromotionalNext');
+              const screen = await getPaywallScreenName();
+              setTimeout(() => navigation.navigate(screen), 500);
             } else {
-              console.log('✅ User is subscribed - clearing promotional flag');
               AsyncStorage.removeItem('showPromotionalNext');
             }
           }
         } catch (error) {
-          console.error('❌ Error refreshing subscription or checking promotional flag:', error);
+          console.error('❌ Error refreshing subscription:', error);
         }
       };
-      
-      refreshSubscriptionAndCheckPromo();
+      refreshAndCheckPromo();
     }, [])
   );
 
@@ -300,10 +313,14 @@ export default function SettingsScreen({ navigation, onLogout }) {
     try {
       const user = auth.currentUser;
       if (!user) {
-        console.log('❌ No user logged in');
+        console.log('👤 Guest mode — no account signed in');
+        setUserProfile(null);
+        setIsSignedIn(false);
         setLoading(false);
         return;
       }
+
+      setIsSignedIn(true);
 
       console.log('🔍 Loading user profile for:', user.uid);
       console.log('🔍 User email:', user.email);
@@ -473,7 +490,8 @@ export default function SettingsScreen({ navigation, onLogout }) {
       const isSubscribed = await subscriptionGuard.forceCheckSubscriptionStatus();
       
       if (!isSubscribed) {
-        setShowSubscriptionModal(true);
+        const screen = await getPaywallScreenName();
+        navigation.navigate(screen);
         Alert.alert(
           'Premium Feature',
           'Prayer Time App Blocker is a premium feature. Please subscribe to use this feature.',
@@ -521,7 +539,8 @@ export default function SettingsScreen({ navigation, onLogout }) {
       const isSubscribed = await subscriptionGuard.forceCheckSubscriptionStatus();
       
       if (!isSubscribed) {
-        setShowSubscriptionModal(true);
+        const screen = await getPaywallScreenName();
+        navigation.navigate(screen);
         Alert.alert(
           'Premium Feature',
           'Prayer Time App Blocker is a premium feature. Please subscribe to use this feature.',
@@ -576,10 +595,10 @@ export default function SettingsScreen({ navigation, onLogout }) {
       const isSubscribed = await subscriptionGuard.forceCheckSubscriptionStatus();
       
       if (!isSubscribed) {
-        // If not subscribed, show subscription modal and reset switch
         setPrayerBlockerEnabled(false);
         await AsyncStorage.setItem('prayerBlockerEnabled', 'false');
-        setShowSubscriptionModal(true);
+        const screen = await getPaywallScreenName();
+        navigation.navigate(screen);
         Alert.alert(
           'Premium Feature',
           'Prayer Time App Blocker is a premium feature. Please subscribe to use this feature.',
@@ -790,12 +809,12 @@ export default function SettingsScreen({ navigation, onLogout }) {
   };
 
   const saveMadhab = async (madhab) => {
+    if (!requireSignedIn(navigation, currentLanguage)) {
+      return;
+    }
+
     try {
       const user = auth.currentUser;
-      if (!user) {
-        Alert.alert(t('error', currentLanguage), t('mustBeLoggedIn', currentLanguage));
-        return;
-      }
 
       console.log('Saving madhab to Firebase:', madhab);
       
@@ -832,12 +851,12 @@ export default function SettingsScreen({ navigation, onLogout }) {
   };
 
   const saveLanguage = async (language) => {
+    if (!requireSignedIn(navigation, currentLanguage)) {
+      return;
+    }
+
     try {
       const user = auth.currentUser;
-      if (!user) {
-        Alert.alert(t('error', currentLanguage), t('mustBeLoggedIn', currentLanguage));
-        return;
-      }
 
       console.log('Saving language to Firebase:', language);
       
@@ -988,10 +1007,21 @@ export default function SettingsScreen({ navigation, onLogout }) {
     );
   };
 
+  const finishGuestLogout = () => {
+    setIsSignedIn(false);
+    setUserProfile(null);
+    setSubscriptionInfo(null);
+    setLoading(false);
+
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [{ name: 'SettingsScreen' }],
+      })
+    );
+  };
+
   const handleLogout = () => {
-    console.log('🔄 Logout button pressed');
-    console.log('🔄 onLogout prop:', onLogout);
-    
     Alert.alert(
       t('logout', currentLanguage),
       t('logoutMessage', currentLanguage),
@@ -1002,47 +1032,29 @@ export default function SettingsScreen({ navigation, onLogout }) {
           style: 'destructive',
           onPress: async () => {
             try {
-              console.log('🔄 Starting logout process...');
-              
-              // Sign out from Firebase
               await auth.signOut();
-              console.log('✅ User signed out successfully');
-              
-              // Clear only user-specific data, not app settings
-              await userStateService.clearUserState();
-              console.log('✅ User-specific data cleared (preserving app settings)');
-              
-              // Call the onLogout callback
+              await userStateService.clearUserSession();
+
               if (onLogout) {
-                console.log('🔄 Calling onLogout callback...');
                 await onLogout();
-              } else {
-                console.log('⚠️ onLogout callback is not available');
               }
-              
-              // Navigation will be handled automatically by the Firebase auth state change listener
-              // The auth state listener will detect user is null and set isLoggedIn to false
-              // which will show the onboarding screen
-              console.log('🔄 Auth state listener should now redirect to onboarding screen');
+
+              finishGuestLogout();
             } catch (error) {
               console.error('❌ Error during logout:', error);
-              
-              // Even if there's an error, try to complete the logout process
+
               try {
-                console.log('🔄 Attempting fallback logout...');
-                await userStateService.clearUserState();
+                await userStateService.clearUserSession();
                 await auth.signOut();
-                console.log('✅ Fallback logout completed');
+                finishGuestLogout();
               } catch (fallbackError) {
                 console.error('❌ Fallback logout also failed:', fallbackError);
+                Alert.alert(
+                  t('error', currentLanguage),
+                  'Could not sign out. Please try again.',
+                  [{ text: 'OK' }]
+                );
               }
-              
-              // Show error but don't prevent logout
-              Alert.alert(
-                t('error', currentLanguage), 
-                'Logout completed with some issues, but you should be redirected to the login screen.',
-                [{ text: 'OK' }]
-              );
             }
           }
         }
@@ -1081,6 +1093,10 @@ export default function SettingsScreen({ navigation, onLogout }) {
 
   const saveUserName = async (name) => {
     if (!name || !name.trim()) {
+      return;
+    }
+
+    if (!requireSignedIn(navigation, currentLanguage)) {
       return;
     }
 
@@ -1212,7 +1228,11 @@ export default function SettingsScreen({ navigation, onLogout }) {
   }
 
   return (
+    <View style={{ flex: 1, backgroundColor: '#121212' }}>
     <SafeAreaView style={styles.container}>
+      <View style={styles.bannerWrapper}>
+        <AdBanner />
+      </View>
       <StatusBar barStyle="light-content" />
       
       {/* Simple title */}
@@ -1224,9 +1244,24 @@ export default function SettingsScreen({ navigation, onLogout }) {
         style={styles.scrollView} 
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
-          paddingBottom: Platform.OS === 'android' ? 180 : 20
+          paddingBottom: Platform.OS === 'android' ? 180 : 20,
         }}
       >
+        {!isSignedIn && (
+          <TouchableOpacity
+            style={styles.guestCard}
+            onPress={() => setShowSignInModal(true)}
+            activeOpacity={0.75}
+          >
+            <View style={styles.guestTitleRow}>
+              <Ionicons name="person-circle-outline" size={26} color="#D4AF37" />
+              <Text style={styles.guestTitle}>{t('clickToSignIn', currentLanguage)}</Text>
+              <Ionicons name="chevron-forward" size={18} color="#D4AF37" />
+            </View>
+            <Text style={styles.guestMessage}>{t('guestSignInMessage', currentLanguage)}</Text>
+          </TouchableOpacity>
+        )}
+
         {/* User Profile Info */}
         {userProfile && (
           <View style={styles.section}>
@@ -1371,28 +1406,12 @@ export default function SettingsScreen({ navigation, onLogout }) {
                 {t('aboutMeClosing', currentLanguage)}{'\n'}
                 {t('aboutMeSignature', currentLanguage)}
               </Text>
-              
-              {/* Social Buttons */}
-              <View style={styles.socialButtonsContainer}>
-                <TouchableOpacity 
-                  style={styles.socialButton}
-                  onPress={() => Linking.openURL('https://instagram.com/tafa.__')}
-                >
-                  <Text style={styles.socialButtonText}>{t('followMe', currentLanguage)}</Text>
-                </TouchableOpacity>
-                
-                <TouchableOpacity 
-                  style={styles.socialButton}
-                  onPress={() => Linking.openURL('https://paypal.me/MoustaphaGueye51')}
-                >
-                  <Text style={styles.socialButtonText}>{t('supportMe', currentLanguage)}</Text>
-                </TouchableOpacity>
-              </View>
             </View>
           )}
         </View>
 
-        {/* Subscription Info Card */}
+        {/* Subscription Info Card — signed-in users only */}
+        {isSignedIn && (
         <View style={styles.socialMediaWrapper}>
           {subscriptionInfo && subscriptionInfo.isActive ? (
             <TouchableOpacity
@@ -1442,18 +1461,19 @@ export default function SettingsScreen({ navigation, onLogout }) {
           ) : (
             <TouchableOpacity
               style={styles.subscriptionInfoCard}
-              onPress={() => setShowSubscriptionModal(true)}
+              onPress={() => navigateToPaywall(navigation)}
               activeOpacity={0.9}
             >
               <View style={styles.joinUmmahContent}>
-                <Text style={styles.joinUmmahTitle}>Join the Ummah</Text>
+                <Text style={styles.joinUmmahTitle}>{t('joinTheUmmah', currentLanguage)}</Text>
                 <Text style={styles.joinUmmahSubtitle}>
-                  Unlock premium features to help strengthen your deen
+                  {t('unlockPremiumFeatures', currentLanguage)}
                 </Text>
               </View>
             </TouchableOpacity>
           )}
         </View>
+        )}
 
         {/* Social Media Links */}
         <View style={styles.socialMediaWrapper}>
@@ -1464,6 +1484,21 @@ export default function SettingsScreen({ navigation, onLogout }) {
               activeOpacity={0.7}
             >
               <Text style={styles.socialMediaRectangleText}>Instagram</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.socialMediaRectangle, styles.socialMediaDonate]}
+              onPress={() => {
+                if (!isStripeConfigured()) {
+                  Alert.alert(t('donate', currentLanguage), t('stripeNotConfigured', currentLanguage));
+                  return;
+                }
+                setShowDonateAmountModal(true);
+              }}
+              activeOpacity={0.7}
+            >
+              <Text style={[styles.socialMediaRectangleText, styles.socialMediaDonateText]}>
+                {t('donate', currentLanguage)}
+              </Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.socialMediaRectangle}
@@ -1571,8 +1606,8 @@ export default function SettingsScreen({ navigation, onLogout }) {
           ))}
         </View>
 
-        {/* Prayer Blocker Section - iOS Only */}
-        {Platform.OS === 'ios' && (
+        {/* Prayer Blocker Section - iOS Only - COMMENTED OUT */}
+        {false && Platform.OS === 'ios' && (
           <View style={styles.section}>
             <View style={[styles.sectionHeader, styles.profileSectionHeader, styles.prayerSectionHeader]}>
               <Text style={[styles.sectionTitle, styles.profileSectionTitle, styles.prayerSectionTitle]}>
@@ -1646,12 +1681,14 @@ export default function SettingsScreen({ navigation, onLogout }) {
               </View>
             )}
             
-            {/* Premium Feature Overlay */}
             {(!subscriptionInfo || !subscriptionInfo.isActive) && (
               <TouchableOpacity 
                 style={styles.premiumOverlay}
                 activeOpacity={0.9}
-                onPress={() => setShowSubscriptionModal(true)}
+                onPress={async () => {
+                const screen = await getPaywallScreenName();
+                navigation.navigate(screen);
+              }}
               >
                 <View style={styles.premiumOverlayContent}>
                   <Text style={styles.premiumOverlayTitle}>Hudā Premium Feature</Text>
@@ -1690,7 +1727,7 @@ export default function SettingsScreen({ navigation, onLogout }) {
             </View>
           </TouchableOpacity>
           
-          <TouchableOpacity 
+          <TouchableOpacity
             style={styles.reviewButton}
             onPress={handleReview}
           >
@@ -1734,57 +1771,49 @@ export default function SettingsScreen({ navigation, onLogout }) {
         </View>
 
         {/* Account Section */}
+        {isSignedIn && (
         <View style={styles.section}>
-          <View style={styles.sectionHeader}>
-        
-            
-            
-          </View>
-          
-          {/* Logout Button */}
+          <View style={styles.sectionHeader} />
+
           <TouchableOpacity 
-            style={styles.logoutButton}
-            onPress={handleLogout}
-            onLongPress={() => {
-              // Long press opens deletion form
-              const deletionFormUrl = 'https://forms.gle/YuhpKmDhXx33dfKaA';
-              Alert.alert(
-                'Delete Account',
-                'To delete your account, please fill out the deletion form. This will help us process your request.',
-                [
-                  { text: 'Cancel', style: 'cancel' },
-                  { 
-                    text: 'Open Form',
-                    onPress: () => {
-                      Linking.openURL(deletionFormUrl).catch(err => {
-                        console.error('Error opening deletion form:', err);
-                        Alert.alert('Error', 'Could not open the deletion form. Please try again.');
-                      });
+              style={styles.logoutButton}
+              onPress={handleLogout}
+              onLongPress={() => {
+                const deletionFormUrl = 'https://forms.gle/YuhpKmDhXx33dfKaA';
+                Alert.alert(
+                  'Delete Account',
+                  'To delete your account, please fill out the deletion form. This will help us process your request.',
+                  [
+                    { text: 'Cancel', style: 'cancel' },
+                    { 
+                      text: 'Open Form',
+                      onPress: () => {
+                        Linking.openURL(deletionFormUrl).catch(err => {
+                          console.error('Error opening deletion form:', err);
+                          Alert.alert('Error', 'Could not open the deletion form. Please try again.');
+                        });
+                      }
                     }
-                  }
-                ]
-              );
-            }}
-            delayLongPress={500}
-          >
-            <View style={styles.logoutContent}>
-              <View style={styles.logoutIconWrapper}>
-                <Ionicons name="log-out-outline" size={20} color="#FF6B6B" />
+                  ]
+                );
+              }}
+              delayLongPress={500}
+            >
+              <View style={styles.logoutContent}>
+                <View style={styles.logoutIconWrapper}>
+                  <Ionicons name="log-out-outline" size={20} color="#FF6B6B" />
+                </View>
+                <View style={styles.logoutTextContainer}>
+                  <Text style={styles.logoutText}>{t('logout', currentLanguage)}</Text>
+                  <Text style={styles.logoutDescription}>{t('signOutOfAccount', currentLanguage)}</Text>
+                </View>
+                <Ionicons name="chevron-forward" size={16} color="#FF6B6B" />
               </View>
-              <View style={styles.logoutTextContainer}>
-                <Text style={styles.logoutText}>{t('logout', currentLanguage)}</Text>
-                <Text style={styles.logoutDescription}>{t('signOutOfAccount', currentLanguage)}</Text>
-              </View>
-              <Ionicons name="chevron-forward" size={16} color="#FF6B6B" />
-            </View>
-          </TouchableOpacity>
+            </TouchableOpacity>
           
         </View>
+        )}
 
-
-        
-
-        
         {/* Debug Section - Commented out for production */}
         {/* {__DEV__ && debugInfo && (
           <View style={styles.debugSection}>
@@ -1863,24 +1892,6 @@ export default function SettingsScreen({ navigation, onLogout }) {
         <View style={styles.footer} />
       </ScrollView>
 
-      {/* Subscription Modal */}
-      <SubscriptionModal
-        visible={showSubscriptionModal}
-        onClose={async () => {
-          setShowSubscriptionModal(false);
-          setIsPromotionalModal(false);
-          // Clear promotional flag when modal is closed
-          await AsyncStorage.removeItem('showPromotionalNext');
-        }}
-        onSubscribeSuccess={() => {
-          setShowSubscriptionModal(false);
-          setIsPromotionalModal(false);
-          loadSubscriptionInfo(); // Reload subscription info after successful subscription
-        }}
-        feature="general"
-        isPromotional={isPromotionalModal}
-      />
-
       {/* Name Edit Modal for Android */}
       <Modal
         visible={showNameEditModal}
@@ -1923,10 +1934,30 @@ export default function SettingsScreen({ navigation, onLogout }) {
         </View>
       </Modal>
     </SafeAreaView>
+
+    <DonateAmountModal
+      visible={showDonateAmountModal}
+      onClose={() => setShowDonateAmountModal(false)}
+    />
+
+    <JoinTheUmmahSignInModal
+      visible={showSignInModal}
+      onClose={() => setShowSignInModal(false)}
+      navigation={navigation}
+      onSignInComplete={handleSignInComplete}
+    />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  bannerWrapper: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 12,
+    paddingTop: 8,
+    paddingBottom: 8,
+  },
   container: {
     flex: 1,
     backgroundColor: '#121212',
@@ -2224,6 +2255,34 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     elevation: 5,
   },
+  guestCard: {
+    marginHorizontal: 16,
+    marginTop: 8,
+    marginBottom: 12,
+    padding: 18,
+    borderRadius: 16,
+    backgroundColor: '#1E1E1E',
+    borderWidth: 1,
+    borderColor: 'rgba(212, 175, 55, 0.35)',
+  },
+  guestTitleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 8,
+    gap: 10,
+  },
+  guestTitle: {
+    color: '#D4AF37',
+    fontSize: 18,
+    fontWeight: '600',
+    flex: 1,
+  },
+  guestMessage: {
+    color: '#AAAAAA',
+    fontSize: 14,
+    lineHeight: 21,
+    marginBottom: 0,
+  },
   logoutButton: {
     backgroundColor: '#2A2A2A',
     borderRadius: 12,
@@ -2499,6 +2558,13 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#FFFFFF',
     textAlign: 'center',
+  },
+  socialMediaDonate: {
+    borderColor: '#D4AF37',
+    backgroundColor: 'rgba(212, 175, 55, 0.12)',
+  },
+  socialMediaDonateText: {
+    color: '#F5D76E',
   },
   socialButtonsContainer: {
     flexDirection: 'row',

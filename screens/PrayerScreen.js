@@ -13,10 +13,13 @@ import widgetService from '../services/widgetService';
 import newNotificationService from '../services/newNotificationService';
 import prayerService from '../services/prayerService';
 import subscriptionGuard from '../services/subscriptionGuard';
-import SubscriptionModal from '../components/SubscriptionModal';
+import { requirePremiumAccess, promptSignInForPremium, requireSignedIn } from '../services/paywallHelper';
+import { auth } from '../firebase';
 import { useLanguage } from '../utils/useLanguage';
 import { t } from '../utils/translations';
 import streakService from '../services/streakService';
+import AdBanner from '../components/AdBanner';
+import { onAuthStateChanged } from 'firebase/auth';
 const HijriConverter = require('hijri-converter');
 
 export default function PrayerScreen({ navigation }) {
@@ -38,8 +41,32 @@ export default function PrayerScreen({ navigation }) {
   const [currentHijriDate, setCurrentHijriDate] = useState(null);
   const [isPrayerTimeActive, setIsPrayerTimeActive] = useState(false);
   const [excuseMode, setExcuseMode] = useState(false);
-  const [showSubscriptionModal, setShowSubscriptionModal] = useState(false);
   const [selectedPrayerForGuided, setSelectedPrayerForGuided] = useState(null);
+  const [prayerStreak, setPrayerStreak] = useState(0);
+  const [isSignedIn, setIsSignedIn] = useState(!!auth.currentUser);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setIsSignedIn(!!user);
+    });
+    return unsubscribe;
+  }, []);
+
+  const calculatePrayerStreak = async () => {
+    try {
+      const streak = await streakService.getCurrentPrayerStreak();
+      setPrayerStreak(streak);
+    } catch (error) {
+      console.error('🕌 PrayerScreen: Error loading prayer streak:', error);
+      setPrayerStreak(0);
+    }
+  };
+
+  useFocusEffect(
+    React.useCallback(() => {
+      calculatePrayerStreak();
+    }, [])
+  );
 
   // Location permission state
   const [locationPermission, setLocationPermission] = useState(null);
@@ -489,6 +516,9 @@ export default function PrayerScreen({ navigation }) {
         // All prayers completed - record streak
         const result = await streakService.recordPrayerCompletion();
         console.log('🕌 PrayerScreen: All prayers completed! Streak result:', result);
+        if (typeof result.streak === 'number') {
+          setPrayerStreak(result.streak);
+        }
         
         // Show celebration message if streak increased
         if (result.updated && result.isNewDay && result.isConsecutive) {
@@ -509,6 +539,7 @@ export default function PrayerScreen({ navigation }) {
         // This handles the case when someone unchecks a prayer
         const result = await streakService.getCurrentPrayerStreak();
         console.log('🕌 PrayerScreen: Prayers incomplete, recalculated streak:', result);
+        setPrayerStreak(result);
       }
     } catch (error) {
       console.error('🕌 PrayerScreen: Error checking prayer completion:', error);
@@ -517,6 +548,11 @@ export default function PrayerScreen({ navigation }) {
 
   // Toggle prayer completion using Firebase prayer service
   const togglePrayer = async (prayerId) => {
+    if (!auth.currentUser) {
+      promptSignInForPremium(navigation, currentLanguage);
+      return;
+    }
+
     try {
       let newStatus;
       
@@ -560,6 +596,10 @@ export default function PrayerScreen({ navigation }) {
   };
 
   const handleBellPress = async (prayerId) => {
+    if (!requireSignedIn(navigation, currentLanguage)) {
+      return;
+    }
+
     // Toggle default notification directly without showing modal
     const currentSetting = prayerNotifications[prayerId];
     let newSettings = { ...prayerNotifications };
@@ -589,63 +629,40 @@ export default function PrayerScreen({ navigation }) {
     handleBellPress(prayerId);
   };
 
+  const navigateToGuidedPrayer = (prayer) => {
+    navigation.navigate('GuidedPrayer', {
+      prayer: {
+        name: prayer.name.toLowerCase(),
+        color: prayer.color,
+        time: prayer.time
+      }
+    });
+  };
+
   const handleGuidedPrayerPress = async (prayer) => {
     console.log('🎯 handleGuidedPrayerPress called for prayer:', prayer.name);
-    console.log('📋 Prayer details:', { name: prayer.name, color: prayer.color, time: prayer.time });
-    
-    try {
-      // Reset cache to ensure fresh check
-      subscriptionGuard.resetCache();
-      // Force a fresh subscription check by bypassing cache
-      const isSubscribed = await subscriptionGuard.forceCheckSubscriptionStatus();
-      
-      if (isSubscribed) {
-        navigation.navigate('GuidedPrayer', {
-          prayer: {
-            name: prayer.name.toLowerCase(),
-            color: prayer.color,
-            time: prayer.time
-          }
-        });
-      } else {
-        setSelectedPrayerForGuided(prayer);
-        setShowSubscriptionModal(true);
-      }
-    } catch (error) {
-      console.error('❌ Error checking subscription:', error);
-      console.log('🔄 Fallback: showing subscription modal due to error');
+    const hasAccess = await requirePremiumAccess(navigation, currentLanguage);
+    if (hasAccess) {
+      navigateToGuidedPrayer(prayer);
+    } else if (auth.currentUser) {
       setSelectedPrayerForGuided(prayer);
-      setShowSubscriptionModal(true);
     }
   };
 
-  const handleSubscriptionSuccess = () => {
-    console.log('🎉 handleSubscriptionSuccess called');
-    console.log('📱 Closing subscription modal');
-    setShowSubscriptionModal(false);
-    
-    if (selectedPrayerForGuided) {
-      console.log('🧭 Navigating to guided prayer after successful subscription');
-      console.log('📋 Selected prayer details:', {
-        name: selectedPrayerForGuided.name,
-        color: selectedPrayerForGuided.color,
-        time: selectedPrayerForGuided.time
-      });
-      
-      navigation.navigate('GuidedPrayer', {
-        prayer: {
-          name: selectedPrayerForGuided.name.toLowerCase(),
-          color: selectedPrayerForGuided.color,
-          time: selectedPrayerForGuided.time
+  useFocusEffect(
+    React.useCallback(() => {
+      const checkAndNavigateToGuided = async () => {
+        if (!selectedPrayerForGuided) return;
+        subscriptionGuard.resetCache();
+        const isSubscribed = await subscriptionGuard.forceCheckSubscriptionStatus();
+        if (isSubscribed) {
+          navigateToGuidedPrayer(selectedPrayerForGuided);
+          setSelectedPrayerForGuided(null);
         }
-      });
-      
-      console.log('🧹 Clearing selectedPrayerForGuided');
-      setSelectedPrayerForGuided(null);
-    } else {
-      console.log('⚠️ No selectedPrayerForGuided found');
-    }
-  };
+      };
+      checkAndNavigateToGuided();
+    }, [selectedPrayerForGuided])
+  );
 
   // Check location permission
   const checkLocationPermission = async () => {
@@ -2164,6 +2181,9 @@ export default function PrayerScreen({ navigation }) {
         end={{ x: 1, y: 1 }}
       >
         <SafeAreaView style={styles.safeArea}>
+          <View style={styles.bannerWrapper}>
+            <AdBanner />
+          </View>
           <ScrollView 
             style={styles.container}
             contentContainerStyle={{
@@ -2172,7 +2192,37 @@ export default function PrayerScreen({ navigation }) {
           >
             <WaveHeader />
             <View style={styles.contentContainer}>
-              
+              <TouchableOpacity
+                style={[
+                  styles.prayerStreakBadge,
+                  !isSignedIn && styles.prayerStreakBadgeGuest,
+                  isSignedIn && prayerStreak === 0 && styles.prayerStreakBadgeEmpty,
+                ]}
+                onPress={
+                  isSignedIn
+                    ? undefined
+                    : () => navigation.getParent()?.navigate('Profile', { screen: 'LoginPreview' })
+                }
+                disabled={isSignedIn}
+                activeOpacity={isSignedIn ? 1 : 0.7}
+              >
+                <Ionicons
+                  name={isSignedIn ? 'flame' : 'person-outline'}
+                  size={16}
+                  color={isSignedIn ? (prayerStreak > 0 ? '#4CAF50' : '#666666') : '#D4AF37'}
+                />
+                <Text
+                  style={[
+                    styles.prayerStreakText,
+                    !isSignedIn && styles.prayerStreakTextGuest,
+                    isSignedIn && prayerStreak === 0 && styles.prayerStreakTextEmpty,
+                  ]}
+                >
+                  {isSignedIn
+                    ? `${prayerStreak} ${t('prayerStreak', currentLanguage)}`
+                    : t('signInToTrackPrayers', currentLanguage)}
+                </Text>
+              </TouchableOpacity>
 
               {/* Toggle Buttons */}
               <Animated.View 
@@ -2286,17 +2336,18 @@ export default function PrayerScreen({ navigation }) {
         </View>
       )}
 
-      {/* Subscription Modal */}
-      <SubscriptionModal
-        visible={showSubscriptionModal}
-        onClose={() => setShowSubscriptionModal(false)}
-        onSubscriptionSuccess={handleSubscriptionSuccess}
-      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  bannerWrapper: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 12,
+    paddingTop: 8,
+    paddingBottom: 8,
+  },
   mainContainer: {
     flex: 1,
     backgroundColor: 'transparent',
@@ -2341,6 +2392,40 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     paddingTop: 16,
     paddingBottom: 24,
+  },
+  prayerStreakBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'center',
+    marginBottom: 12,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 16,
+    backgroundColor: 'rgba(76, 175, 80, 0.15)',
+    borderWidth: 1,
+    borderColor: 'rgba(76, 175, 80, 0.3)',
+  },
+  prayerStreakText: {
+    color: '#4CAF50',
+    fontSize: 12,
+    fontWeight: '500',
+    marginLeft: 6,
+  },
+  prayerStreakBadgeEmpty: {
+    backgroundColor: 'rgba(102, 102, 102, 0.15)',
+    borderColor: 'rgba(102, 102, 102, 0.3)',
+    opacity: 0.8,
+  },
+  prayerStreakTextEmpty: {
+    color: '#666666',
+  },
+  prayerStreakBadgeGuest: {
+    backgroundColor: 'rgba(212, 175, 55, 0.12)',
+    borderColor: 'rgba(212, 175, 55, 0.35)',
+  },
+  prayerStreakTextGuest: {
+    color: '#D4AF37',
+    fontSize: 11,
   },
   waveContainer: {
     height: 240,

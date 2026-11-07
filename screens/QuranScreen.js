@@ -6,7 +6,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LinearGradient } from 'expo-linear-gradient';
 import bookmarkService from '../services/bookmarkService';
 import subscriptionGuard from '../services/subscriptionGuard';
-import SubscriptionModal from '../components/SubscriptionModal';
+import { requirePremiumAccess, requireSignedIn } from '../services/paywallHelper';
+import { useFocusEffect } from '@react-navigation/native';
 import { getResponsiveIconSize } from '../utils/responsiveSizing';
 import { getAndroidTopPadding } from '../utils/languageResponsiveSizing';
 import { auth, firestore } from '../firebase';
@@ -1856,9 +1857,10 @@ const QuranScreen = ({ navigation, route }) => {
     configureAudioSession();
   }, []);
 
-  // Track daily Quran visit for streak
+  // Track daily Quran visit for streak (signed-in users only)
   useEffect(() => {
     const trackQuranVisit = async () => {
+      if (!auth.currentUser) return;
       try {
         const result = await streakService.recordQuranVisit();
         console.log('🔥 QuranScreen: Streak tracking result:', result);
@@ -1996,9 +1998,6 @@ const QuranScreen = ({ navigation, route }) => {
     { id: 'it.piccardo', name: 'Piccardo (Italian)' },
   ]);
 
-  // Subscription modal state
-  const [showSubscriptionModal, setShowSubscriptionModal] = useState(false);
-  // Removed showRecordingSubscriptionModal - recording features moved to Hifdh Helper
   const [selectedVerseForSubscription, setSelectedVerseForSubscription] = useState(null);
 
   // Recording states
@@ -2145,6 +2144,10 @@ const QuranScreen = ({ navigation, route }) => {
   };
 
   const toggleFavorite = async (verse) => {
+    if (!requireSignedIn(navigation, currentLanguage)) {
+      return;
+    }
+
     try {
       const verseId = `${selectedSurah}_${verse.numberInSurah}`;
       const isCurrentlyBookmarked = favoriteVerses.some(fav => fav.id === verseId);
@@ -3777,185 +3780,85 @@ const QuranScreen = ({ navigation, route }) => {
     await updatePlaybackSpeed(speeds[nextIndex]);
   };
 
-  // New: Fetch tafsir directly when opening modal
+  // Fetch tafsir and show modal (used when user has access)
+  const fetchAndShowTafsirForVerse = async (verse) => {
+    setSelectedVerse(verse);
+    setShowTafsirModal(true);
+    setTafsir(null);
+    setTafsirError(null);
+    setTafsirLoading(true);
+    try {
+      const isEnglish = currentLanguage === 'english';
+      let languageSupportMessage = '';
+      if (!isEnglish) {
+        const languageName = t('language', currentLanguage);
+        languageSupportMessage = t('tafsirNotAvailableInLanguage', currentLanguage).replace('{language}', languageName);
+      }
+      const url = `https://quranapi.pages.dev/api/tafsir/${selectedSurah}_${verse.numberInSurah}.json`;
+      const res = await fetch(url);
+      const data = await res.json();
+      if (data && data.tafsirs && data.tafsirs.length > 0) {
+        const allTafsirs = data.tafsirs.map(tafsir => {
+          const author = tafsir.author || 'Unknown';
+          const content = tafsir.content || '';
+          return `## ${author}\n\n${content}`;
+        }).join('\n\n---\n\n');
+        const tafsirContent = languageSupportMessage ? `> **${languageSupportMessage}**\n\n---\n\n${allTafsirs}` : allTafsirs;
+        setTafsir(tafsirContent);
+      } else {
+        setTafsirError(t('tafsirNotAvailable', currentLanguage));
+      }
+    } catch (e) {
+      console.error('Error fetching tafsir:', e);
+      setTafsirError(t('tafsirError', currentLanguage));
+    } finally {
+      setTafsirLoading(false);
+    }
+  };
+
   const openTafsirModal = async (verse) => {
     console.log('🎯 openTafsirModal called for verse:', verse.numberInSurah);
-    
-    try {
-      // Reset cache to ensure fresh check
-      subscriptionGuard.resetCache();
-      // Force a fresh subscription check by bypassing cache
-      const isSubscribed = await subscriptionGuard.forceCheckSubscriptionStatus();
-      
-      if (isSubscribed) {
+    const hasAccess = await requirePremiumAccess(navigation, currentLanguage);
+    if (hasAccess) {
+      await fetchAndShowTafsirForVerse(verse);
+    } else if (auth.currentUser) {
+      setSelectedVerseForSubscription(verse);
+    }
+  };
+
+  // When returning from paywall after subscribing, open tafsir for selected verse
+  useFocusEffect(
+    React.useCallback(() => {
+      const checkAndOpenTafsir = async () => {
+        if (!selectedVerseForSubscription) return;
+        subscriptionGuard.resetCache();
+        const isSubscribed = await subscriptionGuard.forceCheckSubscriptionStatus();
+        if (!isSubscribed) return;
+        const verse = selectedVerseForSubscription;
         setSelectedVerse(verse);
         setShowTafsirModal(true);
         setTafsir(null);
         setTafsirError(null);
         setTafsirLoading(true);
-        
-        // Check if tafsir is available in user's language
-        const isEnglish = currentLanguage === 'english';
-        let tafsirContent = '';
-        let languageSupportMessage = '';
-        
-        if (!isEnglish) {
-          // Show language support message for non-English users
-          const languageName = t('language', currentLanguage);
-          languageSupportMessage = t('tafsirNotAvailableInLanguage', currentLanguage).replace('{language}', languageName);
-        }
-        
+        setSelectedVerseForSubscription(null);
         try {
-          const url = `https://quranapi.pages.dev/api/tafsir/${selectedSurah}_${verse.numberInSurah}.json`;
-          const res = await fetch(url);
-          const data = await res.json();
-          
-          if (data && data.tafsirs && data.tafsirs.length > 0) {
-            // Combine all tafsirs from different authors
-            const allTafsirs = data.tafsirs.map(tafsir => {
-              const author = tafsir.author || 'Unknown';
-              const content = tafsir.content || '';
-              return `## ${author}\n\n${content}`;
-            }).join('\n\n---\n\n');
-            
-            // Add language support message at the top if needed
-            if (languageSupportMessage) {
-              tafsirContent = `> **${languageSupportMessage}**\n\n---\n\n${allTafsirs}`;
-            } else {
-              tafsirContent = allTafsirs;
-            }
-            
-            setTafsir(tafsirContent);
-          } else {
-            setTafsirError(t('tafsirNotAvailable', currentLanguage));
-          }
-        } catch (e) {
-          console.error('Error fetching tafsir:', e);
-          setTafsirError(t('tafsirError', currentLanguage));
-        } finally {
-          setTafsirLoading(false);
-        }
-      } else {
-        console.log('❌ Tafsir: User not subscribed, showing subscription modal');
-        setSelectedVerseForSubscription(verse);
-        setShowSubscriptionModal(true);
-      }
-    } catch (error) {
-      console.error('❌ Error checking subscription for tafsir:', error);
-      // On error, re-check subscription before showing modal
-      try {
-        subscriptionGuard.resetCache();
-        const isSubscribed = await subscriptionGuard.forceCheckSubscriptionStatus();
-        if (!isSubscribed) {
-          console.log('🔄 Re-check confirmed: User not subscribed, showing subscription modal');
-          setSelectedVerseForSubscription(verse);
-          setShowSubscriptionModal(true);
-        } else {
-          console.log('✅ Re-check confirmed: User is subscribed, opening tafsir modal');
-          // User is subscribed, open tafsir modal
-          setSelectedVerse(verse);
-          setShowTafsirModal(true);
-          setTafsir(null);
-          setTafsirError(null);
-          setTafsirLoading(true);
-          
-          // Fetch tafsir
-          try {
-            const isEnglish = currentLanguage === 'english';
-            let tafsirContent = '';
-            let languageSupportMessage = '';
-            
-            if (!isEnglish) {
-              const languageName = t('language', currentLanguage);
-              languageSupportMessage = t('tafsirNotAvailableInLanguage', currentLanguage).replace('{language}', languageName);
-            }
-            
-            const url = `https://quranapi.pages.dev/api/tafsir/${selectedSurah}_${verse.numberInSurah}.json`;
-            const res = await fetch(url);
-            const data = await res.json();
-            
-            if (data && data.tafsirs && data.tafsirs.length > 0) {
-              const allTafsirs = data.tafsirs.map(tafsir => {
-                const author = tafsir.author || 'Unknown';
-                const content = tafsir.content || '';
-                return `## ${author}\n\n${content}`;
-              }).join('\n\n---\n\n');
-              
-              if (languageSupportMessage) {
-                tafsirContent = `> **${languageSupportMessage}**\n\n---\n\n${allTafsirs}`;
-              } else {
-                tafsirContent = allTafsirs;
-              }
-              
-              setTafsir(tafsirContent);
-            } else {
-              setTafsirError(t('tafsirNotAvailable', currentLanguage));
-            }
-          } catch (e) {
-            console.error('Error fetching tafsir:', e);
-            setTafsirError(t('tafsirError', currentLanguage));
-          } finally {
-            setTafsirLoading(false);
-          }
-        }
-      } catch (recheckError) {
-        console.error('❌ Error in re-check:', recheckError);
-        // Only show modal if we can't verify subscription
-        setSelectedVerseForSubscription(verse);
-        setShowSubscriptionModal(true);
-      }
-    }
-  };
-
-  // Handle subscription success for tafsir
-  const handleSubscriptionSuccess = () => {
-    console.log('🎉 handleSubscriptionSuccess called');
-    console.log('📱 Closing subscription modal');
-    setShowSubscriptionModal(false);
-    
-    if (selectedVerseForSubscription) {
-      console.log('🧭 Opening tafsir modal after successful subscription');
-      // Open the tafsir modal for the verse that was originally requested
-      const verse = selectedVerseForSubscription;
-      setSelectedVerse(verse);
-      setShowTafsirModal(true);
-      setTafsir(null);
-      setTafsirError(null);
-      setTafsirLoading(true);
-      
-      // Fetch the tafsir
-      const fetchTafsir = async () => {
-        try {
-          // Check if tafsir is available in user's language
           const isEnglish = currentLanguage === 'english';
           let tafsirContent = '';
           let languageSupportMessage = '';
-          
           if (!isEnglish) {
-            // Show language support message for non-English users
             const languageName = t('language', currentLanguage);
             languageSupportMessage = t('tafsirNotAvailableInLanguage', currentLanguage).replace('{language}', languageName);
           }
-          
           const url = `https://quranapi.pages.dev/api/tafsir/${selectedSurah}_${verse.numberInSurah}.json`;
           const res = await fetch(url);
           const data = await res.json();
-          
           if (data && data.tafsirs && data.tafsirs.length > 0) {
-            // Combine all tafsirs from different authors
             const allTafsirs = data.tafsirs.map(tafsir => {
               const author = tafsir.author || 'Unknown';
               const content = tafsir.content || '';
               return `## ${author}\n\n${content}`;
             }).join('\n\n---\n\n');
-            
-            // Add language support message at the top if needed
-            if (languageSupportMessage) {
-              tafsirContent = `> **${languageSupportMessage}**\n\n---\n\n${allTafsirs}`;
-            } else {
-              tafsirContent = allTafsirs;
-            }
-            
+            tafsirContent = languageSupportMessage ? `> **${languageSupportMessage}**\n\n---\n\n${allTafsirs}` : allTafsirs;
             setTafsir(tafsirContent);
           } else {
             setTafsirError(t('tafsirNotAvailable', currentLanguage));
@@ -3967,11 +3870,9 @@ const QuranScreen = ({ navigation, route }) => {
           setTafsirLoading(false);
         }
       };
-      
-      fetchTafsir();
-      setSelectedVerseForSubscription(null);
-    }
-  };
+      checkAndOpenTafsir();
+    }, [selectedVerseForSubscription, selectedSurah, currentLanguage])
+  );
 
   // Cleanup audio on unmount
   useEffect(() => {
@@ -4276,6 +4177,10 @@ const QuranScreen = ({ navigation, route }) => {
 
   // Recording functions
   const startRecording = async (verse) => {
+    if (!requireSignedIn(navigation, currentLanguage)) {
+      return;
+    }
+
     try {
       console.log('🎤 Starting recording for verse:', verse);
       
@@ -4361,12 +4266,12 @@ const QuranScreen = ({ navigation, route }) => {
   };
 
   const saveRecording = async (recordingUri, verse, title = '') => {
+    if (!requireSignedIn(navigation, currentLanguage)) {
+      return;
+    }
+
     try {
       const user = auth.currentUser;
-      if (!user) {
-        Alert.alert(t('authenticationRequired', currentLanguage), t('pleaseSignInToSave', currentLanguage));
-        return;
-      }
 
       console.log('💾 Saving recording for verse:', verse);
       
@@ -6041,8 +5946,6 @@ const QuranScreen = ({ navigation, route }) => {
         </View>
       </Modal>
 
-
-
       {/* Global Search Modal */}
       <Modal visible={showSearchModal} animationType="slide" onRequestClose={() => setShowSearchModal(false)}>
         <View style={{ flex: 1, backgroundColor: '#121212' }}>
@@ -6141,16 +6044,6 @@ const QuranScreen = ({ navigation, route }) => {
 
 
 
-      {/* Subscription Modal for Tafsir */}
-      <SubscriptionModal
-        visible={showSubscriptionModal}
-        onClose={() => {
-          console.log('🔒 SubscriptionModal: onClose called');
-          setShowSubscriptionModal(false);
-        }}
-        onSubscribeSuccess={handleSubscriptionSuccess}
-        feature="tafsir"
-      />
 
       {/* Recording subscription modal removed - recording features moved to Hifdh Helper */}
 

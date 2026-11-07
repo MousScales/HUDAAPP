@@ -2,9 +2,8 @@ import * as Notifications from 'expo-notifications';
 import * as Device from 'expo-device';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { firestore, auth } from '../firebase';
-import { doc, getDoc, setDoc, Timestamp } from 'firebase/firestore';
+import { doc, getDoc, setDoc, Timestamp, serverTimestamp } from 'firebase/firestore';
 import expoPushService from './expoPushService';
-import { serverTimestamp } from 'firebase/firestore';
 import { getNotificationTitle, getCurrentLanguage } from '../utils/translations';
 
 // Configure notification behavior

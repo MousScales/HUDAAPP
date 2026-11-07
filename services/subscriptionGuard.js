@@ -85,6 +85,11 @@ class SubscriptionGuard {
     return this.lastCheck;
   }
 
+  // Get cached subscription result synchronously (if available)
+  getCachedResult() {
+    return this.cachedResult;
+  }
+
   // Debug: Reset cache state
   resetCache() {
     this.lastCheck = null;

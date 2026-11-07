@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Alert, ScrollView, Dimensions, SafeAreaView, ActivityIndicator, Animated, Easing, Image, Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { collection, getDocs, query, where } from 'firebase/firestore';
-import { firestore } from '../firebase';
+import { auth, firestore } from '../firebase';
 import { useFocusEffect } from '@react-navigation/native';
 import { getResponsiveIconSize, isTablet, getResponsiveGridColumns, getTabletSpacing } from '../utils/responsiveSizing';
 import { getAndroidTopPadding } from '../utils/languageResponsiveSizing';
@@ -23,6 +23,8 @@ import { getDuaContent } from '../services/multilingualDuaService';
 import { getDhikrContent } from '../services/multilingualDhikrService';
 import streakService from '../services/streakService';
 import widgetService from '../services/widgetService';
+import AdBanner from '../components/AdBanner';
+import { onAuthStateChanged } from 'firebase/auth';
 
 const { width } = Dimensions.get('window');
 const ALQURAN_API_BASE = 'https://api.alquran.cloud/v1';
@@ -35,6 +37,14 @@ export default function BookScreen({ navigation }) {
   const [loading, setLoading] = useState(true);
   const [quranStreak, setQuranStreak] = useState(0);
   const [hadithStreak, setHadithStreak] = useState(0);
+  const [isSignedIn, setIsSignedIn] = useState(!!auth.currentUser);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setIsSignedIn(!!user);
+    });
+    return unsubscribe;
+  }, []);
 
   // Animation values for staggered entrance
   const [headerAnim] = useState(new Animated.Value(0));
@@ -711,8 +721,12 @@ export default function BookScreen({ navigation }) {
     carouselAnim.setValue(0);
   }, []);
 
-  // Function to load Quran streak
+  // Function to load Quran streak (signed-in users only)
   const loadQuranStreak = async () => {
+    if (!auth.currentUser) {
+      setQuranStreak(0);
+      return;
+    }
     try {
       const streak = await streakService.getCurrentStreak();
       console.log('🔥 BookScreen: Loaded Quran streak:', streak);
@@ -723,8 +737,12 @@ export default function BookScreen({ navigation }) {
     }
   };
 
-  // Function to load Hadith streak
+  // Function to load Hadith streak (signed-in users only)
   const loadHadithStreak = async () => {
+    if (!auth.currentUser) {
+      setHadithStreak(0);
+      return;
+    }
     try {
       const streak = await streakService.getCurrentHadithStreak();
       console.log('📚 BookScreen: Loaded Hadith streak:', streak);
@@ -734,6 +752,16 @@ export default function BookScreen({ navigation }) {
       setHadithStreak(0);
     }
   };
+
+  useEffect(() => {
+    if (isSignedIn) {
+      loadQuranStreak();
+      loadHadithStreak();
+    } else {
+      setQuranStreak(0);
+      setHadithStreak(0);
+    }
+  }, [isSignedIn]);
 
   // Load daily content when component mounts
   useFocusEffect(
@@ -753,14 +781,16 @@ export default function BookScreen({ navigation }) {
         }
       };
       
-      // Load both daily content and streaks
+      // Load daily content; streaks only when signed in
       loadDailyContent();
-      loadQuranStreak();
-      loadHadithStreak();
+      if (auth.currentUser) {
+        loadQuranStreak();
+        loadHadithStreak();
+      }
 
       // Start entrance animations immediately
       startEntranceAnimations();
-    }, [])
+    }, [isSignedIn])
   );
 
   // Reload daily content when language changes
@@ -787,10 +817,11 @@ export default function BookScreen({ navigation }) {
     };
     
     loadDailyContent();
-    // Also reload streaks when language changes (for proper display)
-    loadQuranStreak();
-    loadHadithStreak();
-  }, [currentLanguage]);
+    if (auth.currentUser) {
+      loadQuranStreak();
+      loadHadithStreak();
+    }
+  }, [currentLanguage, isSignedIn]);
 
   // Animation functions
   const startEntranceAnimations = () => {
@@ -935,7 +966,11 @@ export default function BookScreen({ navigation }) {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#121212' }}>
+    <View style={{ flex: 1, backgroundColor: '#121212' }}>
+    <SafeAreaView style={{ flex: 1 }}>
+      <View style={styles.bannerWrapper}>
+        <AdBanner />
+      </View>
       <ScrollView 
         contentContainerStyle={{ 
           flexGrow: 1,
@@ -960,6 +995,52 @@ export default function BookScreen({ navigation }) {
       >
         <Text style={styles.title}>{t('islamicLibrary', currentLanguage)}</Text>
         <Text style={styles.subtitle}>{t('accessSacredTexts', currentLanguage)}</Text>
+        {!isSignedIn ? (
+          <TouchableOpacity
+            style={styles.guestStreakBadge}
+            onPress={() => navigation.getParent()?.navigate('Profile', { screen: 'LoginPreview' })}
+            activeOpacity={0.7}
+          >
+            <Ionicons name="person-outline" size={14} color="#D4AF37" />
+            <Text style={styles.guestStreakText}>
+              {t('signInToTrackStreaks', currentLanguage)}
+            </Text>
+          </TouchableOpacity>
+        ) : (
+          <View style={styles.streakSummaryRow}>
+            <View style={styles.streakSummaryItem}>
+              <Ionicons
+                name="flame"
+                size={14}
+                color={quranStreak > 0 ? '#FF6B35' : '#666666'}
+              />
+              <Text
+                style={[
+                  styles.streakSummaryText,
+                  quranStreak === 0 && styles.streakSummaryTextEmpty,
+                ]}
+              >
+                {quranStreak} {t('quran', currentLanguage)}
+              </Text>
+            </View>
+            <View style={styles.streakSummaryDivider} />
+            <View style={styles.streakSummaryItem}>
+              <Ionicons
+                name="flame"
+                size={14}
+                color={hadithStreak > 0 ? '#FF6B35' : '#666666'}
+              />
+              <Text
+                style={[
+                  styles.streakSummaryText,
+                  hadithStreak === 0 && styles.streakSummaryTextEmpty,
+                ]}
+              >
+                {hadithStreak} {t('hadith', currentLanguage)}
+              </Text>
+            </View>
+          </View>
+        )}
       </Animated.View>
 
       <Animated.View 
@@ -991,8 +1072,7 @@ export default function BookScreen({ navigation }) {
               style={styles.optionCard}
                 onPress={() => animateButtonPress(getButtonScale(option.title, index), () => handleOptionPress(option))}
             >
-              {/* Streak badge for Quran button - always show */}
-              {option.title === t('quran', currentLanguage) && (
+              {isSignedIn && option.title === t('quran', currentLanguage) && (
                 <View style={[
                   styles.streakBadge, 
                   quranStreak === 0 && styles.streakBadgeEmpty
@@ -1044,8 +1124,7 @@ export default function BookScreen({ navigation }) {
               style={styles.optionCard}
                 onPress={() => animateButtonPress(getButtonScale(option.title, index + 2), () => handleOptionPress(option))}
             >
-              {/* Streak badge for Hadith button - always show */}
-              {option.title === t('hadith', currentLanguage) && (
+              {isSignedIn && option.title === t('hadith', currentLanguage) && (
                 <View style={[
                   styles.streakBadge, 
                   hadithStreak === 0 && styles.streakBadgeEmpty
@@ -1259,10 +1338,18 @@ export default function BookScreen({ navigation }) {
        </Animated.View>
      </ScrollView>
     </SafeAreaView>
+    </View>
    );
  }
 
 const styles = StyleSheet.create({
+  bannerWrapper: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 12,
+    paddingTop: 8,
+    paddingBottom: 8,
+  },
   container: {
     flex: 1,
     backgroundColor: '#121212',
@@ -1289,6 +1376,53 @@ const styles = StyleSheet.create({
     color: '#B0B0B0',
     textAlign: 'center',
     fontWeight: '500',
+  },
+  guestStreakBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 12,
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    borderRadius: 16,
+    backgroundColor: 'rgba(212, 175, 55, 0.12)',
+    borderWidth: 1,
+    borderColor: 'rgba(212, 175, 55, 0.35)',
+  },
+  guestStreakText: {
+    color: '#D4AF37',
+    fontSize: 12,
+    fontWeight: '500',
+    marginLeft: 6,
+  },
+  streakSummaryRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 12,
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    borderRadius: 16,
+    backgroundColor: 'rgba(255, 107, 53, 0.1)',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 107, 53, 0.25)',
+  },
+  streakSummaryItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  streakSummaryDivider: {
+    width: 1,
+    height: 14,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    marginHorizontal: 12,
+  },
+  streakSummaryText: {
+    color: '#FF6B35',
+    fontSize: 12,
+    fontWeight: '500',
+    marginLeft: 4,
+  },
+  streakSummaryTextEmpty: {
+    color: '#666666',
   },
   optionsContainer: {
     paddingHorizontal: 20,

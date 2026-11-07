@@ -304,10 +304,12 @@ class NewNotificationService {
       };
       storage.set('currentPrayerBlocking', JSON.stringify(blockingInfo));
       
-      // Activate blocking immediately
+      // Activate blocking immediately (guard: module may be excluded in production builds)
       const { NativeModules } = await import('react-native');
       const { PrayerBlockerModule } = NativeModules;
-      await PrayerBlockerModule.activateBlockingNow();
+      if (PrayerBlockerModule) {
+        await PrayerBlockerModule.activateBlockingNow();
+      }
       
       console.log('✅ Prayer blocker activated successfully for', data.prayerName);
     } catch (error) {

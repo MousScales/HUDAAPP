@@ -33,6 +33,7 @@ import {
   isLanguageSupported,
   getLanguageSupportInfo
 } from '../services/multilingualHadithService';
+import { auth } from '../firebase';
 import streakService from '../services/streakService';
 
 const HadithScreen = ({ navigation, route }) => {
@@ -871,9 +872,10 @@ const HadithScreen = ({ navigation, route }) => {
     }
   }, [hasMoreHadith, isLoadingMore, displayedHadithCount, filteredHadith.length]);
 
-  // Track daily Hadith visit for streak
+  // Track daily Hadith visit for streak (signed-in users only)
   useEffect(() => {
     const trackHadithVisit = async () => {
+      if (!auth.currentUser) return;
       try {
         const result = await streakService.recordHadithVisit();
         console.log('📚 HadithScreen: Streak tracking result:', result);

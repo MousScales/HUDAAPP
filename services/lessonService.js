@@ -1,7 +1,6 @@
 import { collection, getDocs, doc, getDoc, setDoc, updateDoc, query, where, orderBy, limit } from 'firebase/firestore';
-import { firestore } from '../firebase';
+import { auth, firestore } from '../firebase';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { auth } from '../firebase';
 import { getCurrentLanguage } from '../utils/translations';
 import multilingualLessonService from './multilingualLessonService';
 

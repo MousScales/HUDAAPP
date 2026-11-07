@@ -22,6 +22,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 const HijriConverter = require('hijri-converter');
 import * as Location from 'expo-location';
 import { auth, firestore } from '../firebase';
+import { onAuthStateChanged } from 'firebase/auth';
 import { doc, getDoc, collection, query, orderBy, onSnapshot, Timestamp } from 'firebase/firestore';
 // Remove adhan imports
 // import { PrayerTimes, Coordinates, CalculationMethod, Madhab } from 'adhan';
@@ -33,7 +34,10 @@ import prayerBlockerService from '../services/prayerBlockerService';
 
 import subscriptionGuard from '../services/subscriptionGuard';
 import revenueCatService from '../services/revenueCatService';
-import SubscriptionModal from '../components/SubscriptionModal';
+import { getPaywallScreenName, promptSignInForPremium, requireSignedIn } from '../services/paywallHelper';
+import AdBanner from '../components/AdBanner';
+import { isCreatorAuthor } from '../config/donateConfig';
+import { toggleDuaRequestSupport } from '../services/duaBoardService';
 import { useFocusEffect } from '@react-navigation/native';
 import { getResponsiveIconSize, getResponsiveSpacing, isTablet, getTabletSpacing, getResponsiveGridColumns } from '../utils/responsiveSizing';
 import { updateCurrentAndNextPrayer, calculateTimeUntilNext } from '../utils/prayerCycling';
@@ -187,6 +191,7 @@ export default function HomeScreen({ navigation, onSubscriptionExpired }) {
   }, [prayerTimes, currentLanguage]);
   const [isPrayerTimeActive, setIsPrayerTimeActive] = useState(false);
   const [prayerStreak, setPrayerStreak] = useState(0);
+  const [isSignedIn, setIsSignedIn] = useState(!!auth.currentUser);
   const [userName, setUserName] = useState('');
   const [profileLoaded, setProfileLoaded] = useState(false);
 
@@ -205,6 +210,54 @@ export default function HomeScreen({ navigation, onSubscriptionExpired }) {
     
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setIsSignedIn(!!user);
+      setCurrentUserId(user?.uid || null);
+    });
+    return unsubscribe;
+  }, []);
+
+  const openDuaRequestDetail = (requestId) => {
+    setNewDuaRequestsCount(0);
+    navigation.navigate('DuaBoardScreen', { openRequestId: requestId });
+  };
+
+  const handleCarouselLike = async (request) => {
+    if (likingCarouselRequestId) return;
+
+    if (!currentUserId) {
+      promptSignInForPremium(navigation, currentLanguage);
+      return;
+    }
+
+    const isLiked = request.supporters?.includes(currentUserId);
+    setLikingCarouselRequestId(request.id);
+
+    try {
+      if (!isLiked) {
+        const result = await toggleDuaRequestSupport(request.id, currentUserId);
+        setRecentDuaRequests((prev) => prev.map((item) => {
+          if (item.id !== request.id) return item;
+          const supporters = [...(item.supporters || [])];
+          if (result.liked && !supporters.includes(currentUserId)) {
+            supporters.push(currentUserId);
+          }
+          if (!result.liked) {
+            return { ...item, supporters: supporters.filter((id) => id !== currentUserId) };
+          }
+          return { ...item, supporters };
+        }));
+      }
+      openDuaRequestDetail(request.id);
+    } catch (error) {
+      console.error('Error liking dua from home carousel:', error);
+      Alert.alert(t('error', currentLanguage), t('couldNotUpdateLike', currentLanguage) || 'Could not update like.');
+    } finally {
+      setLikingCarouselRequestId(null);
+    }
+  };
 
   // Test fallback - set a default name if none is found after 3 seconds
   useEffect(() => {
@@ -245,10 +298,8 @@ export default function HomeScreen({ navigation, onSubscriptionExpired }) {
   const [upcomingPrayerButtonScale] = useState(new Animated.Value(1));
   const [qiblaButtonScale] = useState(new Animated.Value(1));
   const [tasbihButtonScale] = useState(new Animated.Value(1));
-  const [duaBoardButtonScale] = useState(new Animated.Value(1));
   const [mosqueFinderButtonScale] = useState(new Animated.Value(1));
   const [halalFoodFinderButtonScale] = useState(new Animated.Value(1));
-  const [hifdhHelperButtonScale] = useState(new Animated.Value(1));
 
   
   // Individual lesson button animations
@@ -258,92 +309,33 @@ export default function HomeScreen({ navigation, onSubscriptionExpired }) {
   const [confettiPieces, setConfettiPieces] = useState([]);
   const confettiAnimations = useRef({}).current;
 
-  // Subscription modal state
-  const [showSubscriptionModal, setShowSubscriptionModal] = useState(false);
-  const [showPromotionalModal, setShowPromotionalModal] = useState(false);
   const [selectedLessonForSubscription, setSelectedLessonForSubscription] = useState(null);
   const [hasShownWelcomeModal, setHasShownWelcomeModal] = useState(false);
-  const [modalCloseCount, setModalCloseCount] = useState(0);
+  const cachedSubscription = subscriptionGuard.getCachedResult();
+  const [isSubscribed, setIsSubscribed] = useState(cachedSubscription ?? false);
+  const hasPresentedDonateScreenRef = useRef(false);
 
   // Location permission state
   const [locationPermission, setLocationPermission] = useState(null);
 
-  // Dua Board notification badge state
+  // Dua Board state
   const [newDuaRequestsCount, setNewDuaRequestsCount] = useState(0);
+  const [recentDuaRequests, setRecentDuaRequests] = useState([]);
+  const [likingCarouselRequestId, setLikingCarouselRequestId] = useState(null);
+  const [currentUserId, setCurrentUserId] = useState(auth.currentUser?.uid || null);
   
-  // Track if subscription check has been done in this app session
-  const subscriptionCheckDone = useRef(false);
-
-  // Check subscription only on app launch/refresh (runs once on mount)
-  useEffect(() => {
-    const checkOnAppLaunch = async () => {
-      // Only check once per app session
-      if (subscriptionCheckDone.current) {
-        return;
-      }
-      
-      // Check if this is a fresh app launch by comparing with app launch time
-      const appLaunchTime = await AsyncStorage.getItem('appLaunchTime');
-      const now = Date.now();
-      const launchTime = appLaunchTime ? parseInt(appLaunchTime, 10) : 0;
-      
-      // Only show modal if app was launched recently (within last 5 seconds)
-      // This ensures it only shows on fresh app launch, not when navigating back
-      if (now - launchTime < 5000) {
-        console.log('📱 App fresh launch detected, checking subscription...');
-        subscriptionCheckDone.current = true;
-        await checkSubscriptionOnReboot();
-      } else {
-        console.log('📱 Not a fresh app launch, skipping subscription check');
-      }
-    };
-    
-    checkOnAppLaunch();
-  }, []); // Empty dependency array - only runs once on mount
+  // Subscription modal no longer auto-shows on HomeScreen (removed per user request)
 
   // Ensure entrance animations play every time HomeScreen is focused
   useFocusEffect(
     React.useCallback(() => {
       startEntranceAnimations();
-      // Check for madhab changes and recalculate prayer times
       loadUserMadhab();
-      
-      // Check for promotional subscription flag from deep link (Quick Action)
-      const checkPromotionalFlag = async () => {
-        try {
-          const showPromotional = await AsyncStorage.getItem('showPromotionalNext');
-          if (showPromotional === 'true') {
-            console.log('🎁 Promotional flag found, checking subscription status...');
-            
-            // Wait for RevenueCat before checking
-            let waitCount = 0;
-            while (!revenueCatService.initialized && waitCount < 20) {
-              await new Promise(resolve => setTimeout(resolve, 250));
-              waitCount++;
-            }
-            
-            // Check if user is already subscribed
-            subscriptionGuard.resetCache();
-            const isSubscribed = await subscriptionGuard.forceCheckSubscriptionStatus();
-            
-            if (!isSubscribed) {
-              console.log('✅ User not subscribed - showing promotional modal');
-              // Small delay to let screen render
-              setTimeout(() => {
-                setShowPromotionalModal(true);
-                // Clear the flag after showing
-                AsyncStorage.removeItem('showPromotionalNext');
-              }, 500);
-            } else {
-              console.log('✅ User is subscribed - clearing promotional flag');
-              AsyncStorage.removeItem('showPromotionalNext');
-            }
-          }
-        } catch (error) {
-          console.error('❌ Error checking promotional flag:', error);
-        }
-      };
-      checkPromotionalFlag();
+
+      if (!hasPresentedDonateScreenRef.current) {
+        hasPresentedDonateScreenRef.current = true;
+        setTimeout(() => navigation.navigate('Donate'), 400);
+      }
       
       // Refresh push token to ensure notifications work even when app hasn't been opened recently
       const refreshPushToken = async () => {
@@ -378,84 +370,15 @@ export default function HomeScreen({ navigation, onSubscriptionExpired }) {
       };
       
       refreshPushToken();
-    }, [])
+    }, [navigation])
   );
 
-  // Check if we should show subscription modal on app reboot
-  const checkSubscriptionOnReboot = async () => {
+  const showPaywall = async () => {
     try {
-      const hasCompletedOnboarding = await AsyncStorage.getItem('hasCompletedOnboarding');
-      
-      // Only show if user has completed onboarding
-      if (hasCompletedOnboarding !== 'true') {
-        return;
-      }
-      
-      // Wait for RevenueCat to initialize before checking (prevents false negative for subscribed users)
-      let waitCount = 0;
-      while (!revenueCatService.initialized && waitCount < 20) {
-        await new Promise(resolve => setTimeout(resolve, 250));
-        waitCount++;
-      }
-      
-      // Check subscription status (only show modal if user is NOT subscribed)
-      subscriptionGuard.resetCache();
-      const isSubscribed = await subscriptionGuard.forceCheckSubscriptionStatus();
-      
-      console.log('🔍 Subscription check on reboot:', { isSubscribed });
-      
-      // NEVER show subscription modal if user is subscribed
-      if (isSubscribed) {
-        console.log('✅ User is subscribed - subscription modal will NOT be shown');
-        // Reset close count if subscribed
-        await AsyncStorage.removeItem('subscriptionModalCloseCount');
-        setModalCloseCount(0);
-        return;
-      }
-      
-      // If not subscribed, show modal after delay
-      if (!isSubscribed) {
-        // Reset the flag that indicates promotional should be shown
-        await AsyncStorage.removeItem('showPromotionalNext');
-        setModalCloseCount(0);
-        
-        // 50/50 chance to show normal or promotional modal
-        const showPromotional = Math.random() < 0.5;
-        
-        console.log('📱 User not subscribed - showing modal on app refresh:', showPromotional ? 'promotional' : 'normal');
-        
-        // Small delay to let entrance animations complete
-        setTimeout(() => {
-          if (showPromotional) {
-            setShowPromotionalModal(true);
-          } else {
-            setShowSubscriptionModal(true);
-          }
-        }, 2000);
-      } else {
-        // If subscribed, reset the close count
-        await AsyncStorage.removeItem('subscriptionModalCloseCount');
-        await AsyncStorage.removeItem('showPromotionalNext');
-        setModalCloseCount(0);
-      }
+      const screen = await getPaywallScreenName();
+      navigation.navigate(screen);
     } catch (error) {
-      console.error('❌ Error checking subscription on reboot:', error);
-    }
-  };
-
-  // Handle subscription modal close - don't show promotional immediately when X'd
-  const handleSubscriptionModalClose = async () => {
-    try {
-      console.log('📊 Subscription modal closed');
-      
-      // Close current modal
-      setShowSubscriptionModal(false);
-      setShowPromotionalModal(false);
-    } catch (error) {
-      console.error('❌ Error closing modal:', error);
-      // Still close the modal even if saving fails
-      setShowSubscriptionModal(false);
-      setShowPromotionalModal(false);
+      console.error('❌ Error showing paywall:', error);
     }
   };
 
@@ -653,24 +576,14 @@ export default function HomeScreen({ navigation, onSubscriptionExpired }) {
     }
   ];
 
-  // Handle subscription success
+  // Handle subscription success (when returning from paywall)
   const handleSubscriptionSuccess = async () => {
-    console.log('🎉 handleSubscriptionSuccess called');
-    console.log('📱 Closing subscription modal');
-    setShowSubscriptionModal(false);
-    setShowPromotionalModal(false);
-    
-    // Reset flags on successful subscription
     await AsyncStorage.removeItem('subscriptionModalCloseCount');
     await AsyncStorage.removeItem('showPromotionalNext');
-    setModalCloseCount(0);
-    
     if (selectedLessonForSubscription) {
-      console.log('🧭 Navigating to lesson detail after successful subscription');
       navigation.navigate('Lessons', { screen: 'LessonDetail', params: { lesson: selectedLessonForSubscription } });
       setSelectedLessonForSubscription(null);
     } else {
-      console.log('🧭 Navigating to lessons screen after successful subscription');
       navigation.navigate('Lessons');
     }
   };
@@ -870,6 +783,26 @@ export default function HomeScreen({ navigation, onSubscriptionExpired }) {
     return R * c;
   };
 
+  // Check subscription status when screen is focused
+  useFocusEffect(
+    React.useCallback(() => {
+      let isActive = true;
+
+      // Fast path first (cached/normal check), then force refresh in background.
+      subscriptionGuard.checkSubscriptionStatus().then((subscribed) => {
+        if (isActive) setIsSubscribed(subscribed);
+      });
+
+      subscriptionGuard.forceCheckSubscriptionStatus().then((subscribed) => {
+        if (isActive) setIsSubscribed(subscribed);
+      });
+
+      return () => {
+        isActive = false;
+      };
+    }, [])
+  );
+
   // Update prayer data and streak when screen comes into focus
   useFocusEffect(
     React.useCallback(() => {
@@ -914,54 +847,59 @@ export default function HomeScreen({ navigation, onSubscriptionExpired }) {
     }, [location?.coords])
   );
 
-  // Check for new dua requests
+  // Check for new dua requests (badge count)
   useEffect(() => {
+    let unsubscribe = null;
+
     const checkNewDuaRequests = async () => {
       try {
-        // Get the last viewed timestamp from AsyncStorage
         const lastViewedStr = await AsyncStorage.getItem('duaBoardLastViewed');
         let lastViewedTimestamp = null;
-        
+
         if (lastViewedStr) {
           lastViewedTimestamp = Timestamp.fromMillis(parseInt(lastViewedStr));
         }
-        
-        // Listen to duaBoard collection
+
         const q = query(collection(firestore, 'duaBoard'), orderBy('timestamp', 'desc'));
-        const unsubscribe = onSnapshot(q, (snapshot) => {
+        unsubscribe = onSnapshot(q, (snapshot) => {
+          const requests = snapshot.docs
+            .slice(0, 10)
+            .map((docSnap) => ({ id: docSnap.id, ...docSnap.data() }));
+          setRecentDuaRequests(requests);
+
           if (!lastViewedTimestamp) {
-            // If user has never viewed, don't show badge
             setNewDuaRequestsCount(0);
             return;
           }
-          
-          // Count how many requests were created after last viewed timestamp
+
           let count = 0;
-          snapshot.docs.forEach(doc => {
-            const requestData = doc.data();
+          snapshot.docs.forEach((docSnap) => {
+            const requestData = docSnap.data();
             const requestTimestamp = requestData.timestamp;
-            
-            if (requestTimestamp && requestTimestamp.toMillis) {
-              if (requestTimestamp.toMillis() > lastViewedTimestamp.toMillis()) {
-                count++;
-              }
+
+            if (requestTimestamp?.toMillis?.() > lastViewedTimestamp.toMillis()) {
+              count++;
             }
           });
-          
+
           setNewDuaRequestsCount(count);
         }, (error) => {
+          if (error.code === 'permission-denied') {
+            setRecentDuaRequests([]);
+            setNewDuaRequestsCount(0);
+            return;
+          }
           console.error('Error checking new dua requests:', error);
         });
-        
-        return unsubscribe;
       } catch (error) {
         console.error('Error setting up dua request listener:', error);
       }
     };
-    
-    const unsubscribe = checkNewDuaRequests();
+
+    checkNewDuaRequests();
+
     return () => {
-      if (unsubscribe && typeof unsubscribe === 'function') {
+      if (unsubscribe) {
         unsubscribe();
       }
     };
@@ -1551,6 +1489,11 @@ export default function HomeScreen({ navigation, onSubscriptionExpired }) {
 
   // Toggle prayer completion using Firebase prayer service
   const togglePrayer = async (prayerId) => {
+    if (!auth.currentUser) {
+      promptSignInForPremium(navigation, currentLanguage);
+      return;
+    }
+
     try {
       console.log(`🔄 HomeScreen: Toggle prayer called for ${prayerId}`);
       let newStatus;
@@ -1606,6 +1549,10 @@ export default function HomeScreen({ navigation, onSubscriptionExpired }) {
   };
 
   const handleBellPress = async (prayerId) => {
+    if (!requireSignedIn(navigation, currentLanguage)) {
+      return;
+    }
+
     // Toggle default notification directly without showing modal
     const currentSetting = prayerNotifications[prayerId];
     let newSettings = { ...prayerNotifications };
@@ -2011,6 +1958,9 @@ export default function HomeScreen({ navigation, onSubscriptionExpired }) {
     <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="transparent" translucent />
       <SafeAreaView style={styles.safeArea}>
+        <View style={styles.bannerWrapper}>
+          <AdBanner />
+        </View>
         {/* Location Permission Banner */}
         {locationPermission === 'denied' && (
           <View style={styles.locationBanner}>
@@ -2094,10 +2044,48 @@ export default function HomeScreen({ navigation, onSubscriptionExpired }) {
                 <Text style={styles.islamicDate}>{getFormattedDates().islamicDate}</Text>
                 <Text style={styles.gregorianDate}>{getFormattedDates().gregorianDate}</Text>
               </View>
+              <TouchableOpacity
+                onPress={
+                  isSubscribed
+                    ? undefined
+                    : !isSignedIn
+                      ? () => navigation.getParent()?.navigate('Profile', { screen: 'LoginPreview' })
+                      : showPaywall
+                }
+                disabled={isSubscribed}
+                activeOpacity={isSubscribed ? 1 : 0.85}
+                style={!isSubscribed && styles.joinPremiumTagWrapper}
+              >
+                {isSubscribed ? (
+                  <View style={[styles.joinPremiumTag, styles.premiumActiveTag]}>
+                    <Text style={[styles.joinPremiumTagText, styles.premiumActiveTagText]}>
+                      Premium
+                    </Text>
+                  </View>
+                ) : !isSignedIn ? (
+                  <View style={[styles.prayerStreakBadge, styles.prayerStreakBadgeGuest, styles.guestSignInTag]}>
+                    <Ionicons name="person-outline" size={12} color="#D4AF37" />
+                    <Text style={[styles.prayerStreakText, styles.prayerStreakTextGuest]}>
+                      {t('signInToTrackPrayers', currentLanguage)}
+                    </Text>
+                  </View>
+                ) : (
+                  <LinearGradient
+                    colors={['#FFE566', '#F5D76E', '#D4AF37']}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 0 }}
+                    style={styles.joinPremiumTag}
+                  >
+                    <Text style={styles.joinPremiumTagText}>Join Hudā Premium</Text>
+                    <Ionicons name="chevron-forward" size={12} color="#1A1A1A" />
+                  </LinearGradient>
+                )}
+              </TouchableOpacity>
             </View>
           </Animated.View>
 
           {/* User Madhab Display with Prayer Streak */}
+          {(isSignedIn || (userMadhab && userMadhab !== 'none')) && (
           <Animated.View 
             style={[
               styles.madhabDisplay,
@@ -2125,27 +2113,32 @@ export default function HomeScreen({ navigation, onSubscriptionExpired }) {
                 </View>
               )}
               
-              {/* Prayer Streak Badge */}
-              <View style={[
-                styles.prayerStreakBadge, 
-                prayerStreak === 0 && styles.prayerStreakBadgeEmpty
-              ]}>
-                <Ionicons 
-                  name="flame" 
-                  size={16} 
-                  color={prayerStreak > 0 ? "#4CAF50" : "#666666"} 
-                />
-                <Text style={[
-                  styles.prayerStreakText,
-                  prayerStreak === 0 && styles.prayerStreakTextEmpty
-                ]}>
-                  {prayerStreak} {t('prayerStreak', currentLanguage)}
-                </Text>
-              </View>
+              {/* Prayer Streak Badge — signed-in users only */}
+              {isSignedIn && (
+                <View
+                  style={[
+                    styles.prayerStreakBadge,
+                    prayerStreak === 0 && styles.prayerStreakBadgeEmpty,
+                  ]}
+                >
+                  <Ionicons
+                    name="flame"
+                    size={16}
+                    color={prayerStreak > 0 ? '#4CAF50' : '#666666'}
+                  />
+                  <Text
+                    style={[
+                      styles.prayerStreakText,
+                      prayerStreak === 0 && styles.prayerStreakTextEmpty,
+                    ]}
+                  >
+                    {`${prayerStreak} ${t('prayerStreak', currentLanguage)}`}
+                  </Text>
+                </View>
+              )}
             </View>
           </Animated.View>
-
-
+          )}
 
           {/* Current Prayer Card */}
           <Animated.View 
@@ -2342,64 +2335,17 @@ export default function HomeScreen({ navigation, onSubscriptionExpired }) {
               <Animated.View style={[styles.quickActionGridItem, { transform: [{ scale: qiblaButtonScale }] }]}>
                 <View style={styles.quickActionContainer}>
                   <QiblaWidget onPress={() => animateButtonPress(qiblaButtonScale, () => navigation.navigate('QiblaScreen'))} />
-                  <Text style={styles.quickActionLabel}>{t('qibla', currentLanguage) || 'Qibla'}</Text>
+                  <Text style={styles.quickActionLabel} numberOfLines={2}>{t('qibla', currentLanguage) || 'Qibla'}</Text>
                 </View>
               </Animated.View>
-              
-              <Animated.View style={[styles.quickActionGridItem, { transform: [{ scale: tasbihButtonScale }] }]}>
-                <View style={styles.quickActionContainer}>
-                  <TouchableOpacity 
-                    style={[styles.quickActionButton, { padding: 0, overflow: 'hidden' }]}
-                    onPress={() => animateButtonPress(tasbihButtonScale, () => navigation.navigate('TasbihScreen'))}
-                    activeOpacity={0.8}
-                  >
-                    <Image
-                      source={require('../assets/Tasbih.png')}
-                      style={styles.tasbihImage}
-                    />
-                  </TouchableOpacity>
-                  <Text style={styles.quickActionLabel}>{t('tasbih', currentLanguage) || 'Tasbih'}</Text>
-                </View>
-              </Animated.View>
-              
-              <Animated.View style={[styles.quickActionGridItem, { transform: [{ scale: duaBoardButtonScale }] }]}>
-                <View style={styles.quickActionContainer}>
-                  <TouchableOpacity 
-                    style={[styles.quickActionButton, { padding: 0, overflow: 'visible' }]}
-                    onPress={() => {
-                      console.log('🔍 Dua Board button pressed');
-                      // Clear notification badge when navigating
-                      setNewDuaRequestsCount(0);
-                      animateButtonPress(duaBoardButtonScale, () => {
-                        console.log('🚀 Navigating to DuaBoardScreen');
-                        navigation.navigate('DuaBoardScreen');
-                      });
-                    }}
-                    activeOpacity={0.8}
-                  >
-                    <Image
-                      source={require('../assets/duaboard.png')}
-                      style={styles.duaBoardImage}
-                    />
-                    {newDuaRequestsCount > 0 && (
-                      <View style={styles.duaBoardNotificationBadge}>
-                        <Text style={styles.duaBoardNotificationBadgeText}>
-                          {newDuaRequestsCount > 99 ? '99+' : newDuaRequestsCount.toString()}
-                        </Text>
-                      </View>
-                    )}
-                  </TouchableOpacity>
-                  <Text style={styles.quickActionLabel}>{t('duaBoard', currentLanguage) || 'Dua Board'}</Text>
-                </View>
-              </Animated.View>
-              
+
               <Animated.View style={[styles.quickActionGridItem, { transform: [{ scale: mosqueFinderButtonScale }] }]}>
                 <View style={styles.quickActionContainer}>
-                  <TouchableOpacity 
+                  <TouchableOpacity
                     style={[styles.quickActionButton, { padding: 0, overflow: 'hidden' }]}
-                    onPress={() => {
+                    onPress={() => animateButtonPress(mosqueFinderButtonScale, () => {
                       navigation.navigate('MosqueFinderScreen');
-                    }}
+                    })}
                     activeOpacity={0.8}
                   >
                     <Image
@@ -2407,17 +2353,37 @@ export default function HomeScreen({ navigation, onSubscriptionExpired }) {
                       style={styles.mosqueImage}
                     />
                   </TouchableOpacity>
-                  <Text style={styles.quickActionLabel}>{t('mosqueFinder', currentLanguage) || 'Mosque Finder'}</Text>
+                  <Text style={styles.quickActionLabel} numberOfLines={2}>{t('mosqueFinder', currentLanguage) || 'Mosque Finder'}</Text>
                 </View>
               </Animated.View>
-              
+
+              <Animated.View style={[styles.quickActionGridItem, { transform: [{ scale: tasbihButtonScale }] }]}>
+                <View style={styles.quickActionContainer}>
+                  <TouchableOpacity
+                    style={[styles.quickActionButton, { padding: 0, overflow: 'hidden' }]}
+                    onPress={() => animateButtonPress(tasbihButtonScale, () => {
+                      if (requireSignedIn(navigation, currentLanguage)) {
+                        navigation.navigate('TasbihScreen');
+                      }
+                    })}
+                    activeOpacity={0.8}
+                  >
+                    <Image
+                      source={require('../assets/Tasbih.png')}
+                      style={styles.tasbihImage}
+                    />
+                  </TouchableOpacity>
+                  <Text style={styles.quickActionLabel} numberOfLines={2}>{t('tasbih', currentLanguage) || 'Tasbih'}</Text>
+                </View>
+              </Animated.View>
+
               <Animated.View style={[styles.quickActionGridItem, { transform: [{ scale: halalFoodFinderButtonScale }] }]}>
                 <View style={styles.quickActionContainer}>
-                  <TouchableOpacity 
+                  <TouchableOpacity
                     style={[styles.quickActionButton, { padding: 0, overflow: 'hidden' }]}
-                    onPress={() => {
+                    onPress={() => animateButtonPress(halalFoodFinderButtonScale, () => {
                       navigation.navigate('HalalFoodFinderScreen');
-                    }}
+                    })}
                     activeOpacity={0.8}
                   >
                     <Image
@@ -2425,32 +2391,119 @@ export default function HomeScreen({ navigation, onSubscriptionExpired }) {
                       style={styles.halalFoodFinderImage}
                     />
                   </TouchableOpacity>
-                  <Text style={styles.quickActionLabel}>{t('halalFoodFinder', currentLanguage) || 'Halal Food'}</Text>
-                </View>
-              </Animated.View>
-              
-              <Animated.View style={[styles.quickActionGridItem, { transform: [{ scale: hifdhHelperButtonScale }] }]}>
-                <View style={styles.quickActionContainer}>
-                  <TouchableOpacity 
-                    style={[styles.quickActionButton, { padding: 0, overflow: 'hidden' }]}
-                    onPress={() => {
-                      animateButtonPress(hifdhHelperButtonScale, () => {
-                        navigation.navigate('HifdhHelperScreen');
-                      });
-                    }}
-                    activeOpacity={0.8}
-                  >
-                    <Image
-                      source={require('../assets/ejaz.png')}
-                      style={styles.hifdhHelperImage}
-                    />
-                  </TouchableOpacity>
-                  <Text style={styles.quickActionLabel}>
-                    {t('memorization', currentLanguage) ? t('memorization', currentLanguage).charAt(0).toUpperCase() + t('memorization', currentLanguage).slice(1) : 'Memorization'}
-                  </Text>
+                  <Text style={styles.quickActionLabel} numberOfLines={2}>{t('halalFoodFinder', currentLanguage) || 'Halal Food'}</Text>
                 </View>
               </Animated.View>
             </View>
+          </Animated.View>
+
+          {/* Recent Dua Requests Carousel */}
+          <Animated.View
+            style={[
+              styles.duaCarouselSection,
+              {
+                opacity: upcomingAnim,
+                transform: [
+                  {
+                    translateY: upcomingAnim.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [30, 0],
+                    }),
+                  },
+                ],
+              },
+            ]}
+          >
+            <View style={styles.duaCarouselHeader}>
+              <View style={styles.duaCarouselTitleRow}>
+                <View style={styles.duaCarouselTitleLeft}>
+                  <Text style={styles.duaCarouselTitle}>{t('communityPrayerRequests', currentLanguage)}</Text>
+                  {newDuaRequestsCount > 0 && (
+                    <View style={styles.duaCarouselBadge}>
+                      <Text style={styles.duaCarouselBadgeText}>
+                        {newDuaRequestsCount > 99 ? '99+' : newDuaRequestsCount}
+                      </Text>
+                    </View>
+                  )}
+                </View>
+                <TouchableOpacity
+                  style={styles.duaViewMoreButton}
+                  activeOpacity={0.7}
+                  onPress={() => {
+                    setNewDuaRequestsCount(0);
+                    navigation.navigate('DuaBoardScreen');
+                  }}
+                >
+                  <Text style={styles.duaViewMoreText}>{t('viewMore', currentLanguage) || 'View more'}</Text>
+                  <Ionicons name="chevron-forward" size={16} color="#888888" />
+                </TouchableOpacity>
+              </View>
+            </View>
+
+            {recentDuaRequests.length > 0 ? (
+              <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={styles.duaCarouselScroll}
+              >
+                {recentDuaRequests.map((request) => {
+                  const isLiked = request.supporters?.includes(currentUserId);
+                  const supportCount = request.supporters?.length || 0;
+
+                  return (
+                    <View key={request.id} style={styles.duaCarouselCard}>
+                      <TouchableOpacity
+                        activeOpacity={0.85}
+                        onPress={() => openDuaRequestDetail(request.id)}
+                      >
+                        <Text style={styles.duaCarouselCardTitle} numberOfLines={2}>
+                          {request.title}
+                        </Text>
+                        <Text style={styles.duaCarouselCardDesc} numberOfLines={3}>
+                          {request.description}
+                        </Text>
+                      </TouchableOpacity>
+                      <View style={styles.duaCarouselCardFooter}>
+                        <TouchableOpacity
+                          style={styles.duaCarouselAuthor}
+                          activeOpacity={0.85}
+                          onPress={() => openDuaRequestDetail(request.id)}
+                        >
+                          <Ionicons name="person-outline" size={12} color="#888" />
+                          <Text style={styles.duaCarouselAuthorText} numberOfLines={1}>
+                            {request.author || t('anonymous', currentLanguage)}
+                          </Text>
+                          {isCreatorAuthor(request) && (
+                            <View style={styles.duaCarouselCreatorBadge}>
+                              <Text style={styles.duaCarouselCreatorBadgeText}>{t('creator', currentLanguage)}</Text>
+                            </View>
+                          )}
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                          style={styles.duaCarouselSupport}
+                          activeOpacity={0.7}
+                          onPress={() => handleCarouselLike(request)}
+                          disabled={likingCarouselRequestId === request.id}
+                        >
+                          <Ionicons
+                            name={isLiked ? 'heart' : 'heart-outline'}
+                            size={14}
+                            color={isLiked ? '#FF6B6B' : '#888'}
+                          />
+                          <Text style={[styles.duaCarouselSupportText, isLiked && styles.duaCarouselSupportTextActive]}>
+                            {supportCount}
+                          </Text>
+                        </TouchableOpacity>
+                      </View>
+                    </View>
+                  );
+                })}
+              </ScrollView>
+            ) : (
+              <View style={styles.duaCarouselEmpty}>
+                <Text style={styles.duaCarouselEmptyText}>{t('beFirstToShare', currentLanguage)}</Text>
+              </View>
+            )}
           </Animated.View>
 
         </ScrollView>
@@ -2486,24 +2539,6 @@ export default function HomeScreen({ navigation, onSubscriptionExpired }) {
         </View>
       )}
 
-      {/* Subscription Modal */}
-      <SubscriptionModal
-        visible={showSubscriptionModal}
-        onClose={handleSubscriptionModalClose}
-        onSubscribeSuccess={handleSubscriptionSuccess}
-        feature={selectedLessonForSubscription ? "lessons" : "general"}
-        isPromotional={false}
-      />
-
-      {/* Promotional Subscription Modal */}
-      <SubscriptionModal
-        visible={showPromotionalModal}
-        onClose={handleSubscriptionModalClose}
-        onSubscribeSuccess={handleSubscriptionSuccess}
-        feature={selectedLessonForSubscription ? "lessons" : "general"}
-        isPromotional={true}
-      />
-
     </View>
   );
 }
@@ -2515,6 +2550,13 @@ const styles = StyleSheet.create({
   },
   safeArea: {
     flex: 1,
+  },
+  bannerWrapper: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 12,
+    paddingTop: 8,
+    paddingBottom: 8,
   },
   scrollView: {
     flex: 1,
@@ -2572,6 +2614,45 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: '100%',
   },
+  joinPremiumTagWrapper: {
+    shadowColor: '#D4AF37',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.4,
+    shadowRadius: 6,
+    elevation: 5,
+    borderRadius: 14,
+  },
+  joinPremiumTag: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#D4AF37',
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.35)',
+    gap: 4,
+  },
+  premiumActiveTag: {
+    backgroundColor: '#D4AF37',
+    borderColor: '#F5D76E',
+    shadowColor: '#D4AF37',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.35,
+    shadowRadius: 8,
+    elevation: 6,
+  },
+  joinPremiumTagText: {
+    color: '#1A1A1A',
+    fontSize: 12,
+    fontWeight: '700',
+    letterSpacing: 0.1,
+  },
+  premiumActiveTagText: {
+    color: '#000000',
+    fontWeight: '800',
+    letterSpacing: 0.3,
+  },
   dateTextContainer: {
     flex: 1,
   },
@@ -2602,6 +2683,152 @@ const styles = StyleSheet.create({
   },
   upcomingSection: {
     marginBottom: 20,
+  },
+  duaCarouselSection: {
+    marginBottom: 24,
+  },
+  duaCarouselHeader: {
+    marginBottom: 12,
+  },
+  duaCarouselTitleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  duaCarouselTitleLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    flex: 1,
+    marginRight: 12,
+  },
+  duaCarouselTitle: {
+    fontSize: 20,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    letterSpacing: 0.3,
+    flexShrink: 1,
+  },
+  duaCarouselBadge: {
+    backgroundColor: '#FF6B6B',
+    borderRadius: 10,
+    minWidth: 20,
+    height: 20,
+    paddingHorizontal: 6,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  duaCarouselBadgeText: {
+    color: '#FFFFFF',
+    fontSize: 11,
+    fontWeight: '700',
+  },
+  duaCarouselScroll: {
+    paddingRight: 20,
+    gap: 12,
+  },
+  duaCarouselCard: {
+    width: 260,
+    backgroundColor: '#1A1A1A',
+    borderRadius: 16,
+    padding: 16,
+    borderWidth: 1,
+    borderColor: 'rgba(212, 175, 55, 0.15)',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.25,
+    shadowRadius: 8,
+    elevation: 4,
+  },
+  duaCarouselCardTitle: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    marginBottom: 8,
+    lineHeight: 22,
+  },
+  duaCarouselCardDesc: {
+    fontSize: 13,
+    color: '#AAA',
+    lineHeight: 19,
+    marginBottom: 14,
+    minHeight: 57,
+  },
+  duaCarouselCardFooter: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingTop: 12,
+    borderTopWidth: 1,
+    borderTopColor: 'rgba(255, 255, 255, 0.06)',
+  },
+  duaCarouselAuthor: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    flex: 1,
+    marginRight: 8,
+  },
+  duaCarouselAuthorText: {
+    fontSize: 12,
+    color: '#888',
+    fontWeight: '500',
+  },
+  duaCarouselCreatorBadge: {
+    backgroundColor: 'rgba(212, 175, 55, 0.15)',
+    borderWidth: 1,
+    borderColor: 'rgba(212, 175, 55, 0.45)',
+    paddingHorizontal: 5,
+    paddingVertical: 1,
+    borderRadius: 5,
+  },
+  duaCarouselCreatorBadgeText: {
+    color: '#D4AF37',
+    fontSize: 9,
+    fontWeight: '800',
+    letterSpacing: 0.2,
+    textTransform: 'uppercase',
+  },
+  duaCarouselSupport: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    backgroundColor: 'rgba(255, 107, 107, 0.1)',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 12,
+  },
+  duaCarouselSupportText: {
+    fontSize: 12,
+    color: '#888',
+    fontWeight: '700',
+  },
+  duaCarouselSupportTextActive: {
+    color: '#FF6B6B',
+  },
+  duaCarouselEmpty: {
+    backgroundColor: '#1A1A1A',
+    borderRadius: 14,
+    padding: 20,
+    borderWidth: 1,
+    borderColor: 'rgba(212, 175, 55, 0.12)',
+    alignItems: 'center',
+  },
+  duaCarouselEmptyText: {
+    fontSize: 14,
+    color: '#888',
+    textAlign: 'center',
+  },
+  duaViewMoreButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 2,
+    flexShrink: 0,
+  },
+  duaViewMoreText: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#888888',
   },
   prayerCard: {
     borderRadius: 16,
@@ -2772,18 +2999,19 @@ const styles = StyleSheet.create({
   },
   quickActionsGrid: {
     flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    gap: 8,
     paddingHorizontal: 0,
-    gap: 3,
   },
   quickActionGridItem: {
-    width: '32%',
-    marginBottom: 3,
+    flex: 1,
+    minWidth: 0,
   },
   quickActionContainer: {
     alignItems: 'center',
     gap: 6,
+    width: '100%',
   },
   quickActionLabel: {
     color: '#FFFFFF',
@@ -2791,15 +3019,16 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     textAlign: 'center',
     opacity: 0.9,
+    lineHeight: 14,
     textShadowColor: 'rgba(0, 0, 0, 0.5)',
     textShadowOffset: { width: 0, height: 1 },
     textShadowRadius: 2,
   },
   quickActionButton: {
-    width: 100,
-    height: 100,
-    borderRadius: 18,
-    padding: 20,
+    width: '100%',
+    aspectRatio: 1,
+    borderRadius: 16,
+    padding: 10,
     justifyContent: 'center',
     alignItems: 'center',
     elevation: 15,
@@ -3108,6 +3337,21 @@ const styles = StyleSheet.create({
   },
   prayerStreakTextEmpty: {
     color: '#666666',
+  },
+  guestSignInTag: {
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 14,
+    gap: 4,
+  },
+  prayerStreakBadgeGuest: {
+    backgroundColor: 'rgba(212, 175, 55, 0.12)',
+    borderColor: 'rgba(212, 175, 55, 0.35)',
+    shadowColor: '#D4AF37',
+  },
+  prayerStreakTextGuest: {
+    color: '#D4AF37',
+    fontSize: 11,
   },
   confettiOverlay: {
     position: 'absolute',

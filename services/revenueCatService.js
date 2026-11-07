@@ -711,6 +711,9 @@ class RevenueCatService {
         // These must match EXACTLY what's configured in Google Play Console
         const premiumProductIds = Platform.OS === 'android' 
           ? [
+              // Current Android products configured in Google Play / RevenueCat
+              'huda_monthly',
+              'huda_yearly',
               // Android product IDs from RevenueCat dashboard (Google Play product IDs)
               'huda-monthly-offer',      // From huda_monthly_offer:huda-monthly-offer
               'huda-monthly',            // From huda_monthly:huda-monthly

@@ -1185,4 +1185,590 @@ exports.checkPrayerTimesAndNotify = functions.scheduler
     }
   });
 
+// Stripe donation checkout — set STRIPE_SECRET_KEY in Firebase Functions environment
+const HUDDA_CREATOR_UID = 'xP5Wza4BXeOoEE4g0vYyi7ftwzu1';
+
+function sanitizeDonationText(value, maxLength) {
+  if (typeof value !== 'string') {
+    return '';
+  }
+  return value.trim().slice(0, maxLength);
+}
+
+function parseDonationRequest(data) {
+  const actualData = data?.data || data || {};
+  const amountInCents = Number.parseInt(String(actualData.amountInCents), 10);
+  const currency = actualData.currency || 'usd';
+  const donorName = sanitizeDonationText(actualData.donorName, 80);
+  const impactMessage = sanitizeDonationText(actualData.impactMessage, 500);
+  const sharePublicly = actualData.sharePublicly === true;
+  const isAnonymous = actualData.isAnonymous === true;
+
+  if (!Number.isFinite(amountInCents) || amountInCents < 100) {
+    throw new functions.https.HttpsError(
+      'invalid-argument',
+      'Minimum donation is $1.00'
+    );
+  }
+
+  if (sharePublicly && !impactMessage) {
+    throw new functions.https.HttpsError(
+      'invalid-argument',
+      'A message is required to appear on the supporter wall'
+    );
+  }
+
+  return {
+    amountInCents,
+    currency,
+    donorName,
+    impactMessage,
+    sharePublicly,
+    isAnonymous,
+  };
+}
+
+function buildDonationStripeMetadata({
+  donationId,
+  donorName,
+  impactMessage,
+  sharePublicly,
+  isAnonymous,
+}) {
+  const metadata = {
+    donationId,
+    appDonorName: donorName || '',
+    sharePublicly: sharePublicly ? 'true' : 'false',
+    isAnonymous: isAnonymous ? 'true' : 'false',
+  };
+
+  if (impactMessage) {
+    metadata.impactMessage = impactMessage.slice(0, 500);
+  }
+
+  return metadata;
+}
+
+function buildDonationDescription(donorName) {
+  if (donorName) {
+    return `Hudā donation from ${donorName}`;
+  }
+  return 'Hudā donation';
+}
+
+async function completeDonationRecord(donationId, amountInCents, stripeDetails = {}) {
+  if (!donationId) {
+    return;
+  }
+
+  const donationRef = admin.firestore().collection('publicDonations').doc(donationId);
+  const donationDoc = await donationRef.get();
+
+  if (!donationDoc.exists) {
+    return;
+  }
+
+  const donationData = donationDoc.data() || {};
+  if (donationData.status === 'completed') {
+    return;
+  }
+
+  const sharePublicly = donationData.sharePublicly === true;
+  const impactMessage = typeof donationData.impactMessage === 'string'
+    ? donationData.impactMessage.trim()
+    : '';
+
+  await donationRef.update({
+    status: 'completed',
+    completedAt: admin.firestore.FieldValue.serverTimestamp(),
+    amountInCents: amountInCents || donationData.amountInCents,
+    visibleOnWall: sharePublicly && impactMessage.length > 0,
+    ...stripeDetails,
+  });
+}
+
+async function enrichPaymentIntentDonorDetails(stripe, paymentIntent) {
+  const donationId = paymentIntent.metadata?.donationId;
+  if (!donationId) {
+    return;
+  }
+
+  const fullIntent = await stripe.paymentIntents.retrieve(paymentIntent.id, {
+    expand: ['latest_charge', 'payment_method'],
+  });
+
+  const charge = fullIntent.latest_charge;
+  const billing = typeof charge === 'object' && charge ? charge.billing_details || {} : {};
+  const paymentMethod = fullIntent.payment_method;
+  let cardBrand = null;
+  let cardLast4 = null;
+
+  if (typeof paymentMethod === 'object' && paymentMethod && paymentMethod.card) {
+    cardBrand = paymentMethod.card.brand || null;
+    cardLast4 = paymentMethod.card.last4 || null;
+  }
+
+  const stripeBillingName = billing.name || null;
+  const stripeEmail = billing.email || null;
+
+  await stripe.paymentIntents.update(paymentIntent.id, {
+    description: stripeBillingName
+      ? `Hudā donation from ${stripeBillingName}`
+      : buildDonationDescription(paymentIntent.metadata?.appDonorName),
+    metadata: {
+      ...paymentIntent.metadata,
+      stripeBillingName: (stripeBillingName || '').slice(0, 500),
+      stripeEmail: (stripeEmail || '').slice(0, 500),
+      cardBrand: cardBrand || '',
+      cardLast4: cardLast4 || '',
+    },
+  });
+
+  await completeDonationRecord(donationId, fullIntent.amount_received, {
+    stripeBillingName,
+    stripeEmail,
+    stripePhone: billing.phone || null,
+    stripeCountry: billing.address?.country || null,
+    cardBrand,
+    cardLast4,
+    stripePaymentIntentId: paymentIntent.id,
+    stripeChargeId: typeof charge === 'object' && charge ? charge.id : null,
+  });
+}
+
+async function createPendingDonationRecord({
+  amountInCents,
+  currency,
+  donorName,
+  impactMessage,
+  sharePublicly,
+  isAnonymous,
+}) {
+  const donationRef = admin.firestore().collection('publicDonations').doc();
+  const donationId = donationRef.id;
+
+  await donationRef.set({
+    status: 'pending',
+    donorName: donorName || null,
+    impactMessage: impactMessage || null,
+    sharePublicly,
+    isAnonymous,
+    visibleOnWall: false,
+    likes: [],
+    likeCount: 0,
+    creatorLiked: false,
+    amountInCents,
+    currency,
+    createdAt: admin.firestore.FieldValue.serverTimestamp(),
+  });
+
+  return { donationRef, donationId };
+}
+
+exports.createDonationPaymentIntent = functions.https.onCall(async (data, context) => {
+  try {
+    const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+    if (!stripeSecretKey) {
+      throw new functions.https.HttpsError(
+        'failed-precondition',
+        'Stripe is not configured on the server'
+      );
+    }
+
+    const donationRequest = parseDonationRequest(data);
+    const stripe = require('stripe')(stripeSecretKey);
+    const { donationRef, donationId } = await createPendingDonationRecord(donationRequest);
+
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: donationRequest.amountInCents,
+      currency: donationRequest.currency,
+      description: buildDonationDescription(donationRequest.donorName),
+      metadata: buildDonationStripeMetadata({
+        donationId,
+        donorName: donationRequest.donorName,
+        impactMessage: donationRequest.impactMessage,
+        sharePublicly: donationRequest.sharePublicly,
+        isAnonymous: donationRequest.isAnonymous,
+      }),
+      automatic_payment_methods: {
+        enabled: true,
+      },
+    });
+
+    await donationRef.update({
+      stripePaymentIntentId: paymentIntent.id,
+    });
+
+    return {
+      clientSecret: paymentIntent.client_secret,
+      donationId,
+    };
+  } catch (error) {
+    console.error('createDonationPaymentIntent error:', error);
+    if (error instanceof functions.https.HttpsError) {
+      throw error;
+    }
+    throw new functions.https.HttpsError('internal', error.message || 'Donation payment failed');
+  }
+});
+
+exports.createDonationCheckout = functions.https.onCall(async (data, context) => {
+  try {
+    const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+    if (!stripeSecretKey) {
+      throw new functions.https.HttpsError(
+        'failed-precondition',
+        'Stripe is not configured on the server'
+      );
+    }
+
+    const donationRequest = parseDonationRequest(data);
+    const stripe = require('stripe')(stripeSecretKey);
+    const { donationRef, donationId } = await createPendingDonationRecord(donationRequest);
+
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      line_items: [
+        {
+          price_data: {
+            currency: donationRequest.currency,
+            product_data: {
+              name: 'Donation to Hudā',
+              description: 'Support keeping Hudā running and improving',
+            },
+            unit_amount: donationRequest.amountInCents,
+          },
+          quantity: 1,
+        },
+      ],
+      mode: 'payment',
+      success_url: 'huda://donate/success',
+      cancel_url: 'huda://donate/cancel',
+      metadata: buildDonationStripeMetadata({
+        donationId,
+        donorName: donationRequest.donorName,
+        impactMessage: donationRequest.impactMessage,
+        sharePublicly: donationRequest.sharePublicly,
+        isAnonymous: donationRequest.isAnonymous,
+      }),
+      payment_intent_data: {
+        description: buildDonationDescription(donationRequest.donorName),
+        metadata: buildDonationStripeMetadata({
+          donationId,
+          donorName: donationRequest.donorName,
+          impactMessage: donationRequest.impactMessage,
+          sharePublicly: donationRequest.sharePublicly,
+          isAnonymous: donationRequest.isAnonymous,
+        }),
+      },
+    });
+
+    await donationRef.update({
+      stripeSessionId: session.id,
+    });
+
+    return { url: session.url, donationId };
+  } catch (error) {
+    console.error('createDonationCheckout error:', error);
+    if (error instanceof functions.https.HttpsError) {
+      throw error;
+    }
+    throw new functions.https.HttpsError('internal', error.message || 'Donation checkout failed');
+  }
+});
+
+exports.confirmDonationPayment = functions.https.onCall(async (data) => {
+  try {
+    const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+    if (!stripeSecretKey) {
+      throw new functions.https.HttpsError(
+        'failed-precondition',
+        'Stripe is not configured on the server'
+      );
+    }
+
+    const actualData = data?.data || data || {};
+    const donationId = actualData.donationId;
+    if (!donationId || typeof donationId !== 'string') {
+      throw new functions.https.HttpsError('invalid-argument', 'donationId is required');
+    }
+
+    const stripe = require('stripe')(stripeSecretKey);
+    const donationRef = admin.firestore().collection('publicDonations').doc(donationId);
+    const donationDoc = await donationRef.get();
+
+    if (!donationDoc.exists) {
+      throw new functions.https.HttpsError('not-found', 'Donation record not found');
+    }
+
+    const donationData = donationDoc.data() || {};
+    if (donationData.status === 'completed') {
+      return {
+        success: true,
+        alreadyCompleted: true,
+        visibleOnWall: donationData.visibleOnWall === true,
+      };
+    }
+
+    const paymentIntentId = donationData.stripePaymentIntentId;
+    if (!paymentIntentId) {
+      throw new functions.https.HttpsError(
+        'failed-precondition',
+        'Payment has not been initiated yet'
+      );
+    }
+
+    const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
+    if (paymentIntent.status !== 'succeeded') {
+      throw new functions.https.HttpsError(
+        'failed-precondition',
+        'Payment has not succeeded yet'
+      );
+    }
+
+    await enrichPaymentIntentDonorDetails(stripe, paymentIntent);
+
+    const updatedDoc = await donationRef.get();
+    const updated = updatedDoc.data() || {};
+
+    return {
+      success: true,
+      visibleOnWall: updated.visibleOnWall === true,
+      sharePublicly: updated.sharePublicly === true,
+    };
+  } catch (error) {
+    console.error('confirmDonationPayment error:', error);
+    if (error instanceof functions.https.HttpsError) {
+      throw error;
+    }
+    throw new functions.https.HttpsError('internal', error.message || 'Failed to confirm donation');
+  }
+});
+
+exports.reconcilePendingDonations = functions.https.onRequest(async (req, res) => {
+  if (req.method !== 'POST') {
+    res.status(405).send('Method Not Allowed');
+    return;
+  }
+
+  try {
+    const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+    if (!stripeSecretKey) {
+      res.status(500).send('Stripe is not configured on the server');
+      return;
+    }
+
+    const stripe = require('stripe')(stripeSecretKey);
+    const snapshot = await admin.firestore()
+      .collection('publicDonations')
+      .where('status', '==', 'pending')
+      .get();
+
+    const results = [];
+
+    for (const docSnap of snapshot.docs) {
+      const donationId = docSnap.id;
+      const data = docSnap.data() || {};
+      const paymentIntentId = data.stripePaymentIntentId;
+
+      if (!paymentIntentId) {
+        results.push({ donationId, outcome: 'skipped', reason: 'no_payment_intent' });
+        continue;
+      }
+
+      try {
+        const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
+        if (paymentIntent.status !== 'succeeded') {
+          results.push({
+            donationId,
+            outcome: 'skipped',
+            reason: `payment_status_${paymentIntent.status}`,
+          });
+          continue;
+        }
+
+        await enrichPaymentIntentDonorDetails(stripe, paymentIntent);
+        const updated = (await docSnap.ref.get()).data() || {};
+        results.push({
+          donationId,
+          outcome: 'completed',
+          visibleOnWall: updated.visibleOnWall === true,
+          sharePublicly: updated.sharePublicly === true,
+          hasMessage: !!(updated.impactMessage && updated.impactMessage.trim()),
+        });
+      } catch (error) {
+        results.push({
+          donationId,
+          outcome: 'error',
+          reason: error.message || 'reconcile_failed',
+        });
+      }
+    }
+
+    res.json({
+      pendingFound: snapshot.size,
+      results,
+    });
+  } catch (error) {
+    console.error('reconcilePendingDonations error:', error);
+    res.status(500).json({ error: error.message || 'Reconcile failed' });
+  }
+});
+
+exports.toggleDonationLike = functions.https.onCall(async (data, context) => {
+  try {
+    if (!context.auth) {
+      throw new functions.https.HttpsError(
+        'unauthenticated',
+        'Sign in to like supporters'
+      );
+    }
+
+    const actualData = data?.data || data || {};
+    const donationId = actualData.donationId;
+    if (!donationId || typeof donationId !== 'string') {
+      throw new functions.https.HttpsError('invalid-argument', 'donationId is required');
+    }
+
+    const userId = context.auth.uid;
+    const isCreator = userId === HUDDA_CREATOR_UID;
+
+    const donationRef = admin.firestore().collection('publicDonations').doc(donationId);
+    const donationDoc = await donationRef.get();
+
+    if (!donationDoc.exists) {
+      throw new functions.https.HttpsError('not-found', 'Supporter not found');
+    }
+
+    const donationData = donationDoc.data() || {};
+    if (donationData.visibleOnWall !== true) {
+      throw new functions.https.HttpsError(
+        'failed-precondition',
+        'This supporter is not on the public wall'
+      );
+    }
+
+    const likes = Array.isArray(donationData.likes) ? [...donationData.likes] : [];
+    const wasLiked = likes.includes(userId);
+    const newLikes = wasLiked
+      ? likes.filter((id) => id !== userId)
+      : [...likes, userId];
+
+    let creatorLiked = donationData.creatorLiked === true;
+    if (isCreator) {
+      creatorLiked = !wasLiked;
+    }
+
+    await donationRef.update({
+      likes: newLikes,
+      likeCount: newLikes.length,
+      creatorLiked,
+    });
+
+    return {
+      liked: !wasLiked,
+      likeCount: newLikes.length,
+      creatorLiked,
+    };
+  } catch (error) {
+    console.error('toggleDonationLike error:', error);
+    if (error instanceof functions.https.HttpsError) {
+      throw error;
+    }
+    throw new functions.https.HttpsError('internal', error.message || 'Failed to update like');
+  }
+});
+
+exports.getPublicDonations = functions.https.onCall(async (data, context) => {
+  try {
+    const userId = context.auth?.uid || null;
+    const snapshot = await admin.firestore()
+      .collection('publicDonations')
+      .where('visibleOnWall', '==', true)
+      .limit(40)
+      .get();
+
+    const donations = snapshot.docs
+      .map((docSnap) => {
+        const data = docSnap.data();
+        const likes = Array.isArray(data.likes) ? data.likes : [];
+        return {
+          id: docSnap.id,
+          donorName: data.donorName || '',
+          impactMessage: data.impactMessage || '',
+          isAnonymous: data.isAnonymous === true,
+          likeCount: likes.length,
+          creatorLiked: data.creatorLiked === true,
+          likedByMe: userId ? likes.includes(userId) : false,
+          completedAt: data.completedAt?.toMillis?.() || data.createdAt?.toMillis?.() || 0,
+        };
+      })
+      .sort((a, b) => b.completedAt - a.completedAt)
+      .slice(0, 3);
+
+    return { donations };
+  } catch (error) {
+    console.error('getPublicDonations error:', error);
+    throw new functions.https.HttpsError('internal', error.message || 'Failed to load supporters');
+  }
+});
+
+exports.stripeWebhook = functions.https.onRequest(async (req, res) => {
+  if (req.method !== 'POST') {
+    res.status(405).send('Method Not Allowed');
+    return;
+  }
+
+  const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
+
+  if (!stripeSecretKey || !webhookSecret) {
+    console.error('Stripe webhook secrets are not configured');
+    res.status(500).send('Stripe webhook is not configured');
+    return;
+  }
+
+  const stripe = require('stripe')(stripeSecretKey);
+  const signature = req.headers['stripe-signature'];
+
+  let event;
+  try {
+    event = stripe.webhooks.constructEvent(req.rawBody, signature, webhookSecret);
+  } catch (error) {
+    console.error('Stripe webhook signature verification failed:', error.message);
+    res.status(400).send(`Webhook Error: ${error.message}`);
+    return;
+  }
+
+  try {
+    if (event.type === 'checkout.session.completed') {
+      const session = event.data.object;
+      await completeDonationRecord(
+        session.metadata?.donationId,
+        session.amount_total,
+        {
+          stripeBillingName: session.customer_details?.name || null,
+          stripeEmail: session.customer_details?.email || null,
+          stripePhone: session.customer_details?.phone || null,
+          stripeCountry: session.customer_details?.address?.country || null,
+          stripeSessionId: session.id,
+          stripePaymentIntentId: typeof session.payment_intent === 'string'
+            ? session.payment_intent
+            : session.payment_intent?.id || null,
+        }
+      );
+    }
+
+    if (event.type === 'payment_intent.succeeded') {
+      const paymentIntent = event.data.object;
+      await enrichPaymentIntentDonorDetails(stripe, paymentIntent);
+    }
+
+    res.json({ received: true });
+  } catch (error) {
+    console.error('stripeWebhook handler error:', error);
+    res.status(500).send('Webhook handler failed');
+  }
+});
+
 module.exports = exports;

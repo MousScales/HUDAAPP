@@ -60,6 +60,19 @@ class UserStateService {
   }
 
   /**
+   * Sign-out cleanup — keeps onboarding flag so guest mode stays on the main app
+   */
+  async clearUserSession() {
+    try {
+      await AsyncStorage.multiRemove(['userProfile', 'userLoggedIn']);
+      return true;
+    } catch (error) {
+      console.error('❌ UserStateService: Error clearing user session:', error);
+      return false;
+    }
+  }
+
+  /**
    * Get current user state from AsyncStorage
    * @returns {Object} User state object
    */

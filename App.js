@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { NavigationContainer, CommonActions } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack';
 import { Ionicons } from '@expo/vector-icons';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import { View, AppState, Linking, Platform, Dimensions } from 'react-native';
@@ -9,6 +9,7 @@ import { getResponsiveIconSize, getResponsiveContainerSize, getResponsiveSpacing
 import { StatusBar } from 'expo-status-bar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import './firebase'; // Initialize Firebase
+// import mobileAds from 'react-native-google-mobile-ads'; // Ads disabled
 import { auth } from './firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import newNotificationService from './services/newNotificationService';
@@ -22,6 +23,8 @@ import * as TaskManager from 'expo-task-manager';
 import subscriptionGuard from './services/subscriptionGuard';
 // import * as InAppPurchases from 'expo-in-app-purchases'; // Removed - incompatible with current Expo SDK, using RevenueCat instead
 import revenueCatService from './services/revenueCatService';
+import { STRIPE_CONFIG } from './config/stripeConfig';
+import { StripeProvider } from '@stripe/stripe-react-native';
 
 import expoPushService from './services/expoPushService';
 import prayerBlockerService from './services/prayerBlockerService';
@@ -65,11 +68,13 @@ TaskManager.defineTask(PRAYER_BLOCKER_TASK, async ({ data, error, executionInfo 
       storage.set('currentPrayerBlocking', JSON.stringify(blockingInfo));
       console.log('💾 Blocking info stored:', blockingInfo);
       
-      // Activate blocking immediately
+      // Activate blocking immediately (guard: module may be excluded in production builds)
       if (Platform.OS === 'ios') {
         const { NativeModules } = require('react-native');
-        await NativeModules.PrayerBlockerModule.activateBlockingNow();
-        console.log('✅ Prayer blocker activated in background');
+        if (NativeModules.PrayerBlockerModule) {
+          await NativeModules.PrayerBlockerModule.activateBlockingNow();
+          console.log('✅ Prayer blocker activated in background');
+        }
       }
     }
   } catch (error) {
@@ -98,7 +103,10 @@ import DressingScreen from './screens/DressingScreen';
 import QiblaScreen from './screens/QiblaScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import TestNotificationsScreen from './screens/TestNotificationsScreen';
-import PromotionalSubscriptionScreen from './screens/PromotionalSubscriptionScreen';
+import NewBasedPaywallScreen from './screens/NewBasedPaywallScreen';
+import NewBasedPaywallScreen2 from './screens/NewBasedPaywallScreen2';
+import DonateScreen from './screens/DonateScreen';
+import LoginPreviewScreen from './screens/LoginPreviewScreen';
 
 import OnboardingScreen from './screens/OnboardingScreen';
 import GhuslScreen from './screens/GhuslScreen';
@@ -129,12 +137,21 @@ const LessonsStack = createStackNavigator();
 const PrayerStack = createStackNavigator();
 const ProfileStack = createStackNavigator();
 
+const paywallScreenOptions = {
+  headerShown: false,
+  gestureEnabled: true,
+  gestureDirection: 'horizontal',
+  cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+};
+
 function LessonsStackNavigator() {
   return (
     <LessonsStack.Navigator screenOptions={{ headerShown: false }}>
       <LessonsStack.Screen name="LessonsMain" component={LessonsScreen} />
       <LessonsStack.Screen name="LessonDetail" component={LessonDetailScreen} />
       <LessonsStack.Screen name="CategoryLessons" component={CategoryLessonsScreen} />
+      <LessonsStack.Screen name="NewBasedPaywall" component={NewBasedPaywallScreen} options={paywallScreenOptions} />
+      <LessonsStack.Screen name="NewBasedPaywall2" component={NewBasedPaywallScreen2} options={paywallScreenOptions} />
     </LessonsStack.Navigator>
   );
 }
@@ -158,6 +175,9 @@ function HomeStackNavigator({ onSubscriptionExpired }) {
       <HomeStack.Screen name="MemorizeAyahsScreen" component={MemorizeAyahsScreen} />
       <HomeStack.Screen name="MemorizeAyahScreen" component={MemorizeAyahScreen} />
       <HomeStack.Screen name="QuizAyahScreen" component={QuizAyahScreen} />
+      <HomeStack.Screen name="NewBasedPaywall" component={NewBasedPaywallScreen} options={paywallScreenOptions} />
+      <HomeStack.Screen name="NewBasedPaywall2" component={NewBasedPaywallScreen2} options={paywallScreenOptions} />
+      <HomeStack.Screen name="Donate" component={DonateScreen} />
     </HomeStack.Navigator>
   );
 }
@@ -172,6 +192,8 @@ function BookStackNavigator() {
       <BookStack.Screen name="Dhikr" component={DhikrScreen} />
       <BookStack.Screen name="Hadith" component={HadithScreen} />
       <BookStack.Screen name="HadithBookCatalogScreen" component={HadithBookCatalogScreen} />
+      <BookStack.Screen name="NewBasedPaywall" component={NewBasedPaywallScreen} options={paywallScreenOptions} />
+      <BookStack.Screen name="NewBasedPaywall2" component={NewBasedPaywallScreen2} options={paywallScreenOptions} />
     </BookStack.Navigator>
   );
 }
@@ -189,6 +211,8 @@ function PrayerStackNavigator() {
       <PrayerStack.Screen name="HajjScreen" component={HajjScreen} />
       <PrayerStack.Screen name="UmrahScreen" component={UmrahScreen} />
       <PrayerStack.Screen name="NamesOfAllahScreen" component={NamesOfAllahScreen} />
+      <PrayerStack.Screen name="NewBasedPaywall" component={NewBasedPaywallScreen} options={paywallScreenOptions} />
+      <PrayerStack.Screen name="NewBasedPaywall2" component={NewBasedPaywallScreen2} options={paywallScreenOptions} />
     </PrayerStack.Navigator>
   );
 }
@@ -200,7 +224,18 @@ function ProfileStackNavigator({ onLogout }) {
         {(props) => <SettingsScreen {...props} onLogout={onLogout} />}
       </ProfileStack.Screen>
       <ProfileStack.Screen name="TestNotifications" component={TestNotificationsScreen} />
-      <ProfileStack.Screen name="PromotionalSubscription" component={PromotionalSubscriptionScreen} />
+      <ProfileStack.Screen name="NewBasedPaywall" component={NewBasedPaywallScreen} options={paywallScreenOptions} />
+      <ProfileStack.Screen name="NewBasedPaywall2" component={NewBasedPaywallScreen2} options={paywallScreenOptions} />
+      <ProfileStack.Screen name="Donate" component={DonateScreen} />
+      <ProfileStack.Screen name="LoginPreview" options={{ headerShown: false }}>
+        {(props) => (
+          <LoginPreviewScreen
+            {...props}
+            onComplete={() => props.navigation.navigate('SettingsScreen')}
+          />
+        )}
+      </ProfileStack.Screen>
+      <ProfileStack.Screen name="FullOnboardingScreen" component={FullOnboardingScreen} />
     </ProfileStack.Navigator>
   );
 }
@@ -220,6 +255,9 @@ const getMainScreens = (route) => {
     case 'CategoryLessons':
     case 'DuaBoardScreen':
     case 'Bookmarks':
+    case 'Donate':
+    case 'NewBasedPaywall':
+    case 'NewBasedPaywall2':
       return 'none';
     default:
       return 'none';
@@ -319,14 +357,18 @@ function MainTabNavigator({ onLogout, onSubscriptionExpired }) {
   );
 }
 
+// Guest mode: open straight to Home — onboarding/sign-in optional via Settings
+const GUEST_MODE_ENABLED = true;
+
 export default function App() {
   // Development mode flag - set to true to show subscription screen first
   const isDevelopmentMode = false;
   
-  const [isFirstLaunch, setIsFirstLaunch] = useState(null);
+  const [isFirstLaunch, setIsFirstLaunch] = useState(GUEST_MODE_ENABLED ? false : null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showVideoLoading, setShowVideoLoading] = useState(true);
-  const [hasCompletedOnboarding, setHasCompletedOnboarding] = useState(false);
+  const [hasCompletedOnboarding, setHasCompletedOnboarding] = useState(GUEST_MODE_ENABLED);
+  const [isNavigationReady, setIsNavigationReady] = useState(false);
   // Removed subscription state - app is now free
   // const [isSubscribed, setIsSubscribed] = useState(false);
   // const [isCheckingSubscription, setIsCheckingSubscription] = useState(false);
@@ -386,6 +428,14 @@ export default function App() {
         };
         
         await initializePushNotifications();
+        
+        // Ads disabled — re-enable AdMob initialization when turning ads back on.
+        // try {
+        //   await mobileAds().initialize();
+        //   console.log('✅ AdMob initialized');
+        // } catch (adError) {
+        //   console.warn('⚠️ AdMob initialization failed:', adError);
+        // }
         
         // Initialize prayer blocker service
         try {
@@ -494,6 +544,11 @@ export default function App() {
           }
         }, 30000); // Check every 30 seconds for faster widget updates
         
+        // Ads disabled — rewarded ad preload commented out.
+        // import('./services/rewardedAdService').then(({ loadRewardedAd }) => {
+        //   loadRewardedAd().catch(() => {});
+        // });
+
         // ⏰ CRITICAL: Setup periodic prayer blocker check - runs every minute
         // This ensures blocking activates at prayer time even if Cloud Function notifications don't arrive
         const prayerBlockerCheckInterval = setInterval(async () => {
@@ -607,12 +662,14 @@ export default function App() {
                 };
                 storage.set('currentPrayerBlocking', JSON.stringify(blockingInfo));
                 
-                // Activate blocking immediately
+                // Activate blocking immediately (guard: module may be excluded in production builds)
                 if (Platform.OS === 'ios') {
                   const { NativeModules } = require('react-native');
-                  await NativeModules.PrayerBlockerModule.forceSyncUserDefaults();
-                  await NativeModules.PrayerBlockerModule.activateBlockingNow();
-                  console.log(`✅ Prayer blocker activated for ${mostRecentUncompletedPrayer.name}`);
+                  if (NativeModules.PrayerBlockerModule) {
+                    await NativeModules.PrayerBlockerModule.forceSyncUserDefaults();
+                    await NativeModules.PrayerBlockerModule.activateBlockingNow();
+                    console.log(`✅ Prayer blocker activated for ${mostRecentUncompletedPrayer.name}`);
+                  }
                 }
               }
             }
@@ -732,12 +789,14 @@ export default function App() {
                   };
                   storage.set('currentPrayerBlocking', JSON.stringify(blockingInfo));
                   
-                  // Activate blocking immediately
+                  // Activate blocking immediately (guard: module may be excluded in production builds)
                   if (Platform.OS === 'ios') {
                     const { NativeModules } = require('react-native');
-                    await NativeModules.PrayerBlockerModule.forceSyncUserDefaults();
-                    await NativeModules.PrayerBlockerModule.activateBlockingNow();
-                    console.log(`✅ Blocker activated on app resume for ${mostRecentUncompletedPrayer.name}`);
+                    if (NativeModules.PrayerBlockerModule) {
+                      await NativeModules.PrayerBlockerModule.forceSyncUserDefaults();
+                      await NativeModules.PrayerBlockerModule.activateBlockingNow();
+                      console.log(`✅ Blocker activated on app resume for ${mostRecentUncompletedPrayer.name}`);
+                    }
                   }
                 }
               }
@@ -783,12 +842,14 @@ export default function App() {
               storage.set('currentPrayerBlocking', JSON.stringify(blockingInfo));
               console.log('💾 Blocking info stored from notification:', blockingInfo);
               
-              // Activate blocking immediately
+              // Activate blocking immediately (guard: module may be excluded in production builds)
               if (Platform.OS === 'ios') {
                 const { NativeModules } = require('react-native');
-                await NativeModules.PrayerBlockerModule.forceSyncUserDefaults();
-                await NativeModules.PrayerBlockerModule.activateBlockingNow();
-                console.log('✅ Prayer blocker activated from foreground notification');
+                if (NativeModules.PrayerBlockerModule) {
+                  await NativeModules.PrayerBlockerModule.forceSyncUserDefaults();
+                  await NativeModules.PrayerBlockerModule.activateBlockingNow();
+                  console.log('✅ Prayer blocker activated from foreground notification');
+                }
               }
             } catch (error) {
               console.error('❌ Error handling foreground notification:', error);
@@ -827,6 +888,12 @@ export default function App() {
             // Removed subscription status check - app is now free
 
           } else {
+            if (GUEST_MODE_ENABLED) {
+              setIsLoggedIn(false);
+              await AsyncStorage.setItem('userLoggedIn', 'false');
+              return;
+            }
+
             // On Android, check if this is a false logout (network issue, Firebase init, etc.)
             if (Platform.OS === 'android') {
               // Check AsyncStorage to see if user was previously logged in
@@ -884,15 +951,11 @@ export default function App() {
               }
             }
             
-            // Real logout (or iOS, or Android without stored profile)
-            console.log('❌ No user logged in - redirecting to onboarding');
-            console.log('🔄 Setting isLoggedIn to false...');
+            // User signed out — guest mode keeps the app on the main screens
+            console.log('❌ No user logged in');
             setIsLoggedIn(false);
-            // Don't reset onboarding completion status - it will be checked when user logs in again
             await AsyncStorage.setItem('userLoggedIn', 'false');
-            // Only clear onboarding flag if we're sure user logged out (not just app refresh)
-            // The onboarding status will be re-checked from Firebase when user logs in
-            console.log('✅ User logged out state set');
+            console.log('✅ Guest mode active — app remains browsable');
           }
         });
         
@@ -972,7 +1035,7 @@ export default function App() {
     
     initializeApp();
   }, []);
-  
+
   // Handle deep linking from widgets
   useEffect(() => {
     // Handle initial URL when app opens from widget
@@ -1030,33 +1093,25 @@ export default function App() {
       // Or: huda://subscribe?promotional=true
       const parsedUrl = new URL(url);
       
-      // Handle subscription deep link
+      // Handle subscription deep link - uses RevenueCat to pick first-time vs returning paywall
       if (parsedUrl.host === 'subscribe' && navigationRef.current) {
         const params = new URLSearchParams(parsedUrl.search);
         const isPromotional = params.get('promotional') === 'true';
-        
-        console.log('🎁 Subscription deep link:', { isPromotional });
-        
-        // Store flag to show promotional modal
         if (isPromotional) {
-          AsyncStorage.setItem('showPromotionalNext', 'true').then(() => {
-            console.log('✅ Set promotional flag for subscription modal');
-            // Navigate to PromotionalSubscription screen
-            if (navigationRef.current) {
-              navigationRef.current.navigate('Profile', {
-                screen: 'PromotionalSubscription',
-              });
-            }
-          });
+          AsyncStorage.setItem('showPromotionalNext', 'true');
         } else {
-          // Show regular subscription modal
-          AsyncStorage.removeItem('showPromotionalNext').then(() => {
-            console.log('✅ Set normal subscription modal flag');
-            if (navigationRef.current?.getCurrentRoute()?.name !== 'Home') {
-              navigationRef.current?.navigate('Home');
-            }
-          });
+          AsyncStorage.removeItem('showPromotionalNext');
         }
+        import('./services/paywallHelper').then(({ getPaywallScreenName }) => {
+          getPaywallScreenName().then((screen) => {
+            navigationRef.current?.dispatch(
+              CommonActions.navigate({
+                name: 'Home',
+                params: { screen },
+              })
+            );
+          });
+        });
         return;
       }
       
@@ -1430,6 +1485,13 @@ export default function App() {
         }
       }
       
+      if (GUEST_MODE_ENABLED) {
+        setHasCompletedOnboarding(true);
+        setIsFirstLaunch(false);
+        setIsLoggedIn(!!auth.currentUser || userState.userLoggedIn);
+        return;
+      }
+
       // Fallback to AsyncStorage if no Firebase user or Firebase check failed
       setHasCompletedOnboarding(userState.hasCompletedOnboarding);
       setIsFirstLaunch(!userState.hasCompletedOnboarding);
@@ -1447,8 +1509,21 @@ export default function App() {
       // which will automatically update isLoggedIn state
     } catch (error) {
       console.error('Error checking auth status:', error);
-      setIsFirstLaunch(true);
+      setIsFirstLaunch(!GUEST_MODE_ENABLED);
       setIsLoggedIn(false);
+      if (GUEST_MODE_ENABLED) {
+        setHasCompletedOnboarding(true);
+        setIsFirstLaunch(false);
+      }
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      console.log('🔄 User signed out — staying in guest mode');
+      setIsLoggedIn(false);
+    } catch (error) {
+      console.error('❌ Error in onLogout callback:', error);
     }
   };
 
@@ -1472,122 +1547,90 @@ export default function App() {
 
   return (
     <LanguageProvider>
+      <StripeProvider
+        publishableKey={STRIPE_CONFIG.publishableKey}
+        urlScheme="huda"
+        merchantIdentifier="merchant.com.digaifounder.huda"
+      >
       <View style={{ flex: 1, backgroundColor: Platform.OS === 'android' ? '#000000' : '#FFFFFF' }}>
         <StatusBar style="dark" />
         {Platform.OS === 'android' ? (
           <View style={{ flex: 1, paddingTop: 40, backgroundColor: '#000000' }}>
-            <NavigationContainer ref={navigationRef} theme={navigationTheme}>
-              {(() => {
-                const shouldShowOnboarding = !isLoggedIn || !hasCompletedOnboarding;
-                console.log('🧭 Navigation decision:', {
-                  isFirstLaunch,
-                  isLoggedIn,
-                  hasCompletedOnboarding,
-                  shouldShowOnboarding,
-                  currentUser: !!auth.currentUser
-                });
-                return shouldShowOnboarding;
-              })() ? (
-                <Stack.Navigator screenOptions={{ headerShown: false }}>
-                  <Stack.Screen name="OnboardingScreen">
-                    {(props) => <OnboardingScreen {...props} onComplete={async () => {
-                      console.log('✅ OnboardingScreen onComplete called (Android)');
-                      setIsLoggedIn(true);
-                      setHasCompletedOnboarding(true);
-                      setIsFirstLaunch(false);
-                      await AsyncStorage.setItem('userLoggedIn', 'true');
-                      await AsyncStorage.setItem('hasCompletedOnboarding', 'true');
-                      console.log('✅ State updated in App.js - navigation should switch to MainTabNavigator');
-                    }} />}
-                  </Stack.Screen>
-                  <Stack.Screen name="FullOnboardingScreen">
-                    {(props) => <FullOnboardingScreen {...props} onComplete={() => {
-                      setHasCompletedOnboarding(true);
-                      setIsFirstLaunch(false);
-                      AsyncStorage.setItem('hasCompletedOnboarding', 'true');
-                    }} />}
-                  </Stack.Screen>
-                  <Stack.Screen name="SimpleQuranViewer" component={SimpleQuranViewer} />
-                  <Stack.Screen name="Home">
-                    {(props) => <HomeScreen {...props} />}
-                  </Stack.Screen>
-                </Stack.Navigator>
+            <NavigationContainer ref={navigationRef} theme={navigationTheme} onReady={() => setIsNavigationReady(true)}>
+              {GUEST_MODE_ENABLED ? (
+                <MainTabNavigator onLogout={handleLogout} />
               ) : (
-                <MainTabNavigator onLogout={async () => {
-                  try {
-                    console.log('🔄 onLogout callback called - auth state listener will handle navigation');
-                    setTimeout(() => {
-                      console.log('🔄 Fallback navigation check - forcing onboarding if needed');
-                      if (!auth.currentUser) {
-                        console.log('🔄 No user found, forcing onboarding navigation');
-                        setIsLoggedIn(false);
-                        setHasCompletedOnboarding(false);
-                      }
-                    }, 1000);
-                  } catch (error) {
-                    console.error('❌ Error in onLogout callback:', error);
-                  }
-                }} />
+                (() => {
+                  const shouldShowOnboarding = !isLoggedIn || !hasCompletedOnboarding;
+                  return shouldShowOnboarding ? (
+                    <Stack.Navigator screenOptions={{ headerShown: false }}>
+                      <Stack.Screen name="OnboardingScreen">
+                        {(props) => <OnboardingScreen {...props} onComplete={async () => {
+                          setIsLoggedIn(true);
+                          setHasCompletedOnboarding(true);
+                          setIsFirstLaunch(false);
+                          await AsyncStorage.setItem('userLoggedIn', 'true');
+                          await AsyncStorage.setItem('hasCompletedOnboarding', 'true');
+                        }} />}
+                      </Stack.Screen>
+                      <Stack.Screen name="FullOnboardingScreen">
+                        {(props) => <FullOnboardingScreen {...props} onComplete={() => {
+                          setHasCompletedOnboarding(true);
+                          setIsFirstLaunch(false);
+                          AsyncStorage.setItem('hasCompletedOnboarding', 'true');
+                        }} />}
+                      </Stack.Screen>
+                      <Stack.Screen name="SimpleQuranViewer" component={SimpleQuranViewer} />
+                      <Stack.Screen name="Home">
+                        {(props) => <HomeScreen {...props} />}
+                      </Stack.Screen>
+                    </Stack.Navigator>
+                  ) : (
+                    <MainTabNavigator onLogout={handleLogout} />
+                  );
+                })()
               )}
             </NavigationContainer>
           </View>
         ) : (
-          <NavigationContainer ref={navigationRef} theme={navigationTheme}>
-            {(() => {
-              const shouldShowOnboarding = !isLoggedIn || !hasCompletedOnboarding;
-              console.log('🧭 Navigation decision:', {
-                isFirstLaunch,
-                isLoggedIn,
-                hasCompletedOnboarding,
-                shouldShowOnboarding,
-                currentUser: !!auth.currentUser
-              });
-              return shouldShowOnboarding;
-            })() ? (
-              <Stack.Navigator screenOptions={{ headerShown: false }}>
-                <Stack.Screen name="OnboardingScreen">
-                  {(props) => <OnboardingScreen {...props} onComplete={async () => {
-                    console.log('✅ OnboardingScreen onComplete called');
-                    setIsLoggedIn(true);
-                    setHasCompletedOnboarding(true);
-                    setIsFirstLaunch(false);
-                    await AsyncStorage.setItem('userLoggedIn', 'true');
-                    await AsyncStorage.setItem('hasCompletedOnboarding', 'true');
-                    console.log('✅ State updated in App.js - navigation should switch to MainTabNavigator');
-                  }} />}
-                </Stack.Screen>
-                <Stack.Screen name="FullOnboardingScreen">
-                  {(props) => <FullOnboardingScreen {...props} onComplete={() => {
-                    setHasCompletedOnboarding(true);
-                    setIsFirstLaunch(false);
-                    AsyncStorage.setItem('hasCompletedOnboarding', 'true');
-                  }} />}
-                </Stack.Screen>
-                <Stack.Screen name="SimpleQuranViewer" component={SimpleQuranViewer} />
-                <Stack.Screen name="Home">
-                  {(props) => <HomeScreen {...props} />}
-                </Stack.Screen>
-              </Stack.Navigator>
+          <NavigationContainer ref={navigationRef} theme={navigationTheme} onReady={() => setIsNavigationReady(true)}>
+            {GUEST_MODE_ENABLED ? (
+              <MainTabNavigator onLogout={handleLogout} />
             ) : (
-              <MainTabNavigator onLogout={async () => {
-                try {
-                  console.log('🔄 onLogout callback called - auth state listener will handle navigation');
-                  setTimeout(() => {
-                    console.log('🔄 Fallback navigation check - forcing onboarding if needed');
-                    if (!auth.currentUser) {
-                      console.log('🔄 No user found, forcing onboarding navigation');
-                      setIsLoggedIn(false);
-                      setHasCompletedOnboarding(false);
-                    }
-                  }, 1000);
-                } catch (error) {
-                  console.error('❌ Error in onLogout callback:', error);
-                }
-              }} />
+              (() => {
+                const shouldShowOnboarding = !isLoggedIn || !hasCompletedOnboarding;
+                return shouldShowOnboarding ? (
+                  <Stack.Navigator screenOptions={{ headerShown: false }}>
+                    <Stack.Screen name="OnboardingScreen">
+                      {(props) => <OnboardingScreen {...props} onComplete={async () => {
+                        setIsLoggedIn(true);
+                        setHasCompletedOnboarding(true);
+                        setIsFirstLaunch(false);
+                        await AsyncStorage.setItem('userLoggedIn', 'true');
+                        await AsyncStorage.setItem('hasCompletedOnboarding', 'true');
+                      }} />}
+                    </Stack.Screen>
+                    <Stack.Screen name="FullOnboardingScreen">
+                      {(props) => <FullOnboardingScreen {...props} onComplete={() => {
+                        setHasCompletedOnboarding(true);
+                        setIsFirstLaunch(false);
+                        AsyncStorage.setItem('hasCompletedOnboarding', 'true');
+                      }} />}
+                    </Stack.Screen>
+                    <Stack.Screen name="SimpleQuranViewer" component={SimpleQuranViewer} />
+                    <Stack.Screen name="Home">
+                      {(props) => <HomeScreen {...props} />}
+                    </Stack.Screen>
+                  </Stack.Navigator>
+                ) : (
+                  <MainTabNavigator onLogout={handleLogout} />
+                );
+              })()
             )}
           </NavigationContainer>
         )}
       </View>
+      </StripeProvider>
     </LanguageProvider>
   );
 }
